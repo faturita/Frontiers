@@ -306,13 +306,16 @@ Lastly, the number of channels $C$ is equal to $8$ for both datasets, and the nu
 \section{Results} \label{Results}
 \label{section:results}
 
-Table~\ref{tab:results} shows the results of applying the algorithm to the subjects of the public dataset of ALS patients. The percentage of correctly spelled letters is calculated while performing an offline BCI Simulation.  From the seven words for each subject, the first three are used as calibration, and the remaining four for testing.  The best performing channel is informed as well. The target ratio is $1:36$; hence chance level is $2.8\%$. It can be observed that the best performance of the letter identification method is reached in various channels depending on the subject been studied. 
+Table~\ref{tab:resultsals} shows the results of applying the algorithm to the subjects of the public dataset of ALS patients. The percentage of correctly spelled letters is calculated while performing an offline BCI Simulation.  From the seven words for each subject, the first three are used as calibration, and the remaining four for testing.  The best performing channel  $bpc$ is informed as well. The target ratio is $1:36$; hence chance level is $2.8\%$. It can be observed that the best performance of the letter identification method is reached in various channels depending on the subject been studied. 
 
 The Information Transfer Rate (ITR), or Bit Transfer Rate (BTR), in the case of reactive BCIs~\citep{WolpawJonathanR2012}  depends on the amount of signal averaging required to transmit a valid and robust selection.  Fig.~\ref{fig:performance} shows the performance curves for varying intensification sequences. It can be noticed that the percentage of correctly identified letters depends on the number of intensification sequences $k_a$ that are used to obtain the averaged signal.  Moreover, when the number of intensification sequences tend to 1, which corresponds to single-intensification character recognition, the performance is reduced. As mentioned before, the SNR of the P300 obtained from only one segment is very low and the shape of its P300 component is not very well defined.
 
-In Table~\ref{tab:resultsowndataset} results obtained for 8 healthy subjects are shown.  The obtained performance were slightly inferior than those obtained for ALS patients but well above chance level.
+In Table~\ref{tab:resultsown} results obtained for 8 healthy subjects are shown.  The obtained performance were slightly inferior than those obtained for ALS patients but well above chance level. 
 
-For comparison, in both tables results for Rate Character Recognition with the SWLDA algorithm are added.  The feature was obtained by concatenating all the channels \citep{Krusienski2006} and the SWLDA algorithm is used in accordance to the publishers of the ALS dataset~\citep{Riccio2013}.  The rate obtained for both datasets is slightly improved in relation to SWLDA.  Additionally Tables ~\ref{tab:resultscompareowndataset} and ~\ref{tab:resultscompareowndataset} show the obtained performance for the algorithms Permutation Entropy PE and SVM support vector machine.  These algorithms also works on a channel by channel basis and particularly PE extracts information from the waveform.
+%Additionally Tables ~\ref{tab:resultscompareowndataset} and ~\ref{tab:resultscompareowndataset} show the obtained performance for the algorithms Permutation Entropy PE and SVM support vector machine.  These algorithms also works on a channel by channel basis and particularly PE extracts information from the waveform.
+
+In both tables results for character recognition rates using single channel signals with the SVM classifier and using a feature based on Permutation Entropy and classified by SVM (PE+SVM) are also shown.  The PE algorithm, which is also based on a time-domain description of the waveform, was implemented according to~\citep{Unakafova2013} and its parameters were adjusted as stated by~\citep{Zanin2012}, with an \textit{order} of $2$ and a \textit{sliding window} of size $10$.   The SVM classifier, on the other hand,  was configured to use a linear kernel.  Moreover, in Tables \ref{tab:resultsalsswlda} and \ref{tab:resultsownswlda} performance for letter identification rates for the SWLDA algorithm are expounded.    The feature was obtained by concatenating all the channels \citep{Krusienski2006} and the SWLDA algorithm is used in accordance to the publishers of the ALS dataset~\citep{Riccio2013}.  The rate obtained for both datasets is slightly improved in relation to SWLDA. 
+
 
 %\subsection{Occipital Channels}
 
@@ -405,7 +408,30 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 %%% The use of LaTeX coding to draw Diagrams/Figures/Structures should be avoided. They should be external callouts including graphics.
 
 \begin{table}[htb]
-\caption{Percentage of correctly predicted letters while performing an offline BCI Simulation for the best performing channel for each subject of the public dataset of ALS patients. The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}. Results obtained with the SWLDA algorithm are also shown for comparison.}
+\caption{Character recognition rates while performing an offline BCI Simulation for the best performing channel for each subject of the public dataset of ALS patients using the Histogram of Gradients (HIST). The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}. Performance rates using single channel signals with the SVM classifier and using a feature obtained with Permutation Entropy (PE) and classified by SVM are also shown for comparison.}
+\centering
+%% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
+\begin{tabular}{ccccccc}
+\toprule
+\textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  SVM &  \textbf{BPC}	 &  PE+SVM\\
+\midrule
+1     &     Cz   &   $35\%$    &  Cz   & $15\%$ &  P3   & $05\%$ \\
+2     &     Fz   &   $85\%$      &  PO8   & $25\%$  &  PO8   & $15\%$\\
+3     &     Cz   &   $25\%$    &  Fz   & $05\%$  &  P3   & $05\%$\\
+4     &     PO8 &   $55\%$   &  Oz   & $05\%$  &  Oz   & $10\%$ \\
+5     &     PO7 &   $40\%$    &  P3   & $25\%$  &  PO8   & $15\%$\\
+6     &     PO7 &   $60\%$  &  PO8   & $20\%$  &   Fz   & $10\%$  \\
+7     &     PO8 &   $80\%$   &  Fz   & $30\%$   &  Fz   & $10\%$ \\
+8     &     PO7 &   $95\%$     &  PO7   & $85\%$ &  PO8   & $25\%$ \\
+
+%\bottomrule
+\end{tabular}
+\label{tab:resultsals}
+\end{table}
+
+
+\begin{table}[htb]
+\caption{Character recognition rates for the public dataset of ALS patients using the Histogram of Gradient (HIST) and performance rates obtained by the popular SWLDA with a multichannel concatenated feature.}
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
 \begin{tabular}{cccc}
@@ -425,34 +451,34 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 
 %\bottomrule
 \end{tabular}
-\label{tab:results}
+\label{tab:resultsalsswlda}
 \end{table}
 
+
 \begin{table}[htb]
-\caption{Percentage of correctly predicted letters while performing an offline BCI Simulation for the best performing channel for each subject of the public dataset of ALS patients. The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}. Results obtained with the SWLDA algorithm are also shown for comparison.}
+\caption{Percentage of correctly predicted letters while performing an offline BCI Simulation for the best performing channel for each subject of the own dataset. The spelled words are \textit{MANSO},\textit{CINCO},\textit{JUEGO} and \textit{QUESO}. Performance rates using single channel signals with the SVM classifier and using a feature obtained with Permutation Entropy (PE) and classified by SVM are also shown for comparison.}
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
 \begin{tabular}{ccccccc}
 \toprule
-\textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  PE &  \textbf{BPC}	 &  SVM\\
+\textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  SVM &  \textbf{BPC}	 &  PE+SVM\\
 \midrule
-1     &     Cz   &   $35\%$  &  Cz   & $45\%$  &  Cz   & $90\%$  \\
-2     &     Fz   &   $85\%$  &  Cz   & $30\%$    &  Cz   & $90\%$  \\
-3     &     Cz   &   $25\%$  &  Cz   & $65\%$  &  Cz   & $90\%$  \\
-4     &     PO8 &   $55\%$ &  Cz   & $40\%$   &  Cz   & $90\%$  \\
-5     &     PO7 &   $40\%$ &  Cz   & $35\%$   &  Cz   & $90\%$  \\
-6     &     PO7 &   $60\%$ &   Cz   & $35\%$  &  Cz   & $90\%$   \\
-7     &     PO8 &   $80\%$ &  Cz   & $60\%$   &  Cz   & $90\%$   \\
-8     &     PO7 &   $95\%$  &  Cz   & $90\%$   &  Cz   & $90\%$  \\
+1     &     Oz   &   $40\%$  &  Cz   &  $10\%$ &  PO7   & $10\%$  \\
+2     &     PO7   &   $30\%$      &  Cz   & $05\%$ &  Fz   & $05\%$ \\
+3     &     P4   &   $40\%$    &  P3   & $10\%$  &  Fz   & $00\%$\\
+4     &     P4 &   $45\%$    &  P4   & $35\%$  &  Cz   & $10\%$\\
+5     &     P4 &   $60\%$  &  P3   & $10\%$  &  Fz   & $00\%$  \\
+6     &     Pz &   $50\%$ &  P4   & $25\%$  &   Cz   & $10\%$   \\
+7     &     PO7 &   $70\%$  &  P3   & $30\%$  &  P3   & $10\%$   \\
+8     &     P4 &   $50\%$    &  PO7   & $10\%$ &  Fz   & $05\%$  \\
 
 %\bottomrule
 \end{tabular}
-\label{tab:results}
+\label{tab:resultsown}
 \end{table}
 
-
 \begin{table}[htb]
-\caption{Percentage of correctly predicted letters while performing an offline BCI Simulation for the best performing channel for each subject of the own dataset. The spelled words are \textit{MANSO},\textit{CINCO},\textit{JUEGO} and \textit{QUESO}. Results obtained with the SWLDA algorithm are also shown for comparison.}
+\caption{Percentage of correctly predicted letters while performing an offline BCI Simulation for the best performing channel for each subject of the own dataset. Results obtained with the SWLDA algorithm with a multichannel concatenated feature are presented.}
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
 \begin{tabular}{cccc}
@@ -472,8 +498,9 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 
 %\bottomrule
 \end{tabular}
-\label{tab:resultsowndataset}
+\label{tab:resultsownswlda}
 \end{table}
+
 
 
 \begin{figure}[h!]
