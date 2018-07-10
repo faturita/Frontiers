@@ -89,11 +89,11 @@ This article unfolds as follows: Section~\ref{Feature} is dedicated to explain t
 
 \section{Materials and Methods}
 
-The P300~\citep{Farwell1988,Knuth2006} is a positive deflection of the EEG signal which occurs around $300$ ms after the onset of a rare and deviant stimulus that the subject is expected to attend.  It is produced under the oddball paradigm~\citep{WolpawJonathanR2012} and it is consistent across different subjects. It has a lower amplitude  ($\pm 5 \mu V $) compared to basal EEG activity, reaching a Signal to Noise Ratio (SNR) of around $-15$ db estimated based on the amplitude of the P300 response signal divided by the standard deviation of the background EEG activity~\citep{Hu2010}.  This signal can be used to implement a speller application by means of a Speller Matrix~\citep{Farwell1988}. This matrix is composed of 6 rows and 6 columns of numbers and letters. The subject can focus on one character of the matrix. Fig.~\ref{fig:p300matrix} shows an example of the Speller Matrix used in the OpenVibe open source software~\citep{Renard2010}, where the flashes of rows and columns provide the deviant stimulus required to elicit this physiological response.   Each time a row or a column that contains the desired letter flashes, the corresponding synchronized EEG signal should also contain the P300 signature and by detecting it, the selected letter can be identified.
+The P300~\citep{Farwell1988,Knuth2006} is a positive deflection of the EEG signal which occurs around $300$ ms after the onset of a rare and deviant stimulus that the subject is expected to attend.  It is produced under the oddball paradigm~\citep{WolpawJonathanR2012} and it is consistent across different subjects. It has a lower amplitude  ($\pm 5 \mu V $) compared to basal EEG activity, reaching a Signal to Noise Ratio (SNR) of around $-15$ db estimated based on the amplitude of the P300 response signal divided by the standard deviation of the background EEG activity~\citep{Hu2010}.  This signal can be used to implement a speller application by means of a Speller Matrix~\citep{Farwell1988}. This matrix is composed of 6 rows and 6 columns of numbers and letters. The subject can focus on one character of the matrix. Figure~\ref{fig:p300matrix} shows an example of the Speller Matrix used in the OpenVibe open source software~\citep{Renard2010}, where the flashes of rows and columns provide the deviant stimulus required to elicit this physiological response.   Each time a row or a column that contains the desired letter flashes, the corresponding synchronized EEG signal should also contain the P300 signature and by detecting it, the selected letter can be identified.
 
 \subsection{Feature Extraction from Signal Plots} \label{Feature}
 
-In this section, the signal preprocessing, the method for generating images from signal plots, the feature extraction procedure and the Speller Matrix identification are described.  Fig. \ref{fig:classification} shows a scheme of the entire process.
+In this section, the signal preprocessing, the method for generating images from signal plots, the feature extraction procedure and the Speller Matrix identification are described.  Figure~\ref{fig:classification} shows a scheme of the entire process.
 
 \subsubsection{Preprocessing Pipeline} \label{Pipeline}
 
@@ -119,32 +119,32 @@ The procedure to obtain the point-to-point averaged signal goes as follows:
 
 \begin{enumerate}
 \item \label{paso1}Highlight randomly the rows and columns from the matrix.  There is one row and one column that should match the letter selected by the subject.
-\item  \label{paso2} Repeat step~\ref{paso1} $k_a$ times, obtaining the $1 \leq l \leq 12$ segments $S_1^l(n,c),\dots,S_{k_a}^l(n,c)$, of the EEG signal where the variables $1 \leq n \leq n_{max}$ and $1 \leq c \leq C$  correspond to sample points and channel, respectively. The parameter $C$ is the number of available EEG channels whereas $n_{max}=F_s.t_{max}$ is the segment length and $F_s$ is the sampling frequency.  The parameter $k_a$ is the number of repetitions of intensifications and it is an input parameter of the algorithm.
+\item  \label{paso2} Repeat step~\ref{paso1} $k_a$ times, obtaining the $1 \leq l \leq 12$ segments $S_1^l(n,c),\dots,S_{k_a}^l(n,c)$, of the EEG signal where the variables $1 \leq n \leq n_{max}$ and $1 \leq c \leq C$  correspond to sample points and channel, respectively. The parameter $C$ is the number of available EEG channels whereas $n_{max}=F_s \  t_{max}$ is the segment length and $F_s$ is the sampling frequency.  The parameter $k_a$ is the number of repetitions of intensifications and it is an input parameter of the algorithm.
 \item \label{paso3} Compute the Ensemble Average by
 \begin{equation}
 x^l(n,c)= \frac{1}{k_a}\sum_{i=1}^{k_a}S_i^l(n,c) 
 \label{averaging}
 \end{equation}  
-for $1 \leq n \leq n_{max}$ and for the channels $1 \leq c \leq C$.  This provide an averaged signal $x^l(n,c)$ for the twelve locations.
+for $1 \leq n \leq n_{max}$ and for the channels $1 \leq c \leq C$.  This provide an averaged signal $x^l(n,c)$ for the twelve locations $ 1 \leq l \leq 12$.
 \end{enumerate}
 \end{itemize}
 
 \subsubsection{Signal Plotting} \label{Plot}
 
-Averaged signal segments are standardized and scaled by 
+Averaged signal segments are standardized and scaled for $1 \leq n \leq n_{max}$ and $1 \leq c \leq C$ by 
 
 \begin{equation}
-\tilde{x}^l(n,c) = \left \lfloor{ \gamma \cdot \frac{( x^l(n,c) - \bar{x}^l(c)  )}{ \hat{\sigma}^l(c) } }\right \rfloor, \; 1 \leq n \leq n_{max}, 1 \leq c \leq C
+\tilde{x}^l(n,c) = \left \lfloor{ \gamma \; \frac{( x^l(n,c) - \bar{x}^l(c)  )}{ \hat{\sigma}^l(c) } }\right \rfloor
 \label{eq:standarizedaverages}
 \end{equation}
 
 \noindent where $\gamma > 0$ is an input parameter of the algorithm and  it is related to the image scale. In addition, $ x^l(n,c) $ is the point-to-point averaged multichannel EEG signal for the sample point $n$ and for channel $c$. Lastly, $$\bar{x}^l(c) =\frac{1}{n_{max}}\sum_{n=1}^{n_{max}}x^l(n,c)$$ and $$ \hat{\sigma}^l(c) = (\frac{1}{n_{max}-1}\sum_{n=1}^{n_{max}}(x^l(n,c)-\bar{x}^l(c))^2 )^{\frac{1}{2}}$$ are the mean and estimated standard deviation of $x^l(n,c), 1 \leq n \leq n_{max}$, for each channel $c$.
 
-Consequently, for a pixel $(z_1,z_2)$, the image $I^l$ is constructed according to
+Consequently, for a pixel $(z_1,z_2)$, the image $I^{(l,c)}$ is constructed according to
 
 \begin{equation}
 I^{(l,c)}(z_1,z_2) = \left\{ \begin{array}{rl}
-255 & \text{if} \,  z_1 = \gamma \cdot n; \; z_2 = \tilde{x}^l(n,c) + z^l(c) \\
+255 & \text{if} \,  z_1 = \gamma \  n; \! z_2 = \tilde{x}^l(n,c) + z^l(c) \\
 0   & \mbox{otherwise}
 \end{array}\right.
 \label{eq:images}
@@ -157,7 +157,7 @@ z^l(c) = \left \lfloor{ \frac{\max_{n} \tilde{x}^l(n,c)  - \min_{n} \tilde{x}^l(
 \label{eq:zerolevel}
 \end{equation}
 
-\noindent where the minimization and maximization are carried out for $n$ varying between ${1 \leq n\leq n_{max}}$, and $ \lfloor \rfloor $ denote the rounding to the smaller nearest integer of the number.
+\noindent where the minimization and maximization are carried out for $n$ varying between ${1 \leq n\leq n_{max}}$, and $ \lfloor \cdot  \rfloor $ denote the rounding to the smaller nearest integer of the number.
   
 In order to complete the plot $I^{(l,c)}$ from the pixels, the Bresenham \citep{Bresenham1965,Ramele2016} algorithm is used to interpolate straight lines between each pair of  consecutive pixels.
 
@@ -168,17 +168,17 @@ In order to complete the plot $I^{(l,c)}$ from the pixels, the Bresenham \citep{
 
 For each generated image $I^{(l,c)}$, a keypoint $\mathbf{p_k}$ is placed on a pixel $(x_{p_k}, y_{p_k})$ over the image plot and a window around the keypoint is considered. A local image patch of size $X_p \times X_p$ pixels is constructed by dividing the window in $16$ blocks of size $3s$ each one,  where $s$ is the scale of the local patch and it is an input parameter of the algorithm. It is arranged in a $4 \times 4$ grid and the pixel $ \mathbf{p_k}$ is the patch center, thus $X_p = 12s $ pixels. 
 
-A local representation of the signal shape within the patch can be described by obtaining the gradient orientations on each of the $16$ blocks $B_{i,j}$ and creating a histogram of gradients.  This technique is based on Lowe's SIFT~\citep{Lowe2004} method, and it is biomimetically inspired in how the visual cortex detects shapes by analyzing orientations~\citep{cogprints561}.   In order to calculate the histogram, the interval $[0,360]$ of possible angles is divided in $8$ bins, each one of $45$ degrees.
+A local representation of the signal shape within the patch can be described by obtaining the gradient orientations on each of the $16$ blocks $B_{i,j}$  with $ 0 \leq i,j \leq 3$ and creating a histogram of gradients.  This technique is based on Lowe's SIFT~\citep{Lowe2004} method, and it is biomimetically inspired in how the visual cortex detects shapes by analyzing orientations~\citep{cogprints561}.   In order to calculate the histogram, the interval $[0,360]$ of possible angles is divided in $8$ bins, each one of $45$ degrees.
 
  Hence, for each spacial bin $ 0 \leq i,j \leq 3$, corresponding to the indexes of each block $B_{i,j}$,  the orientations are accumulated in a  $3$-dimensional histogram $h$ through the following equation: 
  
 
 \begin{equation}
- h(\theta,i,j) = 3 s \sum_{\mathbf{p} \in I} w_\mathrm{ang}(\angle J(\mathbf{p}) - \theta)\, w_{ij}\left(\frac{\mathbf{p} - \mathbf{p_k}}{3 s}\right)\, |J(\mathbf{p})|
+ h(\theta,i,j) = 3 s \sum_{\mathbf{p} \in I^{(l,c)}} w_\mathrm{ang}(\angle J(\mathbf{p}) - \theta)\, w_{ij}\left(\frac{\mathbf{p} - \mathbf{p_k}}{3 s}\right)\, |J(\mathbf{p})|
 \label{eq:histogram}
 \end{equation}
 
-\noindent  where $\mathbf{p}$ is a pixel from the image $I$,  $\theta$ is the angle bin with $ \theta \in \{0, 45, 90, 135, 180, 225, 270, 315\} $,  $ |J(\mathbf{p})| $ is the norm of the gradient vector in the pixel $\mathbf{p}$ and it is computed using finite differences and $\angle J(\mathbf{p}) $ is the angle of the gradient vector.  The scalar $ w_\mathrm{ang}(\cdot) $  and vector $ w_{ij}(\cdot) $ functions are linear interpolations used by~\cite{Lowe2004} and \cite{Vedaldi2010} to provide a weighting contribution to eight adjacent bins.  They are calculated as  
+\noindent  where $\mathbf{p}$ is a pixel from the image $I^{(l,c)}$,  $\theta$ is the angle bin with $ \theta \in \{0, 45, 90, 135, 180, 225, 270, 315\} $,  $ |J(\mathbf{p})| $ is the norm of the gradient vector in the pixel $\mathbf{p}$ and it is computed using finite differences and $\angle J(\mathbf{p}) $ is the angle of the gradient vector.  The scalar $ w_\mathrm{ang}(\cdot) $  and vector $ w_{ij}(\cdot) $ functions are linear interpolations used by~\cite{Lowe2004} and \cite{Vedaldi2010} to provide a weighting contribution to eight adjacent bins.  They are calculated as  
 
 \begin{equation}
  w_{ij}(\mathbf{v}) = w( v_x - x_i ) w( v_y - y_j ) 
@@ -188,18 +188,19 @@ A local representation of the signal shape within the patch can be described by 
 \noindent with $ 0 \leq i,j \leq 3$ and
 
 \begin{equation}
- w_\mathrm{ang}(\alpha) = \sum_{r \in  \left[ -1,1 \right] } w( \frac{8\alpha}{2\pi} + 8r)
+ w_\mathrm{ang}(\alpha) = \sum_{r = -1 }^{1} w( \frac{8\alpha}{2\pi} + 8r)
 \label{eq:wang}
 \end{equation}
 
-\noindent where $x_i$ and $y_i$ are the spatial bin centers located in $ x_i,y_i \in \{-\frac{3}{2},-\frac{1}{2},\frac{1}{2},\frac{3}{2}\} $, $\mathbf{v} = ( v_x, v_y ) $ is a dummy vector variable and $\alpha$ a dummy scalar variable.  On the other hand, $r$ is an integer that can vary freely between $ \left[ -1,1 \right]$ which allows the argument $\alpha$ to be unconstrained in terms of its values in radians. The interpolating function $w(\cdot)$ is defined as $ w(z) = \max(0,|z|-1)$.
+
+\noindent where $x_i$ and $y_i$ are the spatial bin centers located in $ x_i,y_j \in \{-\frac{3}{2},-\frac{1}{2},\frac{1}{2},\frac{3}{2}\} $, $\mathbf{v} = ( v_x, v_y ) $ is a vector variable and $\alpha$ a scalar variable.  On the other hand, $r$ is an integer that can vary freely between $ \left[ -1,1 \right]$ which allows the argument $\alpha$ to be unconstrained in terms of its values in radians. The interpolating function $w(\cdot)$ is defined as $ w(z) = \max(0,|z|-1)$.
 
 These binning functions conform a trilinear interpolation that has a combined effect of sharing the contribution of each oriented gradient between their eight adjacent bins in a tridimensional cube in the histogram space, and zero everywhere else.
 
 Lastly, the fixed value of $ 3 $ is a magnification factor which corresponds to the number of pixels per each block when $s = 1$.  As the patch has  $16$ blocks and  $8$ bin angles are considered, for each location $l$ and channel $c$ a feature called \textit{descriptor} $\mathbf{d}^{(l,c)}$  of $128$ dimension is obtained. 
 %It can be observed that the histogram is computed by multiplying by $ |J(\mathbf{p})| $, so the method considers both, the magnitude and the orientation of the gradient vector. 
 
-Fig.~\ref{fig:sampledescriptor} shows an example of a patch and a scheme of the histogram computation. In (A) a plot of the signal and the patch centered around the keypoint is shown. In (B) the possible orientations on each patch are illustrated.  Only the upper-left four blocks are visible.  The first eight orientations of the first block, are labeled from $1$ to $8$ clockwise. The orientations of the second block $ B_{1,2} $ are labeled from $9$ to $16$.  This labeling continues left-to-right, up-down until the eight orientations for all the sixteen blocks are assigned. They form the corresponding descriptor $\mathbf{d}$ of $128$ coordinates. Finally, in (C) an enlarged image plot is shown where the oriented gradient vector for each pixel can be seen.
+Figure~\ref{fig:sampledescriptor} shows an example of a patch and a scheme of the histogram computation. In (A) a plot of the signal and the patch centered around the keypoint is shown. In (B) the possible orientations on each patch are illustrated.  Only the upper-left four blocks are visible.  The first eight orientations of the first block, are labeled from $1$ to $8$ clockwise. The orientations of the second block $ B_{1,2} $ are labeled from $9$ to $16$.  This labeling continues left-to-right, up-down until the eight orientations for all the sixteen blocks are assigned. They form the corresponding descriptor $\mathbf{d}$ of $128$ coordinates. Finally, in (C) an enlarged image plot is shown where the oriented gradient vector for each pixel can be seen.
  
 \subsubsection{Speller Matrix letter Identification}
 \label{Classification}
@@ -259,9 +260,11 @@ The algorithm is implemented using  VLFeat~\citep{Vedaldi2010} Computer Vision l
 
 In the following sections the characteristics of the datasets and parameters of the identification algorithm are described. 
 
+% Furthermore, in order to enhance the impact of our paper and for a sake of reproducibility, the code of the algorithm has been made available at: \url{http://asi.insa-rouen.fr/~arakotom/code/bciindex.html}
+
 \subsubsection{P300 ALS Public Dataset} \label{ALSDataset}
 
-The experimental protocol used to generate this dataset is explained in~\citep{Riccio2013} but can be summarized as follows:  8 subjects with confirmed diagnoses but on different stages of ALS disease, were recruited and accepted to perform the experiments. The Visual P300 detection task designed for this experiment consisted of spelling 7 words of 5 letters each, using the traditional P300 Speller Matrix~\citep{Farwell1988}. The flashing of rows and columns provide the deviant stimulus required to elicit this physiological response.  The first 3 words are used for calibration and the remaining 4 words, for testing with visual feedback.  A trial, as defined by the BCI2000 platform~\citep{Schalk2004}, is every attempt to select a letter from the speller. It is composed of signal segments corresponding to $k_a =10$ repetitions of flashes of 6 rows and $k_a =10$ repetitions of flashes of 6 columns of the matrix, yielding 120 repetitions.  Flashing of a row or a column is performed for 0.125 s, following by a resting period (i.e. inter-stimulus interval) of the same length.  After 120 repetitions an inter-trial pause is included before resuming with the following letter.
+The experimental protocol used to generate this dataset is explained in~\citep{Riccio2013} but can be summarized as follows:  8 subjects with confirmed diagnoses but on different stages of ALS disease, were recruited and accepted to perform the experiments. The Visual P300 detection task designed for this experiment consisted of spelling 7 words of 5 letters each, using the traditional P300 Speller Matrix~\citep{Farwell1988}. The flashing of rows and columns provide the deviant stimulus required to elicit this physiological response.  The first 3 words are used for calibration and the remaining 4 words, for testing with visual feedback.  A trial is every attempt to select a letter from the speller. It is composed of signal segments corresponding to $k_a =10$ repetitions of flashes of 6 rows and $k_a =10$ repetitions of flashes of 6 columns of the matrix, yielding 120 repetitions.  Flashing of a row or a column is performed for 0.125 s, following by a resting period (i.e. inter-stimulus interval) of the same length.  After 120 repetitions an inter-trial pause is included before resuming with the following letter.
 
 The recorded dataset was sampled at 256 Hz and it consisted of a scalp multichannel EEG signal for electrode channels Fz, Cz, Pz, Oz, P3, P4, PO7 and PO8, identified according to the 10-20 International System,  for each one of the 8 subjects.   The recording device was a research-oriented digital EEG device (g.Mobilab, g.Tec, Austria) and the data acquisition and stimuli delivery were handled by the BCI2000 open source software~\citep{Schalk2004}.
 
@@ -288,16 +291,16 @@ The patch size is $X_P = 12s \times 12s$ pixels, where $s$ is the scale of the l
 %necesitamos definir el valor de s en función de los parámetros de la señal, de modo tal que el parche cubra el evento completo.  
 We propose the Equations~\ref{eq:mapping2} and~\ref{eq:mapping1} to compute the scale value in horizontal and vertical directions, respectively. 
 \begin{equation}
-s_x = \frac{ \gamma \cdot \lambda \cdot F_s}{12}
+s_x = \frac{ \gamma \;  \lambda \  F_s}{12}
 \label{eq:mapping2}
 \end{equation}
 
 \begin{equation}
-s_y= \frac{\gamma \cdot \Delta \mu V}{12} 
+s_y= \frac{\gamma \; \Delta \mu V}{12} 
 \label{eq:mapping1}
 \end{equation}
 
-\noindent where $ \lambda $ is the length in seconds covered by the patch, $ F_s $ is the sampling frequency of the EEG signal (downsampled to 16 Hz) and  $\Delta  \mu V $ corresponds to the amplitude in microvolts that can be covered by the height of the patch. The geometric structure of the patch forces a squared configuration, then we discerned that by using $ s =s_x =s_y = 3 $ and $ \gamma = 4 $,  the local patch and the descriptor can identify events of 9 $ \mu V $ of amplitude, with a span of $ \lambda = 0.56$ seconds.  This also determines that $ 1 $ pixel represents $ \frac{1}{\gamma}= \frac{1}{4} \mu V $ on the vertical direction and $\frac{1}{F_s.\gamma}=\frac{1}{64}$ seconds on the horizontal direction. The keypoints  $\mathbf{p_k}$  are located at $ (x_{p_k}, y_{p_k} )= ( 0.55 F_s.\gamma, z^l(c) )= (35,  z^l(c)) $ for the corresponding channel $c$ and location $l$ (see Eq.~\ref{eq:zerolevel}).   In this way the whole transient event is captured. 
+\noindent where $ \lambda $ is the length in seconds covered by the patch, $ F_s $ is the sampling frequency of the EEG signal (downsampled to 16 Hz) and  $\Delta  \mu V $ corresponds to the amplitude in microvolts that can be covered by the height of the patch. The geometric structure of the patch forces a squared configuration, then we discerned that by using $ s =s_x =s_y = 3 $ and $ \gamma = 4 $,  the local patch and the descriptor can identify events of 9 $ \mu V $ of amplitude, with a span of $ \lambda = 0.56$ seconds.  This also determines that $ 1 $ pixel represents $ \frac{1}{\gamma}= \frac{1}{4} \mu V $ on the vertical direction and $\frac{1}{F_s \ \gamma}=\frac{1}{64}$ seconds on the horizontal direction. The keypoints  $\mathbf{p_k}$  are located at $ (x_{p_k}, y_{p_k} )= ( 0.55 F_s \ \gamma, z^l(c) )= (35,  z^l(c)) $ for the corresponding channel $c$ and location $l$ (see Eq.~\ref{eq:zerolevel}).   In this way the whole transient event is captured. 
 Figure~\ref{fig:patchgeometry} shows a patch of a signal plot covering the complete amplitude (vertical direction) and the complete span of the signal event (horizontal direction). 
 
 Lastly, the number of channels $C$ is equal to $8$ for both datasets, and the number of intensification sequences $k_a$ is statically assigned to $10$.  The parameter $k$ used to construct the set $N_T(\mathbf{d}^{(l,c)})$ is assigned to $k=7$, which was found empirically to achieve better results.  In addition, the norm used on  Equations \ref{eq:multiclassificationrow} and \ref{eq:multiclassificationcol} is the cosine norm, and descriptors are normalized to $ \left[ -1, 1 \right] $.
@@ -307,7 +310,7 @@ Lastly, the number of channels $C$ is equal to $8$ for both datasets, and the nu
 
 Table~\ref{tab:resultsals} shows the results of applying the algorithm to the subjects of the public dataset of ALS patients. The percentage of correctly spelled letters is calculated while performing an offline BCI Simulation.  From the seven words for each subject, the first three are used as calibration, and the remaining four for testing.  The best performing channel  $bpc$ is informed as well. The target ratio is $1:36$; hence chance level is $2.8\%$. It can be observed that the best performance of the letter identification method is reached in a dissimilar channel depending on the subject been studied. 
 
-The Information Transfer Rate (ITR), or Bit Transfer Rate (BTR), in the case of reactive BCIs~\citep{WolpawJonathanR2012}  depends on the amount of signal averaging required to transmit a valid and robust selection.  Fig.~\ref{fig:performance} shows the performance curves for varying intensification sequences. It can be noticed that the percentage of correctly identified letters depends on the number of intensification sequences $k_a$ that are used to obtain the averaged signal.  Moreover, when the number of intensification sequences tend to 1, which corresponds to single-intensification character recognition, the performance is reduced. As mentioned before, the SNR of the P300 obtained from only one segment of the intensification sequence is very low and the shape of its P300 component is not very well defined.
+The Information Transfer Rate (ITR), or Bit Transfer Rate (BTR), in the case of reactive BCIs~\citep{WolpawJonathanR2012}  depends on the amount of signal averaging required to transmit a valid and robust selection.  Figure~\ref{fig:performance} shows the performance curves for varying intensification sequences for the subjects included in the dataset of ALS patients. It can be noticed that the percentage of correctly identified letters depends on the number of intensification sequences that are used to obtain the averaged signal.  Moreover, when the number of intensification sequences tend to 1, which corresponds to single-intensification character recognition, the performance is reduced. As mentioned before, the SNR of the P300 obtained from only one segment of the intensification sequence is very low and the shape of its P300 component is not very well defined.
 
 In Table~\ref{tab:resultsown} results obtained for 8 healthy subjects are shown.  The obtained performance were slightly inferior than those obtained for ALS patients but well above chance level. 
 
@@ -315,9 +318,9 @@ In Table~\ref{tab:resultsown} results obtained for 8 healthy subjects are shown.
 
 %Rodrigo, acá pondría un punto y aparte. Aclararía que la intención de las tablas 2 y 4 son comparar los resultados de HIST con los resultados obtenidos por los autores que generaron loa datos de ALS pero como estos no informan el desempeño para clasificar las letras, entonces vos lo implementaste.No se si me saldrá bien en inglés pero lo que sigue lo pongo como idea:On the other hand, we shown Table 2 and 4 in order to compare the performance of our method against the method proposed by Riccio et al. Since the work of Riccio et al. does not measure the rate of well identification letter (they just report the rate of well classified P300 events) we completed the proccess  using SWLDA classificaion method (suggestied by  the article Riccio et al. 2013).
 
-In Tables ~\ref{tab:resultsals} and ~\ref{tab:resultsown} results for character recognition rates using single channel signals with the SVM classifier and using a feature based on Permutation Entropy and classified by SVM (PE+SVM) are also shown.  The PE algorithm, which is also based on a time-domain description of the waveform, was implemented according to \cite{Unakafova2013} and its parameters were adjusted as stated by \cite{Zanin2012}, with an \textit{order} of $2$ and a \textit{sliding window} of size $10$.   The SVM classifier, on the other hand,  was configured to use a linear kernel.  
+In Tables~\ref{tab:resultsals} and~\ref{tab:resultsown} results for character recognition rates using single channel signals with the SVM~\citep{Scholkopf2001} classifier and using a feature based on Permutation Entropy and classified by SVM (PE+SVM) are also shown.  The PE algorithm, which is also devised on a time-domain description of the waveform, was implemented according to \cite{Unakafova2013} and its parameters were adjusted as stated by \cite{Zanin2012}, with an \textit{order} of $2$ and a \textit{sliding window} of size $10$.   The SVM classifier, on the other hand,  was configured to use a linear kernel.  
 
-Moreover, Tables \ref{tab:resultsalsswlda} and \ref{tab:resultsownswlda} are presented in order to compare the performance of the Histogram of Gradient Orientations (HIST) method against a feature formed by concatenating all the channels \citep{Krusienski2006} and the classification algorithm SWLDA, the methodology proposed by the ALS dataset's publisher. Since authors \cite{Riccio2013} did not report the  Character Recognition Rate obtained for this dataset, we replicate their procedure and include the performance obtained with the SWLDA algorithm at letter identification. The obtained performance for both datasets is improved in 6 out 8 subjects.
+Moreover, Tables~\ref{tab:resultsalsswlda} and~\ref{tab:resultsownswlda} are presented in order to compare the performance of the Histogram of Gradient Orientations (HIST) method against a feature formed by concatenating all the channels~\citep{Krusienski2006} and the classification algorithm SWLDA, the methodology proposed by the ALS dataset's publisher. Since authors \cite{Riccio2013} did not report the  Character Recognition Rate obtained for this dataset, we replicate their procedure and include the performance obtained with the SWLDA algorithm at letter identification. The obtained performance is improved in 6 out 8 subjects for both datasets.
 
 %\subsection{Occipital Channels}
 
@@ -325,7 +328,7 @@ The P300 ERP  consists of two overlapping components: the P3a and P3b, the forme
 
 %\subsection{Stability of the P300 shape}
 
-As subjects have varying \textit{latencies} and \textit{amplitudes} of their P300 components, they also have a varying stability of the \textit{shape} of the generated ERP \citep{Nam2010}.  Figure~\ref{fig:p300templates} shows the P300 templates patches for patients 8 and 3 from the dataset of ALS patients. It can be discerned that in coincidence with the performance results, the P300 signature is more clear and consistent for subject 8 (A) while for subject 3 (B) the characteristic pattern is more difficult to perceive.
+As subjects have varying \textit{latencies} and \textit{amplitudes} of their P300 components, they also have a varying stability of the \textit{shape} of the generated ERP \citep{Nam2010}.  Figure~\ref{fig:p300templates} shows the ten sample P300 templates patches for patients 8 and 3 from the dataset of ALS patients. It can be discerned that in coincidence with the performance results, the P300 signature is more clear and consistent for subject 8 (A) while for subject 3 (B) the characteristic pattern is more difficult to perceive.
 
 Additionally, the stability of the P300 component waveform has been extensively studied in patients with ALS \citep{SellersandEmanuelDonchin2006,TomohiroMadarame2008,Nijboer2009,Mak2012,McCane2015} where it was found that these patients have a stable P300 component, which were also sustained across different sessions.  In line with these results we do not find evidence of a difference in terms of the performance obtained for the group of patients with ALS and the healthy group of volunteers. Particularly, the best performance is obtained for a subject from the ALS dataset for which, based on visual observation, the shape of they P300 component is consistently identified.
 
@@ -352,7 +355,9 @@ In this work, a method to detect transient P300 components from EEG signals base
 %The method works on a channel by channel basis; in this way the best performing channel can be identified and used it to reduce the number of required EEG electrodes, leading to the development of more ergonomic capturing device.
 
 It was verified that this method has an improved performance at letter identification than other methods that process the signals on a channel by channel strategy, and it even has a slightly improved performance compared to other methods like SWLDA, which uses a multichannel feature.
-Furthermore, this method has the advantage that shapes of waveforms can be analyzed in an objective way.  We observed that the shape of the P300 component is more stable in occipital channels, where the performance for identifying letters is higher.   We additionally verified that ALS P300 signatures are stable in comparison to those of healthy subjects.  Further work should be conducted over larger samples to cross-check the validity of these results.
+Furthermore, this method has the advantage that shapes of waveforms can be analyzed in an objective way.  We observed that the shape of the P300 component is more stable in occipital channels, where the performance for identifying letters is higher.   We additionally verified that ALS P300 signatures are stable in comparison to those of healthy subjects.  
+
+%Further work should be conducted over larger samples to cross-check the validity of these results.
 
 We believe that the use of descriptors based on histogram of gradient orientation, presented in this work, can also be utilized for deriving a shape metric in the space of the P300 signals which can complement other metrics based on time-domain as those defined by~\cite{Mak2012}. It is important to notice that the analysis of waveform shapes is usually performed in a qualitative approach based on visual inspection~\citep{SellersandEmanuelDonchin2006}, and a complementary methodology which offer a quantitative metric will be beneficial to these routinely analysis of the waveform of ERPs.
 
@@ -360,7 +365,7 @@ We believe that the use of descriptors based on histogram of gradient orientatio
 
 The goal of this work is to answer the question if a P300 component could be solely determined by inspecting automatically their waveforms.  We conclude affirmatively, though two very important issues still remain:
 
-First, the stability of the P300 in terms of its shape is crucial: the averaging procedure, montages, the signal to noise ratio and spatial filters all of them are non-physiological factors that affect the stability of the shape of the P300 ERP.  \textbf{We tested a preliminary approach to assess if the morphological shape of the P300 of the averaged signal can be stabilized by applying different latency shifts to stimulus onset times and we verified that there is a better performance when a correct segment alignment is applied}.  We also applied Dynamic Time Warping (DTW)~\citep{Casarotto2005} but we were unable to find a substantial improvement.  Further work to study the stability of the P300 signature component needs to be addressed.
+First, the stability of the P300 in terms of its shape is crucial: the averaging procedure, montages, the signal to noise ratio and spatial filters all of them are non-physiological factors that affect the stability of the shape of the P300 ERP.  We tested a preliminary approach to assess if the morphological shape of the P300 of the averaged signal can be stabilized by applying different alignments of the stacked segments (see Figure~\ref{fig:classification}) and we verified that there is a better performance when a correct segment alignment is applied.  We also applied Dynamic Time Warping (DTW)~\citep{Casarotto2005} to automate the alignment procedure but we were unable to find a substantial improvement.  Further work to study the stability of the P300 signature component needs to be addressed.
 
 The second problem is the amplitude variation of the P300. We propose a solution by standardizing the signal, shown in Eq.~\ref{eq:standarizedaverages}. It has the effect of normalizing the peak-to-peak amplitude, moderating its variation. It has also the advantage of reducing noise that was not reduced by the averaging procedure.   It is important to remark that the averaged signal variance depends on the number of segments used to compute it \citep{van2006signal}.  The standardizing process converts the signal to unit signal variance which makes it independent of the number $k_a$ of signals averaged.   Although this is initially an advantageous approach, the standardizing process reduces the amplitude of any significant P300 complex diminishing its automatic interpretation capability.
 
@@ -376,6 +381,9 @@ This work is part of the PhD thesis of RR which is directed by JS and codirected
 
 \section*{Funding}
 This project was supported by the ITBACyT-15 funding program issued by ITBA University from Buenos Aires, Argentina.
+
+\section*{Acknowledgments}
+We would like to thank to Dr. Valentina Unakafova for providing the Permutation Entropy algorithm.
 
 \bibliographystyle{frontiersinSCNS_ENG_HUMS} % for Science, Engineering and Humanities and Social Sciences articles, for Humanities and Social Sciences articles please include page numbers in the in-text citations
 %\bibliographystyle{frontiersinHLTH&FPHY} % for Health, Physics and Mathematics articles
@@ -413,17 +421,17 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 %%% The use of LaTeX coding to draw Diagrams/Figures/Structures should be avoided. They should be external callouts including graphics.
 
 \begin{table}[htb]
-\caption{Character recognition rates while performing an offline BCI Simulation for the best performing channel for each subject of the public dataset of ALS patients using the Histogram of Gradients (HIST). The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}. Performance rates using single channel signals with the SVM classifier and using a feature obtained with Permutation Entropy (PE) and classified by SVM are also shown for comparison.}
+\caption{Character recognition rates while performing an offline BCI Simulation for the best performing channel for each subject of the public dataset of ALS patients using the Histogram of Gradients (HIST). The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}. Performance rates and the best performing channel with the SVM classifier and, using a feature obtained with Permutation Entropy (PE) and classified by SVM, are also shown for comparison.}
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
 \begin{tabular}{c|cc|cc|cc}
 \toprule
 \textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  SVM &  \textbf{BPC}	 &  PE+SVM\\
 \midrule
-1     &     Cz   &   $35\%$    &  Cz   & $15\%$ &  P3   & $05\%$ \\
+1     &     Cz   &   $35\%$    &  Cz   & $15\%$ &  P3   & $5\%$ \\
 2     &     Fz   &   $85\%$      &  PO8   & $25\%$  &  PO8   & $15\%$\\
-3     &     Cz   &   $25\%$    &  Fz   & $05\%$  &  P3   & $05\%$\\
-4     &     PO8 &   $55\%$   &  Oz   & $05\%$  &  Oz   & $10\%$ \\
+3     &     Cz   &   $25\%$    &  Fz   & $5\%$  &  P3   & $5\%$\\
+4     &     PO8 &   $55\%$   &  Oz   & $5\%$  &  Oz   & $10\%$ \\
 5     &     PO7 &   $40\%$    &  P3   & $25\%$  &  PO8   & $15\%$\\
 6     &     PO7 &   $60\%$  &  PO8   & $20\%$  &   Fz   & $10\%$  \\
 7     &     PO8 &   $80\%$   &  Fz   & $30\%$   &  Fz   & $10\%$ \\
@@ -469,13 +477,13 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 \textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  SVM &  \textbf{BPC}	 &  PE+SVM\\
 \midrule
 1     &     Oz   &   $40\%$  &  Cz   &  $10\%$ &  PO7   & $10\%$  \\
-2     &     PO7   &   $30\%$      &  Cz   & $05\%$ &  Fz   & $05\%$ \\
-3     &     P4   &   $40\%$    &  P3   & $10\%$  &  Fz   & $00\%$\\
+2     &     PO7   &   $30\%$      &  Cz   & $5\%$ &  Fz   & $5\%$ \\
+3     &     P4   &   $40\%$    &  P3   & $10\%$  &  Fz   & $0\%$\\
 4     &     P4 &   $45\%$    &  P4   & $35\%$  &  Cz   & $10\%$\\
-5     &     P4 &   $60\%$  &  P3   & $10\%$  &  Fz   & $00\%$  \\
+5     &     P4 &   $60\%$  &  P3   & $10\%$  &  Fz   & $0\%$  \\
 6     &     Pz &   $50\%$ &  P4   & $25\%$  &   Cz   & $10\%$   \\
 7     &     PO7 &   $70\%$  &  P3   & $30\%$  &  P3   & $10\%$   \\
-8     &     P4 &   $50\%$    &  PO7   & $10\%$ &  Fz   & $05\%$  \\
+8     &     P4 &   $50\%$    &  PO7   & $10\%$ &  Fz   & $5\%$  \\
 
 %\bottomrule
 \end{tabular}
@@ -547,7 +555,7 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 \begin{figure}[h!]
 \centering
 \includegraphics[width=15cm]{subject.png}\label{subject8}
-\caption{P300 template patches for subjects 8 (A) and 3 (B) of the ALS Dataset.  Downward deflection is positive polarity. }
+\caption{Ten sample P300 template patches for subjects 8 (A) and 3 (B) of the ALS Dataset.  Downward deflection is positive polarity. }
 \label{fig:p300templates}
 \end{figure}
 
