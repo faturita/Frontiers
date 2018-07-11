@@ -188,7 +188,7 @@ A local representation of the signal shape within the patch can be described by 
 \noindent with $ 0 \leq i,j \leq 3$ and
 
 \begin{equation}
- w_\mathrm{ang}(\alpha) = \sum_{r = -1 }^{1} w( \frac{8\alpha}{2\pi} + 8r)
+ w_\mathrm{ang}(\alpha) = \sum_{r = -1 }^{1} w \bigg( \frac{8\alpha}{2\pi} + 8r \bigg)
 \label{eq:wang}
 \end{equation}
 
@@ -212,7 +212,7 @@ Segments corresponding to row flickering are labeled 1-6, whereas those correspo
 %\setcounter{enumi}{3}
 
 \item \textbf{Step A:}\label{pasoa} First highlight rows and columns from the matrix in a random permutation order and obtain the Ensemble Average as detailed in steps~\ref{paso1}, \ref{paso2} and \ref{paso3} in Section \ref{Average}.
-\item \textbf{Step B:}\label{paso4} Plot the signals $\tilde{x}^l(n,c)$,  $1 \leq n \leq n_{max}$, $1 \leq c \leq C $,  according Section~\ref{Plot} in order to generate the images $I^{(l,c)}$ for rows and columns. 
+\item \textbf{Step B:}\label{paso4} Plot the signals $\tilde{x}^l(n,c)$,  $1 \leq n \leq n_{max}$, $1 \leq c \leq C $,  according Section~\ref{Plot} in order to generate the images $I^{(l,c)}$ for rows and columns $1 \leq l \leq 12$.
 
 \item \textbf{Step C:} Obtain the descriptors $ \mathbf{d}^{(l,c)}$ for rows and columns from $I^{(l,c)}$  in accordance to the method described in Section~\ref{SIFT}. 
 
@@ -256,11 +256,10 @@ Figure~\ref{fig:classification} shows a scheme of this process.
 
 To verify the validity of the proposed framework and method, the public dataset 008-2014~\citep{Riccio2013} published on the BNCI-Horizon website~\citep{Brunner2014} by  IRCCS Fondazione Santa Lucia, is used. Additionally, an own dataset with the same experimental conditions is generated. Both of them are utilized to perform an offline BCI Simulation to decode the spelled words from the provided signals. 
 
-The algorithm is implemented using  VLFeat~\citep{Vedaldi2010} Computer Vision libraries on MATLAB V2014a (Mathworks Inc., Natick, MA, USA). 
+The algorithm is implemented using  VLFeat~\citep{Vedaldi2010} Computer Vision libraries on MATLAB V2014a (Mathworks Inc., Natick, MA, USA). Furthermore, in order to enhance the impact of our paper and for a sake of reproducibility, the code of the algorithm has been made available at: https://bitbucket.org/itba/hist.
 
 In the following sections the characteristics of the datasets and parameters of the identification algorithm are described. 
 
-% Furthermore, in order to enhance the impact of our paper and for a sake of reproducibility, the code of the algorithm has been made available at: \url{http://asi.insa-rouen.fr/~arakotom/code/bciindex.html}
 
 \subsubsection{P300 ALS Public Dataset} \label{ALSDataset}
 
@@ -526,7 +525,7 @@ We would like to thank to Dr. Valentina Unakafova for providing the Permutation 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=15cm]{classificationgraph.pdf}
-\caption{For each column and row, an averaged signal $\tilde{x}^l(n,c)$ is obtained from the segments $S_i^l$  corresponding to the $k_a$ intensification sequences with $ 1 \leq i \leq k_a $. From the averaged signal, the image $I^{(l,c)}$ of the signal plot is generated and each descriptor is computed.  By comparing each descriptor against the set of templates, the P300 ERP can be detected, and finally the desired letter from the matrix can be inferred.}
+\caption{For each column and row, an averaged, standardized and scaled signal $\tilde{x}^l(n,c)$ is obtained from the segments $S_i^l$  corresponding to the $k_a$ intensification sequences with $ 1 \leq i \leq k_a $. From the averaged signal, the image $I^{(l,c)}$ of the signal plot is generated and each descriptor is computed.  By comparing each descriptor against the set of templates, the P300 ERP can be detected, and finally the desired letter from the matrix can be inferred.}
 \label{fig:classification}
 \end{figure}
 
