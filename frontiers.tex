@@ -150,7 +150,7 @@ I^{(l,c)}(z_1,z_2) = \left\{ \begin{array}{rl}
 \label{eq:images}
 \end{equation}
 
-\noindent where $ (z_1,z_2) \in \mathbb{N} \times \mathbb{N}$ iterate over the width (based on the length of the signal segment) and height (based on the peak-to-peak amplitude) of the newly created image,  $1 \leq n \leq n_{max}$ and $1 \leq c \leq C$.  The value $z^l(c)$ is the location on the image where the signal's zero value has to be located in order to fit the entire signal within the image for each channel c:
+\noindent where $ (z_1,z_2) \in \mathbb{N} \times \mathbb{N}$ iterate over the width (based on the length of the signal segment) and height (based on the peak-to-peak amplitude) of the newly created image with $1 \leq n \leq n_{max}$ and $1 \leq c \leq C$.  The value $z^l(c)$ is the image vertical position where the signal's zero value has to be situated in order to fit the entire signal within the image for each channel c:
 
 \begin{equation}
 z^l(c) = \left \lfloor{ \frac{\max_{n} \tilde{x}^l(n,c)  - \min_{n} \tilde{x}^l(n,c) }{2} }\right \rfloor -   \left \lfloor{ \frac{\max_{n} \tilde{x}^l(n,c)  + \min_{n} \tilde{x}^l(n,c)}{ 2} }\right \rfloor
@@ -222,7 +222,7 @@ Segments corresponding to row flickering are labeled 1-6, whereas those correspo
 
 A trial, as defined by the BCI2000 platform~\citep{Schalk2004}, is every attempt to select just one letter from the speller.  A set of trials is used for calibration and once the calibration is complete it can be used to identify new letters from new trials.
 
-During the calibration phase, two descriptors $ \mathbf{d}^{(l,c)}$ are extracted for each available channel for the calibration trials, corresponding a previously known chosen letter.  These descriptors are the P300 templates, grouped together in a template set called $ T^c $.   The set is constructed using the steps described in Section \ref{Average} and the steps A, B and C of the P300 ERP extraction process.
+During the calibration phase, two descriptors $ \mathbf{d}^{(l,c)}$ are extracted for each available channel, corresponding to the locations $l$ of a selection of one previously instructed letter from the set of calibration trials.  These descriptors are the P300 templates, grouped together in a template set called $ T^c $.   The set is constructed using the steps described in Section \ref{Average} and the steps A, B and C of the P300 ERP extraction process.
 
 Additionally, the best performing channel, $bpc$ is identified based on the the channel where the best Character Recognition Rate is obtained.
 
@@ -277,7 +277,7 @@ Participants are recruited voluntarily and the experiment is conducted anonymous
 
 EEG data is collected in a single recording session. Participants are seated in a comfortable chair, with their vision aligned to a computer screen located one meter in front of them.  The handling and processing of the data and stimuli is conducted by the OpenVibe platform~\citep{Renard2010}. 
 
-Gel-based active electrodes (g.LADYbird, g.Tec, Austria) are used on the same locations Fz, Cz, Pz, Oz, P3,P4, PO7 and PO8.  Reference is set to the right ear lobe and ground is preset as the AFz position.   Sampling frequency is slightly different, and is set to 250 Hz, which is the closest possible to the one used with the other dataset.
+Gel-based active electrodes (g.LADYbird, g.Tec, Austria) are used on the same positions Fz, Cz, Pz, Oz, P3,P4, PO7 and PO8.  Reference is set to the right ear lobe and ground is preset as the AFz position.   Sampling frequency is slightly different, and is set to 250 Hz, which is the closest possible to the one used with the other dataset.
 
 %Fz, Cz, P3, Pz, P4, PO7, PO8 and Oz. 
 
@@ -302,7 +302,7 @@ s_y= \frac{\gamma \; \Delta \mu V}{12}
 \noindent where $ \lambda $ is the length in seconds covered by the patch, $ F_s $ is the sampling frequency of the EEG signal (downsampled to 16 Hz) and  $\Delta  \mu V $ corresponds to the amplitude in microvolts that can be covered by the height of the patch. The geometric structure of the patch forces a squared configuration, then we discerned that by using $ s =s_x =s_y = 3 $ and $ \gamma = 4 $,  the local patch and the descriptor can identify events of 9 $ \mu V $ of amplitude, with a span of $ \lambda = 0.56$ seconds.  This also determines that $ 1 $ pixel represents $ \frac{1}{\gamma}= \frac{1}{4} \mu V $ on the vertical direction and $\frac{1}{F_s \ \gamma}=\frac{1}{64}$ seconds on the horizontal direction. The keypoints  $\mathbf{p_k}$  are located at $ (x_{p_k}, y_{p_k} )= ( 0.55 F_s \ \gamma, z^l(c) )= (35,  z^l(c)) $ for the corresponding channel $c$ and location $l$ (see Eq.~\ref{eq:zerolevel}).   In this way the whole transient event is captured. 
 Figure~\ref{fig:patchgeometry} shows a patch of a signal plot covering the complete amplitude (vertical direction) and the complete span of the signal event (horizontal direction). 
 
-Lastly, the number of channels $C$ is equal to $8$ for both datasets, and the number of intensification sequences $k_a$ is statically assigned to $10$.  The parameter $k$ used to construct the set $N_T(\mathbf{d}^{(l,c)})$ is assigned to $k=7$, which was found empirically to achieve better results.  In addition, the norm used on  Equations \ref{eq:multiclassificationrow} and \ref{eq:multiclassificationcol} is the cosine norm, and descriptors are normalized to $ \left[ -1, 1 \right] $.
+Lastly, the number of channels $C$ is equal to $8$ for both datasets, and the number of intensification sequences $k_a$ is fixed to $10$.  The parameter $k$ used to construct the set $N_T(\mathbf{d}^{(l,c)})$ is assigned to $k=7$, which was found empirically to achieve better results.  In addition, the norm used on  Equations \ref{eq:multiclassificationrow} and \ref{eq:multiclassificationcol} is the cosine norm, and descriptors are normalized to $ \left[ -1, 1 \right] $.
 
 \section{Results} \label{Results}
 \label{section:results}
