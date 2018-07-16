@@ -317,7 +317,9 @@ In Table~\ref{tab:resultsown} results obtained for 8 healthy subjects are shown.
 
 %Rodrigo, acá pondría un punto y aparte. Aclararía que la intención de las tablas 2 y 4 son comparar los resultados de HIST con los resultados obtenidos por los autores que generaron loa datos de ALS pero como estos no informan el desempeño para clasificar las letras, entonces vos lo implementaste.No se si me saldrá bien en inglés pero lo que sigue lo pongo como idea:On the other hand, we shown Table 2 and 4 in order to compare the performance of our method against the method proposed by Riccio et al. Since the work of Riccio et al. does not measure the rate of well identification letter (they just report the rate of well classified P300 events) we completed the proccess  using SWLDA classificaion method (suggestied by  the article Riccio et al. 2013).
 
-In Tables~\ref{tab:resultsals} and~\ref{tab:resultsown} results for character recognition rates using single channel signals with the SVM~\citep{Scholkopf2001} classifier and using a feature based on Permutation Entropy and classified by SVM (PE+SVM) are also shown.  The PE algorithm, which is also devised on a time-domain description of the waveform, was implemented according to \cite{Unakafova2013} and its parameters were adjusted as stated by \cite{Zanin2012}, with an \textit{order} of $2$ and a \textit{sliding window} of size $10$.   The SVM classifier, on the other hand,  was configured to use a linear kernel.  
+In Tables~\ref{tab:resultsals} and~\ref{tab:resultsown} results for character recognition rates using single channel signals with the SVM~\citep{Scholkopf2001} classifier are also shown.    The SVM classifier, on the other hand,  was configured to use a linear kernel.  
+
+%The PE algorithm, which is also devised on a time-domain description of the waveform, was implemented according to \cite{Unakafova2013} and its parameters were adjusted as stated by \cite{Zanin2012}, with an \textit{order} of $2$ and a \textit{sliding window} of size $10$. 
 
 Moreover, Tables~\ref{tab:resultsalsswlda} and~\ref{tab:resultsownswlda} are presented in order to compare the performance of the Histogram of Gradient Orientations (HIST) method against a feature formed by concatenating all the channels~\citep{Krusienski2006} and the classification algorithm SWLDA, the methodology proposed by the ALS dataset's publisher. Since authors \cite{Riccio2013} did not report the  Character Recognition Rate obtained for this dataset, we replicate their procedure and include the performance obtained with the SWLDA algorithm at letter identification. The obtained performance is improved in 6 out 8 subjects for both datasets.
 
@@ -381,8 +383,8 @@ This work is part of the PhD thesis of RR which is directed by JS and codirected
 \section*{Funding}
 This project was supported by the ITBACyT-15 funding program issued by ITBA University from Buenos Aires, Argentina.
 
-\section*{Acknowledgments}
-We would like to thank to Dr. Valentina Unakafova for providing the Permutation Entropy algorithm.
+\%section*{Acknowledgments}
+%We would like to thank to Dr. Valentina Unakafova for providing the Permutation Entropy algorithm.
 
 \bibliographystyle{frontiersinSCNS_ENG_HUMS} % for Science, Engineering and Humanities and Social Sciences articles, for Humanities and Social Sciences articles please include page numbers in the in-text citations
 %\bibliographystyle{frontiersinHLTH&FPHY} % for Health, Physics and Mathematics articles
@@ -420,21 +422,21 @@ We would like to thank to Dr. Valentina Unakafova for providing the Permutation 
 %%% The use of LaTeX coding to draw Diagrams/Figures/Structures should be avoided. They should be external callouts including graphics.
 
 \begin{table}[htb]
-\caption{Character recognition rates while performing an offline BCI Simulation for the best performing channel for each subject of the public dataset of ALS patients using the Histogram of Gradients (HIST). The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}. Performance rates and the best performing channel with the SVM classifier and, using a feature obtained with Permutation Entropy (PE) and classified by SVM, are also shown for comparison.}
+\caption{Character recognition rates while performing an offline BCI Simulation for the best performing channel for each subject of the public dataset of ALS patients using the Histogram of Gradients (HIST). The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}. Performance rates and the best performing channel with the SVM classifier using only single channel to construct the feature.}
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
-\begin{tabular}{c|cc|cc|cc}
+\begin{tabular}{c|cc|cc}
 \toprule
-\textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  SVM &  \textbf{BPC}	 &  PE+SVM\\
+\textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  SVM \\
 \midrule
-1     &     Cz   &   $35\%$    &  Cz   & $15\%$ &  P3   & $5\%$ \\
-2     &     Fz   &   $85\%$      &  PO8   & $25\%$  &  PO8   & $15\%$\\
-3     &     Cz   &   $25\%$    &  Fz   & $5\%$  &  P3   & $5\%$\\
-4     &     PO8 &   $55\%$   &  Oz   & $5\%$  &  Oz   & $10\%$ \\
-5     &     PO7 &   $40\%$    &  P3   & $25\%$  &  PO8   & $15\%$\\
-6     &     PO7 &   $60\%$  &  PO8   & $20\%$  &   Fz   & $10\%$  \\
-7     &     PO8 &   $80\%$   &  Fz   & $30\%$   &  Fz   & $10\%$ \\
-8     &     PO7 &   $95\%$     &  PO7   & $85\%$ &  PO8   & $25\%$ \\
+1     &     Cz   &   $35\%$    &  Cz   & $15\%$   \\
+2     &     Fz   &   $85\%$      &  PO8   & $25\%$   \\
+3     &     Cz   &   $25\%$    &  Fz   & $5\%$   \\
+4     &     PO8 &   $55\%$   &  Oz   & $5\%$    \\
+5     &     PO7 &   $40\%$    &  P3   & $25\%$   \\
+6     &     PO7 &   $60\%$  &  PO8   & $20\%$    \\
+7     &     PO8 &   $80\%$   &  Fz   & $30\%$     \\
+8     &     PO7 &   $95\%$     &  PO7   & $85\%$ \\
 
 %\bottomrule
 \end{tabular}
@@ -443,23 +445,23 @@ We would like to thank to Dr. Valentina Unakafova for providing the Permutation 
 
 
 \begin{table}[htb]
-\caption{Character recognition rates for the public dataset of ALS patients using the Histogram of Gradient (HIST) and performance rates obtained by the SWLDA with a multichannel concatenated feature.}
+\caption{Character recognition rates for the public dataset of ALS patients using the Histogram of Gradient (HIST) and performance rates obtained by the SWLDA algorithm and the SVM algorithm, with a multichannel concatenated feature.}
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
-\begin{tabular}{c|cc|c}
+\begin{tabular}{c|cc|c|c}
 \toprule
 %\textbf{Participant}	&  \textbf{BPC}	& \multicolumn{2}{c}{Character Recognition Rates}\\
 %\cline{1-5} \\
-\textbf{Participant}	&  \textbf{BPC}	&  HIST & SWLDA  \\
+\textbf{Participant}	&  \textbf{BPC}	&  HIST & SWLDA & SVM \\
 \midrule
-1     &     Cz   &   $35\%$  & $45\%$  \\
-2     &     Fz   &   $85\%$  & $30\%$    \\
-3     &     Cz   &   $25\%$  & $65\%$  \\
-4     &     PO8 &   $55\%$ & $40\%$   \\
-5     &     PO7 &   $40\%$ & $35\%$   \\
-6     &     PO7 &   $60\%$ &  $35\%$   \\
-7     &     PO8 &   $80\%$ & $60\%$    \\
-8     &     PO7 &   $95\%$  & $90\%$   \\
+1     &     Cz   &   $35\%$  & $45\%$  & $40\%$\\
+2     &     Fz   &   $85\%$  & $30\%$   & $50\%$   \\
+3     &     Cz   &   $25\%$  & $65\%$ & $55\%$   \\
+4     &     PO8 &   $55\%$ & $40\%$  & $50\%$   \\
+5     &     PO7 &   $40\%$ & $35\%$  & $45\%$   \\
+6     &     PO7 &   $60\%$ &  $35\%$  & $70\%$   \\
+7     &     PO8 &   $80\%$ & $60\%$   & $35\%$   \\
+8     &     PO7 &   $95\%$  & $90\%$   & $95\%$  \\
 
 %\bottomrule
 \end{tabular}
@@ -471,18 +473,18 @@ We would like to thank to Dr. Valentina Unakafova for providing the Permutation 
 \caption{Percentage of correctly predicted letters while performing an offline BCI Simulation for the best performing channel for each subject of the own dataset. The spelled words are \textit{MANSO},\textit{CINCO},\textit{JUEGO} and \textit{QUESO}. Performance rates using single channel signals with the SVM classifier and using a feature obtained with Permutation Entropy (PE) and classified by SVM are also shown for comparison.}
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
-\begin{tabular}{c|cc|cc|cc}
+\begin{tabular}{c|cc|cc}
 \toprule
-\textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  SVM &  \textbf{BPC}	 &  PE+SVM\\
+\textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  SVM \\
 \midrule
-1     &     Oz   &   $40\%$  &  Cz   &  $10\%$ &  PO7   & $10\%$  \\
-2     &     PO7   &   $30\%$      &  Cz   & $5\%$ &  Fz   & $5\%$ \\
-3     &     P4   &   $40\%$    &  P3   & $10\%$  &  Fz   & $0\%$\\
-4     &     P4 &   $45\%$    &  P4   & $35\%$  &  Cz   & $10\%$\\
-5     &     P4 &   $60\%$  &  P3   & $10\%$  &  Fz   & $0\%$  \\
-6     &     Pz &   $50\%$ &  P4   & $25\%$  &   Cz   & $10\%$   \\
-7     &     PO7 &   $70\%$  &  P3   & $30\%$  &  P3   & $10\%$   \\
-8     &     P4 &   $50\%$    &  PO7   & $10\%$ &  Fz   & $5\%$  \\
+1     &     Oz   &   $40\%$  &  Cz   &  $10\%$    \\
+2     &     PO7   &   $30\%$      &  Cz   & $5\%$   \\
+3     &     P4   &   $40\%$    &  P3   & $10\%$    \\
+4     &     P4 &   $45\%$    &  P4   & $35\%$     \\
+5     &     P4 &   $60\%$  &  P3   & $10\%$     \\
+6     &     Pz &   $50\%$ &  P4   & $25\%$     \\
+7     &     PO7 &   $70\%$  &  P3   & $30\%$     \\
+8     &     P4 &   $50\%$    &  PO7   & $10\%$    \\
 
 %\bottomrule
 \end{tabular}
@@ -493,20 +495,20 @@ We would like to thank to Dr. Valentina Unakafova for providing the Permutation 
 \caption{Percentage of correctly predicted letters while performing an offline BCI Simulation for the best performing channel for each subject of the own dataset. Results obtained with the SWLDA algorithm with a multichannel concatenated feature are presented.}
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
-\begin{tabular}{c|cc|c}
+\begin{tabular}{c|cc|c|c}
 \toprule
 %\textbf{Participant}	&  \textbf{BPC}	& \multicolumn{2}{c}{Character Recognition Rates}\\
 %\cline{1-5} \\
-\textbf{Participant}	&  \textbf{BPC}	&  HIST & SWLDA  \\
+\textbf{Participant}	&  \textbf{BPC}	&  HIST & SWLDA & SVM  \\
 \midrule
-1     &     Oz   &     $40\%$  &     $65\%$ \\
-2     &     PO7   &     $30\%$ &   $15\%$ \\
-3     &     P4   &     $40\%$ &     $50\%$ \\
-4     &     P4   &     $45\%$ &     $40\%$ \\
-5     &     P4   &      $60\%$ &    $30\%$ \\
-6     &     Pz   &      $50\%$ &    $35\%$ \\
-7     &     PO7   &      $70\%$ &  $25\%$ \\
-8     &     P4   &      $50\%$ &    $35\%$ \\
+1     &     Oz   &     $40\%$  &     $65\%$  &     $40\%$ \\
+2     &     PO7   &     $30\%$ &   $15\%$  &     $10\%$ \\
+3     &     P4   &     $40\%$ &     $50\%$  &     $25\%$ \\
+4     &     P4   &     $45\%$ &     $40\%$  &     $20\%$ \\
+5     &     P4   &      $60\%$ &    $30\%$  &     $20\%$ \\
+6     &     Pz   &      $50\%$ &    $35\%$  &     $30\%$ \\
+7     &     PO7   &      $70\%$ &  $25\%$  &     $30\%$ \\
+8     &     P4   &      $50\%$ &    $35\%$  &     $20\%$ \\
 
 %\bottomrule
 \end{tabular}
