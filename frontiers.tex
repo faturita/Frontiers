@@ -313,11 +313,11 @@ The Information Transfer Rate (ITR), or Bit Transfer Rate (BTR), in the case of 
 
 In Table~\ref{tab:resultsown} results obtained for 8 healthy subjects are shown.  The obtained performance were slightly inferior than those obtained for ALS patients but well above chance level. 
 
+In Tables~\ref{tab:resultsals} and~\ref{tab:resultsown} results for character recognition rates using single channel signals with the SVM~\citep{Scholkopf2001}  are also shown.    This algorithm was configured to use a linear kernel.  
+
 %Additionally Tables ~\ref{tab:resultscompareowndataset} and ~\ref{tab:resultscompareowndataset} show the obtained performance for the algorithms Permutation Entropy PE and SVM support vector machine.  These algorithms also works on a channel by channel basis and particularly PE extracts information from the waveform.
 
 %Rodrigo, acá pondría un punto y aparte. Aclararía que la intención de las tablas 2 y 4 son comparar los resultados de HIST con los resultados obtenidos por los autores que generaron loa datos de ALS pero como estos no informan el desempeño para clasificar las letras, entonces vos lo implementaste.No se si me saldrá bien en inglés pero lo que sigue lo pongo como idea:On the other hand, we shown Table 2 and 4 in order to compare the performance of our method against the method proposed by Riccio et al. Since the work of Riccio et al. does not measure the rate of well identification letter (they just report the rate of well classified P300 events) we completed the proccess  using SWLDA classificaion method (suggestied by  the article Riccio et al. 2013).
-
-In Tables~\ref{tab:resultsals} and~\ref{tab:resultsown} results for character recognition rates using single channel signals with the SVM~\citep{Scholkopf2001} classifier are also shown.    The SVM classifier, on the other hand,  was configured to use a linear kernel.  
 
 %The PE algorithm, which is also devised on a time-domain description of the waveform, was implemented according to \cite{Unakafova2013} and its parameters were adjusted as stated by \cite{Zanin2012}, with an \textit{order} of $2$ and a \textit{sliding window} of size $10$. 
 
@@ -355,7 +355,7 @@ In this work, a method to detect transient P300 components from EEG signals base
 
 %The method works on a channel by channel basis; in this way the best performing channel can be identified and used it to reduce the number of required EEG electrodes, leading to the development of more ergonomic capturing device.
 
-It was verified that this method has an improved performance at letter identification than other methods that process the signals on a channel by channel strategy, and it even has a slightly improved performance compared to other methods like SWLDA, which uses a multichannel feature.
+It was verified that this method has an improved performance at letter identification than other methods that process the signals on a channel by channel strategy, and it even has a comparable performance compared to other methods like SWLDA or SVM, which uses a multichannel feature.
 Furthermore, this method has the advantage that shapes of waveforms can be analyzed in an objective way.  We observed that the shape of the P300 component is more stable in occipital channels, where the performance for identifying letters is higher.   We additionally verified that ALS P300 signatures are stable in comparison to those of healthy subjects.  
 
 %Further work should be conducted over larger samples to cross-check the validity of these results.
