@@ -59,7 +59,7 @@ Instituto Tecnológico de Buenos Aires, Buenos Aires, Argentina}
 
 %%% Leave the Abstract empty if your article does not require one, please see the Summary Table for full details.
 \section{}
-Word Count: 4961 \\
+Word Count: 4952 \\
 The analysis of Electroencephalographic (EEG) signals is of ulterior importance for decoding patterns that could improve the implementation of Brain Computer Interfaces (BCI). These systems are meant to provide alternative pathways to transmit volitional information which could potentially enhance the quality of life of patients affected by neurodegenerative disorders and other mental illness. Of particular interests are those which are based on the recognition of Event-Related Potentials (ERP) because they can be elicited by external stimuli and used to implement spellers, to control external devices or even avatars in virtual reality environments.  This work mimics what electroencephalographers have been doing clinically, visually inspecting and categorizing phenomena within the EEG by the extraction of features from images of signal plots.  It also aims to provide a framework to analyze, characterize and classify EEG signals, with a focus on the P300, an ERP elicited by the oddball paradigm of rare events.  The validity of the method is shown by offline processing a public dataset of Amyotrophic Lateral Sclerosis (ALS) patients and an own dataset of healthy subjects.
 
 \tiny
@@ -307,13 +307,13 @@ Lastly, the number of channels $C$ is equal to $8$ for both datasets, and the nu
 \section{Results} \label{Results}
 \label{section:results}
 
-Table~\ref{tab:resultsals} shows the results of applying the algorithm to the subjects of the public dataset of ALS patients. The percentage of correctly spelled letters is calculated while performing an offline BCI Simulation.  From the seven words for each subject, the first three are used as calibration, and the remaining four for testing.  The best performing channel  $bpc$ is informed as well. The target ratio is $1:36$; hence chance level is $2.8\%$. It can be observed that the best performance of the letter identification method is reached in a dissimilar channel depending on the subject been studied.  This table shows for comparison the obtained performance rates using single-channel signals with the SVM\citep{Scholkopf2001}  classifier.  This algorithm is configured to use a linear kernel.  The best performing channel where the best letter identification rate was obtained is also depicted.
+Table~\ref{tab:resultsals} shows the results of applying the proposed algorithm to the subjects of the public dataset of ALS patients. The percentage of correctly spelled letters is calculated while performing an offline BCI Simulation.  From the seven words for each subject, the first three are used for calibration, and the remaining four are used for testing.  The best performing channel  $bpc$ is informed as well. The target ratio is $1:36$; hence chance level is $2.8\%$. It can be observed that the best performance of the letter identification method is reached in a dissimilar channel depending on the subject being studied.  This table shows for comparison the obtained performance rates using single-channel signals with the SVM~\citep{Scholkopf2001} classifier.  This method is configured to use a linear kernel.  The best performing channel, where the best letter identification rate was achieved, is also depicted.
 
 %The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}.
 
 The Information Transfer Rate (ITR), or Bit Transfer Rate (BTR), in the case of reactive BCIs~\citep{WolpawJonathanR2012}  depends on the amount of signal averaging required to transmit a valid and robust selection.  Figure~\ref{fig:performance} shows the performance curves for varying intensification sequences for the subjects included in the dataset of ALS patients. It can be noticed that the percentage of correctly identified letters depends on the number of intensification sequences that are used to obtain the averaged signal.  Moreover, when the number of intensification sequences tend to 1, which corresponds to single-intensification character recognition, the performance is reduced. As mentioned before, the SNR of the P300 obtained from only one segment of the intensification sequence is very low and the shape of its P300 component is not very well defined.
 
-In Table~\ref{tab:resultsown} results obtained for 8 healthy subjects are shown.  The obtained performance were slightly inferior than those obtained for ALS patients but well above chance level. 
+In Table~\ref{tab:resultsown} the results obtained for 8 healthy subjects are shown.  It can be observed that the performance is above chance level and higher than those achieved by the other method.
 
 %In Tables~\ref{tab:resultsals} and~\ref{tab:resultsown} results for character recognition rates using single channel signals with the SVM~\citep{Scholkopf2001}  classification algorithm are also shown.    This algorithm was configured to use a linear kernel.  The best performing channel where the best letter identification rate was obtained is also depicted.
 
@@ -364,7 +364,7 @@ We believe that the use of descriptors based on histogram of gradient orientatio
 
 The goal of this work is to answer the question if a P300 component could be solely determined by inspecting automatically their waveforms.  We conclude affirmatively, though two very important issues still remain:
 
-First, the stability of the P300 in terms of its shape is crucial: the averaging procedure, montages, the signal to noise ratio and spatial filters all of them are non-physiological factors that affect the stability of the shape of the P300 ERP.  We tested a preliminary approach to assess if the morphological shape of the P300 of the averaged signal can be stabilized by applying different alignments of the stacked segments (see Figure~\ref{fig:classification}) and we verified that there is a better performance when a correct segment alignment is applied.  We also applied Dynamic Time Warping (DTW)~\citep{Casarotto2005} to automate the alignment procedure but we were unable to find a substantial improvement.  Further work to study the stability of the P300 signature component needs to be addressed.
+First, the stability of the P300 in terms of its shape is crucial: the averaging procedure, montages, the signal to noise ratio and spatial filters all of them are non-physiological factors that affect the stability of the shape of the P300 ERP.  We tested a preliminary approach to assess if the morphological shape of the P300 of the averaged signal can be stabilized by applying different alignments of the stacked segments (see Figure~\ref{fig:classification}) and we verified that there is a better performance when a correct segment alignment is applied.  We applied Dynamic Time Warping (DTW)~\citep{Casarotto2005} to automate the alignment procedure but we were unable to find a substantial improvement.  Further work to study the stability of the P300 signature component needs to be addressed.
 
 The second problem is the amplitude variation of the P300. We propose a solution by standardizing the signal, shown in Equation~\ref{eq:standarizedaverages}. It has the effect of normalizing the peak-to-peak amplitude, moderating its variation. It has also the advantage of reducing noise that was not reduced by the averaging procedure.   It is important to remark that the averaged signal variance depends on the number of segments used to compute it \citep{van2006signal}.  The standardizing process converts the signal to unit signal variance which makes it independent of the number $k_a$ of signals averaged.   Although this is initially an advantageous approach, the standardizing process reduces the amplitude of any significant P300 complex diminishing its automatic interpretation capability.
 
@@ -427,7 +427,7 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
 \begin{tabular}{c|cc|cc}
 \toprule
-\textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  Single Channel SVM \\
+\textbf{Participant}	&  $bpc$ 	&  HIST &  $bpc$	&  Single Channel SVM \\
 \midrule
 1     &     Cz   &   $35\%$    &  Cz   & $15\%$   \\
 2     &     Fz   &   $85\%$      &  PO8   & $25\%$   \\
@@ -451,7 +451,7 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
 \begin{tabular}{c|cc|cc}
 \toprule
-\textbf{Participant}	&  \textbf{BPC}	&  HIST &  \textbf{BPC}	&  Single Channel SVM \\
+\textbf{Participant}	&  $bpc$	&  HIST &  $bpc$	&  Single Channel SVM \\
 \midrule
 1     &     Oz   &   $40\%$  &  Cz   &  $10\%$    \\
 2     &     PO7   &   $30\%$      &  Cz   & $5\%$   \\
@@ -475,7 +475,7 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 \toprule
 %\textbf{Participant}	&  \textbf{BPC}	& \multicolumn{2}{c}{Character Recognition Rates}\\
 %\cline{1-5} \\
-\textbf{Participant}	&  \textbf{BPC}	&  HIST & Multichannel SWLDA & Multichannel SVM \\
+\textbf{Participant}	&  $bpc$	&  HIST & Multichannel SWLDA & Multichannel SVM \\
                                     &  for HIST        &           &                                       &   \\
 \midrule
 1     &     Cz   &   $35\%$  & $45\%$  & $40\%$\\
@@ -500,7 +500,7 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 \toprule
 %\textbf{Participant}	&  \textbf{BPC}	& \multicolumn{2}{c}{Character Recognition Rates}\\
 %\cline{1-5} \\
-\textbf{Participant}	&  \textbf{BPC} 	&  HIST & Multichannel SWLDA & Multichannel SVM  \\
+\textbf{Participant}	&  $bpc$ 	&  HIST & Multichannel SWLDA & Multichannel SVM  \\
                                     &  for HIST        &           &                                       &   \\
 \midrule
 1     &     Oz   &     $40\%$  &     $65\%$  &     $40\%$ \\

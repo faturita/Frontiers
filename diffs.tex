@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL frontiers.old.tex   Fri Jul  6 16:44:29 2018
-%DIF ADD frontiers.tex       Thu Jul 12 15:40:04 2018
+%DIF ADD frontiers.tex       Wed Jul 18 13:23:20 2018
 % This is just an example/guide for you to refer to when submitting manuscripts to Frontiers, it is not mandatory to use Frontiers .cls files nor frontiers.tex  %
 % This will only generate the Manuscript, the final article will be typeset by Frontiers after acceptance.   
 %                                              %
@@ -90,7 +90,7 @@ Instituto Tecnológico de Buenos Aires, Buenos Aires, Argentina}
 
 %%% Leave the Abstract empty if your article does not require one, please see the Summary Table for full details.
 \section{}
-Word Count: \DIFdelbegin \DIFdel{4841 }\DIFdelend \DIFaddbegin \DIFadd{4961 }\DIFaddend \\
+Word Count: \DIFdelbegin \DIFdel{4841 }\DIFdelend \DIFaddbegin \DIFadd{4952 }\DIFaddend \\
 The analysis of Electroencephalographic (EEG) signals is of ulterior importance for decoding patterns that could improve the implementation of Brain Computer Interfaces (BCI). These systems are meant to provide alternative pathways to transmit volitional information which could potentially enhance the quality of life of patients affected by neurodegenerative disorders and other mental illness. Of particular interests are those which are based on the recognition of Event-Related Potentials (ERP) because they can be elicited by external stimuli and used to implement spellers, to control external devices or even avatars in virtual reality environments.  This work mimics what electroencephalographers have been doing clinically, visually inspecting and categorizing phenomena within the EEG by the extraction of features from images of signal plots.  It also aims to provide a framework to analyze, characterize and classify EEG signals, with a focus on the P300, an ERP elicited by the oddball paradigm of rare events.  The validity of the method is shown by offline processing a public dataset of Amyotrophic Lateral Sclerosis (ALS) patients and an own dataset of healthy subjects.
 
 \tiny
@@ -397,7 +397,7 @@ s_y= \DIFdelbegin \DIFdel{\frac{\Delta \mu V}{12} \cdot \gamma
 }\DIFaddend \label{eq:mapping1}
 \end{equation}
 
-\noindent where $ \lambda $ is the length in seconds covered by the patch, \DIFdelbegin \DIFdel{$ Fs $ }\DIFdelend \DIFaddbegin \DIFadd{$ F_s $ }\DIFaddend is the sampling frequency of the EEG signal (downsampled to 16 Hz) and  $\Delta  \mu V $ corresponds to the amplitude in microvolts that can be covered by the height of the patch. The geometric structure of the patch forces a squared configuration, then we discerned that by using $ s =s_x =s_y = 3 $ and $ \gamma = 4 $,  the local patch and the descriptor can identify events of 9 $ \mu V $ of amplitude, with a span of $ \lambda = 0.56$ seconds.  This also determines that $ 1 $ pixel represents $ \frac{1}{\gamma}= \frac{1}{4} \mu V $ on the vertical direction and \DIFdelbegin \DIFdel{$\frac{1}{F_s.\gamma}=\frac{1}{64}$ }\DIFdelend \DIFaddbegin \DIFadd{$\frac{1}{F_s \ \gamma}=\frac{1}{64}$ }\DIFaddend seconds on the horizontal direction. \DIFdelbegin \DIFdel{Descriptors  $\mathbf{kp}$  }\DIFdelend \DIFaddbegin \DIFadd{The keypoints  $\mathbf{p_k}$  }\DIFaddend are located at \DIFdelbegin \DIFdel{$ (x_{kp}, y_{kp} )= ( 0.55 Fs.\gamma, z(c) )= (35,  z(c)) $ }\DIFdelend \DIFaddbegin \DIFadd{$ (x_{p_k}, y_{p_k} )= ( 0.55 F_s \ \gamma, z^l(c) )= (35,  z^l(c)) $ }\DIFaddend for the corresponding channel $c$ \DIFaddbegin \DIFadd{and location $l$ }\DIFaddend (see Eq.~\ref{eq:zerolevel}).   In this way the whole transient event is captured. 
+\noindent where $ \lambda $ is the length in seconds covered by the patch, \DIFdelbegin \DIFdel{$ Fs $ }\DIFdelend \DIFaddbegin \DIFadd{$ F_s $ }\DIFaddend is the sampling frequency of the EEG signal (downsampled to 16 Hz) and  $\Delta  \mu V $ corresponds to the amplitude in microvolts that can be covered by the height of the patch. The geometric structure of the patch forces a squared configuration, then we discerned that by using $ s =s_x =s_y = 3 $ and $ \gamma = 4 $,  the local patch and the descriptor can identify events of 9 $ \mu V $ of amplitude, with a span of $ \lambda = 0.56$ seconds.  This also determines that $ 1 $ pixel represents $ \frac{1}{\gamma}= \frac{1}{4} \mu V $ on the vertical direction and \DIFdelbegin \DIFdel{$\frac{1}{F_s.\gamma}=\frac{1}{64}$ }\DIFdelend \DIFaddbegin \DIFadd{$\frac{1}{F_s \ \gamma}=\frac{1}{64}$ }\DIFaddend seconds on the horizontal direction. \DIFdelbegin \DIFdel{Descriptors  $\mathbf{kp}$  }\DIFdelend \DIFaddbegin \DIFadd{The keypoints  $\mathbf{p_k}$  }\DIFaddend are located at \DIFdelbegin \DIFdel{$ (x_{kp}, y_{kp} )= ( 0.55 Fs.\gamma, z(c) )= (35,  z(c)) $ }\DIFdelend \DIFaddbegin \DIFadd{$ (x_{p_k}, y_{p_k} )= ( 0.55 F_s \ \gamma, z^l(c) )= (35,  z^l(c)) $ }\DIFaddend for the corresponding channel $c$ \DIFdelbegin \DIFdel{(see Eq.}\DIFdelend \DIFaddbegin \DIFadd{and location $l$ (see Equation}\DIFaddend ~\ref{eq:zerolevel}).   In this way the whole transient event is captured. 
 Figure~\ref{fig:patchgeometry} shows a patch of a signal plot covering the complete amplitude (vertical direction) and the complete span of the signal event (horizontal direction). 
 
 Lastly, the number of channels \DIFdelbegin \DIFdel{$Ch$ }\DIFdelend \DIFaddbegin \DIFadd{$C$ }\DIFaddend is equal to $8$ for both datasets, and the number of intensification sequences $k_a$ is \DIFdelbegin \DIFdel{statically assigned }\DIFdelend \DIFaddbegin \DIFadd{fixed }\DIFaddend to $10$.  The parameter $k$ used to construct the set \DIFdelbegin \DIFdel{$NN_T(d^l_u), \;l\in\{row,{col}\}$ }\DIFdelend \DIFaddbegin \DIFadd{$N_T(\mathbf{d}^{(l,c)})$ }\DIFaddend is assigned to $k=7$, which was found empirically to achieve better results.  In addition, the norm used on  Equations \ref{eq:multiclassificationrow} and \ref{eq:multiclassificationcol} is the cosine norm, and descriptors are normalized to $ \left[ -1, 1 \right] $.
@@ -405,31 +405,29 @@ Lastly, the number of channels \DIFdelbegin \DIFdel{$Ch$ }\DIFdelend \DIFaddbegi
 \section{Results} \label{Results}
 \label{section:results}
 
-Table~\DIFdelbegin \DIFdel{\ref{tab:results} }\DIFdelend \DIFaddbegin \DIFadd{\ref{tab:resultsals} }\DIFaddend shows the results of applying the algorithm to the subjects of the public dataset of ALS patients. The percentage of correctly spelled letters is calculated while performing an offline BCI Simulation.  From the seven words for each subject, the first three are used as \DIFdelbegin \DIFdel{training}\DIFdelend \DIFaddbegin \DIFadd{calibration}\DIFaddend , and the remaining four for testing.  The best performing channel  \DIFaddbegin \DIFadd{$bpc$ }\DIFaddend is informed as well. The target ratio is $1:36$; hence chance level is $2.8\%$. It can be observed that the best performance of the letter identification method is reached in \DIFdelbegin \DIFdel{various channels }\DIFdelend \DIFaddbegin \DIFadd{a dissimilar channel }\DIFaddend depending on the subject been studied. 
+Table~\DIFdelbegin \DIFdel{\ref{tab:results} }\DIFdelend \DIFaddbegin \DIFadd{\ref{tab:resultsals} }\DIFaddend shows the results of applying the \DIFaddbegin \DIFadd{proposed }\DIFaddend algorithm to the subjects of the public dataset of ALS patients. The percentage of correctly spelled letters is calculated while performing an offline BCI Simulation.  From the seven words for each subject, the first three are used \DIFdelbegin \DIFdel{as training}\DIFdelend \DIFaddbegin \DIFadd{for calibration}\DIFaddend , and the remaining four \DIFaddbegin \DIFadd{are used }\DIFaddend for testing.  The best performing channel  \DIFaddbegin \DIFadd{$bpc$ }\DIFaddend is informed as well. The target ratio is $1:36$; hence chance level is $2.8\%$. It can be observed that the best performance of the letter identification method is reached in \DIFdelbegin \DIFdel{various channels }\DIFdelend \DIFaddbegin \DIFadd{a dissimilar channel }\DIFaddend depending on the subject \DIFdelbegin \DIFdel{been studied.  }\DIFdelend \DIFaddbegin \DIFadd{being studied.  This table shows for comparison the obtained performance rates using single-channel signals with the SVM~\mbox{%DIFAUXCMD
+\citep{Scholkopf2001} }%DIFAUXCMD
+classifier.  This method is configured to use a linear kernel.  The best performing channel, where the best letter identification rate was achieved, is also depicted.
+}\DIFaddend 
 
-The Information Transfer Rate (ITR), or Bit Transfer Rate (BTR), in the case of reactive BCIs~\citep{WolpawJonathanR2012}  depends on the amount of signal averaging required to transmit a valid and robust selection.  \DIFdelbegin \DIFdel{Fig.}\DIFdelend \DIFaddbegin \DIFadd{Figure}\DIFaddend ~\ref{fig:performance} shows the performance curves for varying intensification sequences \DIFaddbegin \DIFadd{for the subjects included in the dataset of ALS patients}\DIFaddend . It can be noticed that the percentage of correctly identified letters depends on the number of intensification sequences \DIFdelbegin \DIFdel{$k_a$ }\DIFdelend that are used to obtain the averaged signal.  Moreover, when the number of intensification sequences tend to 1, which corresponds to \DIFdelbegin \DIFdel{single-trial letter identification}\DIFdelend \DIFaddbegin \DIFadd{single-intensification character recognition}\DIFaddend , the performance is reduced. As mentioned before, the SNR of the \DIFdelbegin \DIFdel{single-trial }\DIFdelend P300 \DIFaddbegin \DIFadd{obtained from only one segment of the intensification sequence }\DIFaddend is very low and the shape of its P300 component is not very well defined.
-
-In Table~\DIFdelbegin \DIFdel{\ref{tab:resultsowndataset} }\DIFdelend \DIFaddbegin \DIFadd{\ref{tab:resultsown} }\DIFaddend results obtained for 8 healthy subjects are shown.  The obtained performance were slightly inferior than those obtained for ALS patients but well above chance level. 
-
-%DIF > Additionally Tables ~\ref{tab:resultscompareowndataset} and ~\ref{tab:resultscompareowndataset} show the obtained performance for the algorithms Permutation Entropy PE and SVM support vector machine.  These algorithms also works on a channel by channel basis and particularly PE extracts information from the waveform.
+%DIF > The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}.
 \DIFaddbegin 
 
-%DIF > Rodrigo, acá pondría un punto y aparte. Aclararía que la intención de las tablas 2 y 4 son comparar los resultados de HIST con los resultados obtenidos por los autores que generaron loa datos de ALS pero como estos no informan el desempeño para clasificar las letras, entonces vos lo implementaste.No se si me saldrá bien en inglés pero lo que sigue lo pongo como idea:On the other hand, we shown Table 2 and 4 in order to compare the performance of our method against the method proposed by Riccio et al. Since the work of Riccio et al. does not measure the rate of well identification letter (they just report the rate of well classified P300 events) we completed the proccess  using SWLDA classificaion method (suggestied by  the article Riccio et al. 2013).
+\DIFaddend The Information Transfer Rate (ITR), or Bit Transfer Rate (BTR), in the case of reactive BCIs~\citep{WolpawJonathanR2012}  depends on the amount of signal averaging required to transmit a valid and robust selection.  \DIFdelbegin \DIFdel{Fig.}\DIFdelend \DIFaddbegin \DIFadd{Figure}\DIFaddend ~\ref{fig:performance} shows the performance curves for varying intensification sequences \DIFaddbegin \DIFadd{for the subjects included in the dataset of ALS patients}\DIFaddend . It can be noticed that the percentage of correctly identified letters depends on the number of intensification sequences \DIFdelbegin \DIFdel{$k_a$ }\DIFdelend that are used to obtain the averaged signal.  Moreover, when the number of intensification sequences tend to 1, which corresponds to \DIFdelbegin \DIFdel{single-trial letter identification}\DIFdelend \DIFaddbegin \DIFadd{single-intensification character recognition}\DIFaddend , the performance is reduced. As mentioned before, the SNR of the \DIFdelbegin \DIFdel{single-trial }\DIFdelend P300 \DIFaddbegin \DIFadd{obtained from only one segment of the intensification sequence }\DIFaddend is very low and the shape of its P300 component is not very well defined.
 
-\DIFadd{In Tables~\ref{tab:resultsals} and~\ref{tab:resultsown} results for character recognition rates using single channel signals with the SVM~\mbox{%DIFAUXCMD
-\citep{Scholkopf2001} }%DIFAUXCMD
-classifier and using a feature based on Permutation Entropy and classified by SVM (PE+SVM) are also shown.  The PE algorithm, which is also devised on a time-domain description of the waveform, was implemented according to \mbox{%DIFAUXCMD
-\cite{Unakafova2013} }%DIFAUXCMD
-and its parameters were adjusted as stated by \mbox{%DIFAUXCMD
-\cite{Zanin2012}}%DIFAUXCMD
-, with an }\textit{\DIFadd{order}} \DIFadd{of $2$ and a }\textit{\DIFadd{sliding window}} \DIFadd{of size $10$.   The SVM classifier, on the other hand,  was configured to use a linear kernel.  
-}
+In Table~\DIFdelbegin \DIFdel{\ref{tab:resultsowndataset} }\DIFdelend \DIFaddbegin \DIFadd{\ref{tab:resultsown} the }\DIFaddend results obtained for 8 healthy subjects are shown.  \DIFdelbegin \DIFdel{The obtained performance were slightly inferior than those obtained for ALS patients but well above chance level. }\DIFdelend \DIFaddbegin \DIFadd{It can be observed that the performance is above chance level and higher than those achieved by the other method.
+}\DIFaddend 
 
-\DIFadd{Moreover, Tables~\ref{tab:resultsalsswlda} and~\ref{tab:resultsownswlda} are presented in order to compare the performance of the Histogram of Gradient Orientations (HIST) method against a feature formed by concatenating all the channels~\mbox{%DIFAUXCMD
-\citep{Krusienski2006} }%DIFAUXCMD
-and the classification algorithm SWLDA, the methodology proposed by the ALS dataset's publisher. Since authors \mbox{%DIFAUXCMD
+%DIF > In Tables~\ref{tab:resultsals} and~\ref{tab:resultsown} results for character recognition rates using single channel signals with the SVM~\citep{Scholkopf2001}  classification algorithm are also shown.    This algorithm was configured to use a linear kernel.  The best performing channel where the best letter identification rate was obtained is also depicted.
+\DIFaddbegin 
+
+%DIF > The PE algorithm, which is also devised on a time-domain description of the waveform, was implemented according to \cite{Unakafova2013} and its parameters were adjusted as stated by \cite{Zanin2012}, with an \textit{order} of $2$ and a \textit{sliding window} of size $10$. 
+
+\DIFadd{Tables~\ref{tab:resultsalsswlda} and~\ref{tab:resultsownswlda} are presented in order to compare the performance of the Histogram of Gradient Orientations (HIST) method versus a multichannel version of the SWLDA and SVM classification algorithms for both datasets.  The feature was formed by concatenating all the channels~\mbox{%DIFAUXCMD
+\citep{Krusienski2006}}%DIFAUXCMD
+.  SWLDA is the methodology proposed by the ALS dataset's publisher. Since authors \mbox{%DIFAUXCMD
 \cite{Riccio2013} }%DIFAUXCMD
-did not report the  Character Recognition Rate obtained for this dataset, we replicate their procedure and include the performance obtained with the SWLDA algorithm at letter identification. The obtained performance is improved in 6 out 8 subjects for both datasets.
+did not report the Character Recognition Rate obtained for this dataset, we replicate their procedure and include the performance obtained with the SWLDA algorithm at letter identification.  It was verified that HIST method has an improved performance at letter identification than other methods that process the signals on a channel by channel strategy, and it even has a comparable performance against other methods like SWLDA or SVM, which uses a multichannel feature.
 }
 
 \DIFaddend %\subsection{Occipital Channels}
@@ -464,8 +462,8 @@ In this work, a method to detect transient P300 components from EEG signals base
 
 %The method works on a channel by channel basis; in this way the best performing channel can be identified and used it to reduce the number of required EEG electrodes, leading to the development of more ergonomic capturing device.
 
-\DIFdelbegin \DIFdel{This method has the }\DIFdelend \DIFaddbegin \DIFadd{It was verified that this method has an improved performance at letter identification than other methods that process the signals on a channel by channel strategy, and it even has a slightly improved performance compared to other methods like SWLDA, which uses a multichannel feature.
-Furthermore, this method has the }\DIFaddend advantage that shapes of waveforms can be analyzed in an objective way.  We observed that the shape of the P300 component is more stable in occipital channels, where the performance for identifying letters is higher.   We additionally verified that ALS P300 signatures are stable in comparison to those of healthy subjects.  
+\DIFdelbegin \DIFdel{This method has the }\DIFdelend \DIFaddbegin \DIFadd{It was verified that this method has an improved performance at letter identification than other methods that process the signals on a channel by channel strategy, and it even has a comparable performance against other methods like SWLDA or SVM, which uses a multichannel feature.
+Furthermore, this method has the }\DIFaddend advantage that shapes of waveforms can be analyzed in an objective way.  We observed that the shape of the P300 component is more stable in occipital channels, where the performance for identifying letters is higher.   We additionally verified that ALS P300 signatures are stable in comparison to those of healthy subjects.
 \DIFdelbegin \DIFdel{Further work should be conducted over larger samples to cross-check the validity of these results.
 }\DIFdelend 
 
@@ -479,9 +477,9 @@ Furthermore, this method has the }\DIFaddend advantage that shapes of waveforms 
 
 \DIFaddend The goal of this work is to answer the question if a P300 component could be solely determined by inspecting automatically their waveforms.  We conclude affirmatively, though two very important issues still remain:
 
-First, the stability of the P300 in terms of its shape is crucial: the averaging procedure, montages, the signal to noise ratio and spatial filters all of them are non-physiological factors that affect the stability of the shape of the P300 ERP.  We tested a preliminary approach to assess if the morphological shape of the P300 \DIFaddbegin \DIFadd{of the averaged signal }\DIFaddend can be stabilized by applying different \DIFdelbegin \DIFdel{latency shifts to segments }\DIFdelend \DIFaddbegin \DIFadd{alignments of the stacked segments (see Figure~\ref{fig:classification}) }\DIFaddend and we verified that there is a better performance when a correct \DIFdelbegin \DIFdel{single-trial }\DIFdelend \DIFaddbegin \DIFadd{segment }\DIFaddend alignment is applied.  We also applied Dynamic Time Warping (DTW)~\citep{Casarotto2005} \DIFaddbegin \DIFadd{to automate the alignment procedure }\DIFaddend but we were unable to find a substantial improvement.  Further work to study the stability of the P300 signature component needs to be addressed.
+First, the stability of the P300 in terms of its shape is crucial: the averaging procedure, montages, the signal to noise ratio and spatial filters all of them are non-physiological factors that affect the stability of the shape of the P300 ERP.  We tested a preliminary approach to assess if the morphological shape of the P300 \DIFaddbegin \DIFadd{of the averaged signal }\DIFaddend can be stabilized by applying different \DIFdelbegin \DIFdel{latency shifts to segments }\DIFdelend \DIFaddbegin \DIFadd{alignments of the stacked segments (see Figure~\ref{fig:classification}) }\DIFaddend and we verified that there is a better performance when a correct \DIFdelbegin \DIFdel{single-trial }\DIFdelend \DIFaddbegin \DIFadd{segment }\DIFaddend alignment is applied.  We \DIFdelbegin \DIFdel{also }\DIFdelend applied Dynamic Time Warping (DTW)~\citep{Casarotto2005} \DIFaddbegin \DIFadd{to automate the alignment procedure }\DIFaddend but we were unable to find a substantial improvement.  Further work to study the stability of the P300 signature component needs to be addressed.
 
-The second problem is the amplitude variation of the P300. We propose a solution by standardizing the signal, shown in Eq.~\ref{eq:standarizedaverages}. It has the effect of normalizing the peak-to-peak amplitude, moderating its variation. It has also the advantage of reducing noise that was not reduced by the averaging procedure.   It is important to remark that the averaged signal variance depends on the number of \DIFdelbegin \DIFdel{single-trials }\DIFdelend segments used to compute it \citep{van2006signal}.  The standardizing process converts the signal to unit signal variance which makes it independent of the number $k_a$ of signals averaged.   Although this is initially an advantageous approach, the standardizing process reduces the amplitude of any significant P300 complex diminishing its automatic interpretation capability.
+The second problem is the amplitude variation of the P300. We propose a solution by standardizing the signal, shown in \DIFdelbegin \DIFdel{Eq.}\DIFdelend \DIFaddbegin \DIFadd{Equation}\DIFaddend ~\ref{eq:standarizedaverages}. It has the effect of normalizing the peak-to-peak amplitude, moderating its variation. It has also the advantage of reducing noise that was not reduced by the averaging procedure.   It is important to remark that the averaged signal variance depends on the number of \DIFdelbegin \DIFdel{single-trials }\DIFdelend segments used to compute it \citep{van2006signal}.  The standardizing process converts the signal to unit signal variance which makes it independent of the number $k_a$ of signals averaged.   Although this is initially an advantageous approach, the standardizing process reduces the amplitude of any significant P300 complex diminishing its automatic interpretation capability.
 
 In our opinion, the best benefit of the presented method is that a closer collaboration with physicians can be fostered, since this procedure intent to imitate human visual observation.  Automatic classification of patterns in EEG that are specifically identified by their shapes like K-Complex, Vertex Waves, Positive Occipital Sharp Transient~\citep{Hartman2005} are a prospect future work to be considered. We are currently working in unpublished material analyzing \DIFdelbegin \DIFdel{KComplex }\DIFdelend \DIFaddbegin \DIFadd{K-Complex components }\DIFaddend that could eventually provide  assistance to physicians to locate these EEG patterns, specially in long recording periods, frequent in sleep research.  
 Additionally, it can be used for artifact removal which is performed on many occasions by visually inspecting signals.  This is due to the fact that the descriptors are a direct representation of the shape of signal waveforms. In line with these applications,  it can be used to build a database~\citep{Chavarriaga2017} of quantitative representations of waveforms and improve atlases~\citep{Hartman2005}, which are currently based on qualitative descriptions of signal shapes.
@@ -496,9 +494,9 @@ This work is part of the PhD thesis of RR which is directed by JS and codirected
 \section*{Funding}
 This project was supported by the ITBACyT-15 funding program issued by ITBA University from Buenos Aires, Argentina.
 
-\DIFaddbegin \section*{\DIFadd{Acknowledgments}}
-\DIFadd{We would like to thank to Dr. Valentina Unakafova for providing the Permutation Entropy algorithm.
-}
+%DIF > section*{Acknowledgments}
+%DIF > We would like to thank to Dr. Valentina Unakafova for providing the Permutation Entropy algorithm.
+\DIFaddbegin 
 
 \DIFaddend \bibliographystyle{frontiersinSCNS_ENG_HUMS} % for Science, Engineering and Humanities and Social Sciences articles, for Humanities and Social Sciences articles please include page numbers in the in-text citations
 %\bibliographystyle{frontiersinHLTH&FPHY} % for Health, Physics and Mathematics articles
@@ -535,24 +533,33 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 %%% Frontiers will add the figures at the end of the provisional pdf automatically
 %%% The use of LaTeX coding to draw Diagrams/Figures/Structures should be avoided. They should be external callouts including graphics.
 
-\begin{table}[htb]
-\caption{\DIFdelbeginFL \DIFdelFL{Percentage of correctly predicted letters }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Character recognition rates }\DIFaddendFL while performing an offline BCI Simulation for the best performing channel for each subject of the public dataset of ALS patients \DIFaddbeginFL \DIFaddFL{using the Histogram of Gradients (HIST)}\DIFaddendFL . The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}. \DIFaddbeginFL \DIFaddFL{Performance rates and the best performing channel with the SVM classifier and, using a feature obtained with Permutation Entropy (PE) and classified by SVM, are also shown for comparison.}\DIFaddendFL }
+%DIF > The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}.
+\DIFaddbegin 
+
+\DIFaddend \begin{table}[htb]
+\caption{\DIFdelbeginFL \DIFdelFL{Percentage of correctly predicted letters while performing an offline BCI Simulation }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Character recognition rates }\DIFaddendFL for the \DIFdelbeginFL \DIFdelFL{best performing channel for each subject of the }\DIFdelendFL public dataset of ALS patients \DIFaddbeginFL \DIFaddFL{using the Histogram of Gradient (HIST) calculated from  single-channel plots}\DIFaddendFL .  \DIFdelbeginFL \DIFdelFL{The spelled words }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Performance rates using single-channel signals with the SVM classifier }\DIFaddendFL are \DIFdelbeginFL \textit{\DIFdelFL{GATTO}}%DIFAUXCMD
+\DIFdelFL{, }\textit{\DIFdelFL{MENTE}}%DIFAUXCMD
+\DIFdelFL{, }\textit{\DIFdelFL{VIOLA}} %DIFAUXCMD
+\DIFdelFL{and }\textit{\DIFdelFL{REBUS}}%DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{shown for comparison}\DIFaddendFL .  \DIFaddbeginFL \DIFaddFL{The best performing channel $bpc$ for each method is visualized}\DIFaddendFL }
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
 \DIFdelbeginFL %DIFDELCMD < \begin{tabular}{ccc}
 %DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \begin{tabular}{c|cc|cc|cc}
+\DIFdelendFL \DIFaddbeginFL \begin{tabular}{c|cc|cc}
 \DIFaddendFL \toprule
-\textbf{Participant}	&  \textbf{BPC}	&  \DIFaddbeginFL \DIFaddFL{HIST }&  \DIFaddendFL \textbf{\DIFdelbeginFL \DIFdelFL{Performance}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{BPC}\DIFaddendFL }	\DIFaddbeginFL &  \DIFaddFL{SVM }&  \textbf{\DIFaddFL{BPC}}	 &  \DIFaddFL{PE+SVM}\DIFaddendFL \\
+\textbf{Participant}	&  \DIFdelbeginFL \textbf{\DIFdelFL{BPC}}	%DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{$bpc$ 	}\DIFaddendFL &  \DIFdelbeginFL \textbf{\DIFdelFL{Performance}}%DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{HIST }&  \DIFaddFL{$bpc$	}&  \DIFaddFL{Single Channel SVM }\DIFaddendFL \\
 \midrule
-1     &     Cz   &   $35\%$    \DIFaddbeginFL &  \DIFaddFL{Cz   }& \DIFaddFL{$15\%$ }&  \DIFaddFL{P3   }& \DIFaddFL{$5\%$ }\DIFaddendFL \\
-2     &     Fz   &   $85\%$      \DIFaddbeginFL &  \DIFaddFL{PO8   }& \DIFaddFL{$25\%$  }&  \DIFaddFL{PO8   }& \DIFaddFL{$15\%$}\DIFaddendFL \\
-3     &     Cz   &   $25\%$    \DIFaddbeginFL &  \DIFaddFL{Fz   }& \DIFaddFL{$5\%$  }&  \DIFaddFL{P3   }& \DIFaddFL{$5\%$}\DIFaddendFL \\
-4     &     PO8 &   $55\%$   \DIFaddbeginFL &  \DIFaddFL{Oz   }& \DIFaddFL{$5\%$  }&  \DIFaddFL{Oz   }& \DIFaddFL{$10\%$ }\DIFaddendFL \\
-5     &     PO7 &   $40\%$    \DIFaddbeginFL &  \DIFaddFL{P3   }& \DIFaddFL{$25\%$  }&  \DIFaddFL{PO8   }& \DIFaddFL{$15\%$}\DIFaddendFL \\
-6     &     PO7 &   $60\%$  \DIFaddbeginFL &  \DIFaddFL{PO8   }& \DIFaddFL{$20\%$  }&   \DIFaddFL{Fz   }& \DIFaddFL{$10\%$  }\DIFaddendFL \\
-7     &     PO8 &   $80\%$   \DIFaddbeginFL &  \DIFaddFL{Fz   }& \DIFaddFL{$30\%$   }&  \DIFaddFL{Fz   }& \DIFaddFL{$10\%$ }\DIFaddendFL \\
-8     &     PO7 &   $95\%$     \DIFaddbeginFL &  \DIFaddFL{PO7   }& \DIFaddFL{$85\%$ }&  \DIFaddFL{PO8   }& \DIFaddFL{$25\%$ }\DIFaddendFL \\
+1     &     Cz   &   $35\%$    \DIFaddbeginFL &  \DIFaddFL{Cz   }& \DIFaddFL{$15\%$   }\DIFaddendFL \\
+2     &     Fz   &   $85\%$      \DIFaddbeginFL &  \DIFaddFL{PO8   }& \DIFaddFL{$25\%$   }\DIFaddendFL \\
+3     &     Cz   &   $25\%$    \DIFaddbeginFL &  \DIFaddFL{Fz   }& \DIFaddFL{$5\%$   }\DIFaddendFL \\
+4     &     PO8 &   $55\%$   \DIFaddbeginFL &  \DIFaddFL{Oz   }& \DIFaddFL{$5\%$    }\DIFaddendFL \\
+5     &     PO7 &   $40\%$    \DIFaddbeginFL &  \DIFaddFL{P3   }& \DIFaddFL{$25\%$   }\DIFaddendFL \\
+6     &     PO7 &   $60\%$  \DIFaddbeginFL &  \DIFaddFL{PO8   }& \DIFaddFL{$20\%$    }\DIFaddendFL \\
+7     &     PO8 &   $80\%$   \DIFaddbeginFL &  \DIFaddFL{Fz   }& \DIFaddFL{$30\%$     }\DIFaddendFL \\
+8     &     PO7 &   $95\%$     \DIFaddbeginFL &  \DIFaddFL{PO7   }& \DIFaddFL{$85\%$ }\DIFaddendFL \\
 
 %\bottomrule
 \end{tabular}
@@ -561,55 +568,33 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 \DIFdelendFL \DIFaddbeginFL \label{tab:resultsals}
 \DIFaddendFL \end{table}
 
+%DIF > The spelled words are \textit{MANSO},\textit{CINCO},\textit{JUEGO} and \textit{QUESO}.
+\DIFaddbegin 
 
-\begin{table}[htb]
-\caption{\DIFdelbeginFL \DIFdelFL{Percentage of correctly predicted letters while performing an offline BCI Simulation }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Character recognition rates }\DIFaddendFL for the \DIFdelbeginFL \DIFdelFL{best performing channel for each subject }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{public dataset }\DIFaddendFL of \DIFaddbeginFL \DIFaddFL{ALS patients using }\DIFaddendFL the \DIFdelbeginFL \DIFdelFL{own dataset. The spelled words are }\textit{\DIFdelFL{MANSO}}%DIFAUXCMD
+\DIFaddend \begin{table}[htb]
+\caption{\DIFdelbeginFL \DIFdelFL{Percentage of correctly predicted letters while performing an offline BCI Simulation }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Character recognition rates }\DIFaddendFL for the \DIFaddbeginFL \DIFaddFL{own dataset of healthy subjects using the Histogram of Gradient (HIST) calculated from  single-channel plots.  Performance rates using single-channel signals with the SVM classifier are shown for comparison.  The }\DIFaddendFL best performing channel \DIFaddbeginFL \DIFaddFL{$bpc$ }\DIFaddendFL for each \DIFdelbeginFL \DIFdelFL{subject of the own dataset}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{method is visualized}\DIFaddendFL .\DIFdelbeginFL \DIFdelFL{The spelled words are }\textit{\DIFdelFL{MANSO}}%DIFAUXCMD
 \DIFdelFL{,}\textit{\DIFdelFL{CINCO}}%DIFAUXCMD
 \DIFdelFL{,}\textit{\DIFdelFL{JUEGO}} %DIFAUXCMD
-\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Histogram of Gradient (HIST) }\DIFaddendFL and \DIFdelbeginFL \textit{\DIFdelFL{QUESO}}%DIFAUXCMD
-\DIFdelendFL \DIFaddbeginFL \DIFaddFL{performance rates obtained by the SWLDA with a multichannel concatenated feature}\DIFaddendFL .}
+\DIFdelFL{and }\textit{\DIFdelFL{QUESO}}%DIFAUXCMD
+\DIFdelFL{. }\DIFdelendFL }
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
 \DIFdelbeginFL %DIFDELCMD < \begin{tabular}{cccc}
 %DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \begin{tabular}{c|cc|c}
+\DIFdelendFL \DIFaddbeginFL \begin{tabular}{c|cc|cc}
 \DIFaddendFL \toprule
-%DIF > \textbf{Participant}	&  \textbf{BPC}	& \multicolumn{2}{c}{Character Recognition Rates}\\
-%DIF > \cline{1-5} \\
-\textbf{Participant}	&  \textbf{BPC}	&  \DIFdelbeginFL \textbf{\DIFdelFL{Performance}}%DIFAUXCMD
-\DIFdelendFL \DIFaddbeginFL \DIFaddFL{HIST }& \DIFaddFL{SWLDA  }\DIFaddendFL \\
+\textbf{Participant}	&  \DIFdelbeginFL \textbf{\DIFdelFL{BPC}}	%DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{$bpc$	}\DIFaddendFL &  \DIFdelbeginFL \textbf{\DIFdelFL{Performance}}%DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{HIST }&  \DIFaddFL{$bpc$	}&  \DIFaddFL{Single Channel SVM }\DIFaddendFL \\
 \midrule
-1     &     \DIFaddbeginFL \DIFaddFL{Cz   }&   \DIFaddFL{$35\%$  }& \DIFaddFL{$45\%$  }\\
-\DIFaddFL{2     }&     \DIFaddFL{Fz   }&   \DIFaddFL{$85\%$  }& \DIFaddFL{$30\%$    }\\
-\DIFaddFL{3     }&     \DIFaddFL{Cz   }&   \DIFaddFL{$25\%$  }& \DIFaddFL{$65\%$  }\\
-\DIFaddFL{4     }&     \DIFaddFL{PO8 }&   \DIFaddFL{$55\%$ }& \DIFaddFL{$40\%$   }\\
-\DIFaddFL{5     }&     \DIFaddFL{PO7 }&   \DIFaddFL{$40\%$ }& \DIFaddFL{$35\%$   }\\
-\DIFaddFL{6     }&     \DIFaddFL{PO7 }&   \DIFaddFL{$60\%$ }&  \DIFaddFL{$35\%$   }\\
-\DIFaddFL{7     }&     \DIFaddFL{PO8 }&   \DIFaddFL{$80\%$ }& \DIFaddFL{$60\%$    }\\
-\DIFaddFL{8     }&     \DIFaddFL{PO7 }&   \DIFaddFL{$95\%$  }& \DIFaddFL{$90\%$   }\\
-
-%DIF > \bottomrule
-\end{tabular}
-\label{tab:resultsalsswlda}
-\end{table}
-
-
-\begin{table}[htb]
-\caption{\DIFaddFL{Percentage of correctly predicted letters while performing an offline BCI Simulation for the best performing channel for each subject of the own dataset. The spelled words are }\textit{\DIFaddFL{MANSO}}\DIFaddFL{,}\textit{\DIFaddFL{CINCO}}\DIFaddFL{,}\textit{\DIFaddFL{JUEGO}} \DIFaddFL{and }\textit{\DIFaddFL{QUESO}}\DIFaddFL{. Performance rates using single channel signals with the SVM classifier and using a feature obtained with Permutation Entropy (PE) and classified by SVM are also shown for comparison.}}
-\centering
-%DIF > % \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
-\begin{tabular}{c|cc|cc|cc}
-\toprule
-\textbf{\DIFaddFL{Participant}}	&  \textbf{\DIFaddFL{BPC}}	&  \DIFaddFL{HIST }&  \textbf{\DIFaddFL{BPC}}	&  \DIFaddFL{SVM }&  \textbf{\DIFaddFL{BPC}}	 &  \DIFaddFL{PE+SVM}\\
-\midrule
-\DIFaddFL{1     }&     \DIFaddendFL Oz   &   $40\%$  \DIFaddbeginFL &  \DIFaddFL{Cz   }&  \DIFaddFL{$10\%$ }&  \DIFaddFL{PO7   }& \DIFaddFL{$10\%$  }\DIFaddendFL \\
-2     &     PO7   &   $30\%$      \DIFaddbeginFL &  \DIFaddFL{Cz   }& \DIFaddFL{$5\%$ }&  \DIFaddFL{Fz   }& \DIFaddFL{$5\%$ }\DIFaddendFL \\
-3     &     P4   &   $40\%$    \DIFaddbeginFL &  \DIFaddFL{P3   }& \DIFaddFL{$10\%$  }&  \DIFaddFL{Fz   }& \DIFaddFL{$0\%$}\DIFaddendFL \\
-4     &     P4 &   $45\%$    \DIFaddbeginFL &  \DIFaddFL{P4   }& \DIFaddFL{$35\%$  }&  \DIFaddFL{Cz   }& \DIFaddFL{$10\%$}\DIFaddendFL \\
-5     &     P4 &   $60\%$  \DIFaddbeginFL &  \DIFaddFL{P3   }& \DIFaddFL{$10\%$  }&  \DIFaddFL{Fz   }& \DIFaddFL{$0\%$  }\DIFaddendFL \\
-6     &     Pz &   $50\%$ \DIFaddbeginFL &  \DIFaddFL{P4   }& \DIFaddFL{$25\%$  }&   \DIFaddFL{Cz   }& \DIFaddFL{$10\%$   }\DIFaddendFL \\
-7     &     PO7 &   $70\%$  \DIFaddbeginFL &  \DIFaddFL{P3   }& \DIFaddFL{$30\%$  }&  \DIFaddFL{P3   }& \DIFaddFL{$10\%$   }\DIFaddendFL \\
-8     &     P4 &   $50\%$    \DIFaddbeginFL &  \DIFaddFL{PO7   }& \DIFaddFL{$10\%$ }&  \DIFaddFL{Fz   }& \DIFaddFL{$5\%$  }\DIFaddendFL \\
+1     &     Oz   &   $40\%$  \DIFaddbeginFL &  \DIFaddFL{Cz   }&  \DIFaddFL{$10\%$    }\DIFaddendFL \\
+2     &     PO7   &   $30\%$      \DIFaddbeginFL &  \DIFaddFL{Cz   }& \DIFaddFL{$5\%$   }\DIFaddendFL \\
+3     &     P4   &   $40\%$    \DIFaddbeginFL &  \DIFaddFL{P3   }& \DIFaddFL{$10\%$    }\DIFaddendFL \\
+4     &     P4 &   $45\%$    \DIFaddbeginFL &  \DIFaddFL{P4   }& \DIFaddFL{$35\%$     }\DIFaddendFL \\
+5     &     P4 &   $60\%$  \DIFaddbeginFL &  \DIFaddFL{P3   }& \DIFaddFL{$10\%$     }\DIFaddendFL \\
+6     &     Pz &   $50\%$ \DIFaddbeginFL &  \DIFaddFL{P4   }& \DIFaddFL{$25\%$     }\DIFaddendFL \\
+7     &     PO7 &   $70\%$  \DIFaddbeginFL &  \DIFaddFL{P3   }& \DIFaddFL{$30\%$     }\DIFaddendFL \\
+8     &     P4 &   $50\%$    \DIFaddbeginFL &  \DIFaddFL{PO7   }& \DIFaddFL{$10\%$    }\DIFaddendFL \\
 
 %\bottomrule
 \end{tabular}
@@ -619,28 +604,56 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 \DIFaddendFL \end{table}
 
 \DIFaddbegin \begin{table}[htb]
-\caption{\DIFaddFL{Percentage of correctly predicted letters while performing an offline BCI Simulation for the best performing channel for each subject of the own dataset. Results obtained with the SWLDA algorithm with a multichannel concatenated feature are presented.}}
+\caption{\DIFaddFL{Character recognition rates for the public dataset of ALS patients using the Histogram of Gradient (HIST) calculated from plots of single channels with the best performing channel $bpc$ informed as well.   Performance rates obtained by SWLDA and SVM classification algorithms with a multichannel concatenated feature.}}
 \centering
 %DIF > % \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
-\begin{tabular}{c|cc|c}
+\begin{tabular}{c|cc|c|c}
 \toprule
 %DIF > \textbf{Participant}	&  \textbf{BPC}	& \multicolumn{2}{c}{Character Recognition Rates}\\
 %DIF > \cline{1-5} \\
-\textbf{\DIFaddFL{Participant}}	&  \textbf{\DIFaddFL{BPC}}	&  \DIFaddFL{HIST }& \DIFaddFL{SWLDA  }\\
+\textbf{\DIFaddFL{Participant}}	&  \DIFaddFL{$bpc$	}&  \DIFaddFL{HIST }& \DIFaddFL{Multichannel SWLDA }& \DIFaddFL{Multichannel SVM }\\
+                                    &  \DIFaddFL{for HIST        }&           &                                       &   \\
 \midrule
-\DIFaddFL{1     }&     \DIFaddFL{Oz   }&     \DIFaddFL{$40\%$  }&     \DIFaddFL{$65\%$ }\\
-\DIFaddFL{2     }&     \DIFaddFL{PO7   }&     \DIFaddFL{$30\%$ }&   \DIFaddFL{$15\%$ }\\
-\DIFaddFL{3     }&     \DIFaddFL{P4   }&     \DIFaddFL{$40\%$ }&     \DIFaddFL{$50\%$ }\\
-\DIFaddFL{4     }&     \DIFaddFL{P4   }&     \DIFaddFL{$45\%$ }&     \DIFaddFL{$40\%$ }\\
-\DIFaddFL{5     }&     \DIFaddFL{P4   }&      \DIFaddFL{$60\%$ }&    \DIFaddFL{$30\%$ }\\
-\DIFaddFL{6     }&     \DIFaddFL{Pz   }&      \DIFaddFL{$50\%$ }&    \DIFaddFL{$35\%$ }\\
-\DIFaddFL{7     }&     \DIFaddFL{PO7   }&      \DIFaddFL{$70\%$ }&  \DIFaddFL{$25\%$ }\\
-\DIFaddFL{8     }&     \DIFaddFL{P4   }&      \DIFaddFL{$50\%$ }&    \DIFaddFL{$35\%$ }\\
+\DIFaddFL{1     }&     \DIFaddFL{Cz   }&   \DIFaddFL{$35\%$  }& \DIFaddFL{$45\%$  }& \DIFaddFL{$40\%$}\\
+\DIFaddFL{2     }&     \DIFaddFL{Fz   }&   \DIFaddFL{$85\%$  }& \DIFaddFL{$30\%$   }& \DIFaddFL{$50\%$   }\\
+\DIFaddFL{3     }&     \DIFaddFL{Cz   }&   \DIFaddFL{$25\%$  }& \DIFaddFL{$65\%$ }& \DIFaddFL{$55\%$   }\\
+\DIFaddFL{4     }&     \DIFaddFL{PO8 }&   \DIFaddFL{$55\%$ }& \DIFaddFL{$40\%$  }& \DIFaddFL{$50\%$   }\\
+\DIFaddFL{5     }&     \DIFaddFL{PO7 }&   \DIFaddFL{$40\%$ }& \DIFaddFL{$35\%$  }& \DIFaddFL{$45\%$   }\\
+\DIFaddFL{6     }&     \DIFaddFL{PO7 }&   \DIFaddFL{$60\%$ }&  \DIFaddFL{$35\%$  }& \DIFaddFL{$70\%$   }\\
+\DIFaddFL{7     }&     \DIFaddFL{PO8 }&   \DIFaddFL{$80\%$ }& \DIFaddFL{$60\%$   }& \DIFaddFL{$35\%$   }\\
+\DIFaddFL{8     }&     \DIFaddFL{PO7 }&   \DIFaddFL{$95\%$  }& \DIFaddFL{$90\%$   }& \DIFaddFL{$95\%$  }\\
+
+%DIF > \bottomrule
+\end{tabular}
+\label{tab:resultsalsswlda}
+\end{table}
+
+\begin{table}[htb]
+\caption{\DIFaddFL{Character recognition rates for the own dataset of healthy subjects using the Histogram of Gradient (HIST) calculated from plots of single channels with the best performing channel $bpc$ informed as well.   Performance rates obtained by SWLDA and SVM classification algorithms with a multichannel concatenated feature.}}
+\centering
+%DIF > % \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
+\begin{tabular}{c|cc|c|c}
+\toprule
+%DIF > \textbf{Participant}	&  \textbf{BPC}	& \multicolumn{2}{c}{Character Recognition Rates}\\
+%DIF > \cline{1-5} \\
+\textbf{\DIFaddFL{Participant}}	&  \DIFaddFL{$bpc$ 	}&  \DIFaddFL{HIST }& \DIFaddFL{Multichannel SWLDA }& \DIFaddFL{Multichannel SVM  }\\
+                                    &  \DIFaddFL{for HIST        }&           &                                       &   \\
+\midrule
+\DIFaddFL{1     }&     \DIFaddFL{Oz   }&     \DIFaddFL{$40\%$  }&     \DIFaddFL{$65\%$  }&     \DIFaddFL{$40\%$ }\\
+\DIFaddFL{2     }&     \DIFaddFL{PO7   }&     \DIFaddFL{$30\%$ }&   \DIFaddFL{$15\%$  }&     \DIFaddFL{$10\%$ }\\
+\DIFaddFL{3     }&     \DIFaddFL{P4   }&     \DIFaddFL{$40\%$ }&     \DIFaddFL{$50\%$  }&     \DIFaddFL{$25\%$ }\\
+\DIFaddFL{4     }&     \DIFaddFL{P4   }&     \DIFaddFL{$45\%$ }&     \DIFaddFL{$40\%$  }&     \DIFaddFL{$20\%$ }\\
+\DIFaddFL{5     }&     \DIFaddFL{P4   }&      \DIFaddFL{$60\%$ }&    \DIFaddFL{$30\%$  }&     \DIFaddFL{$20\%$ }\\
+\DIFaddFL{6     }&     \DIFaddFL{Pz   }&      \DIFaddFL{$50\%$ }&    \DIFaddFL{$35\%$  }&     \DIFaddFL{$30\%$ }\\
+\DIFaddFL{7     }&     \DIFaddFL{PO7   }&      \DIFaddFL{$70\%$ }&  \DIFaddFL{$25\%$  }&     \DIFaddFL{$30\%$ }\\
+\DIFaddFL{8     }&     \DIFaddFL{P4   }&      \DIFaddFL{$50\%$ }&    \DIFaddFL{$35\%$  }&     \DIFaddFL{$20\%$ }\\
 
 %DIF > \bottomrule
 \end{tabular}
 \label{tab:resultsownswlda}
 \end{table}
+
+
 
 
 
