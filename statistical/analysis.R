@@ -11,6 +11,7 @@ library(RColorBrewer)
 library(extrafont)
 library(faraway)
 library(effects)
+library(RVAideMemoire)
 ### defino las variables de la base
 method=factor(c(rep("M1",16),rep("M2",16),rep("M3",16)))
 ind=(c(rep(seq(1:16),3)))
@@ -21,7 +22,7 @@ percent=c(0.35,0.85,0.25,0.55,0.4,0.6,0.8,0.95,0.4,0.3,0.4,0.45,0.6,0.5,0.7,0.5,
        0.45,0.3,0.65,0.4,0.35,0.35,0.6,0.9,0.65,0.15,0.5,0.4,0.3,0.35,0.25,0.35,
        0.4,0.5,0.55,0.5,0.45,0.7,0.35,0.95,0.4,0.1,0.25,0.2,0.2,0.3,0.3,0.2)
 ##le doy formato de dataframe
-rodrigo=data.frame(method,percent,group,ind,Group,Ind)
+performance=data.frame(method,percent,group,ind,Group,Ind)
 
 
 ###resumenes por grupo y por m?todo
@@ -31,14 +32,21 @@ tapply(percent, group, summary)
 ####visualizamos la informaci?n
 p1 <- ggplot(rodrigo, aes(x = Group, y = percent,fill=method)) +
   geom_boxplot(   alpha = 0.77) +
-  scale_y_continuous(name = "% Success", breaks = seq(0, 1, 0.25), limits=c(0, 1.1)) +
-  scale_x_discrete(name = "Group") +
-  ggtitle("Success by group and Method") +
+  scale_y_continuous(name = "% Performance", breaks = seq(0, 1, 0.25), limits=c(0, 1.1)) +
+  scale_x_discrete(name = "Dataset") +
+  ggtitle("Performance by Dataset and Method") +
   theme_bw()  +
   scale_fill_brewer(palette = "Accent")+  facet_grid(. ~method)
 p1 
 ggsave(file="plot1.pdf", p1)
 
+
+####Coqran
+cochran.qtest(percent~Group|method)
+
+wilcox.test(percent~Group)
+
+friedman.test(percent~Group|method)
 
 ####modelo sin efectos aleatorios de individuo
 
