@@ -40,6 +40,8 @@ p1 <- ggplot(rodrigo, aes(x = Group, y = percent,fill=method)) +
 p1 
 ggsave(file="plot1.pdf", p1)
 
+friedman.test(percent,Group,method)
+
 
 ####Coqran
 cochran.qtest(percent~Group|method)
