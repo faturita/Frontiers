@@ -13,7 +13,7 @@ library(faraway)
 library(effects)
 library(RVAideMemoire)
 ### defino las variables de la base
-method=factor(c(rep("M1",16),rep("M2",16),rep("M3",16)))
+method=factor(c(rep("HIST",16),rep("SWLDA",16),rep("SVM",16)))
 ind=(c(rep(seq(1:16),3)))
 group=(1*(ind<9)+2*(ind>8))
 Ind=factor(ind)
@@ -30,7 +30,7 @@ tapply(percent, method, summary)
 tapply(percent, group, summary)
 
 ####visualizamos la informaci?n
-p1 <- ggplot(rodrigo, aes(x = Group, y = percent,fill=method)) +
+p1 <- ggplot(performance, aes(x = Group, y = percent,fill=method)) +
   geom_boxplot(   alpha = 0.77) +
   scale_y_continuous(name = "% Performance", breaks = seq(0, 1, 0.25), limits=c(0, 1.1)) +
   scale_x_discrete(name = "Dataset") +
@@ -40,15 +40,16 @@ p1 <- ggplot(rodrigo, aes(x = Group, y = percent,fill=method)) +
 p1 
 ggsave(file="plot1.pdf", p1)
 
-friedman.test(percent,Group,method)
+#friedman.test(percent~method|Group)
+#r = rank(performance$method)
 
 
 ####Coqran
-cochran.qtest(percent~Group|method)
+#cochran.qtest(percent~Group|method)
 
-wilcox.test(percent~Group)
+#wilcox.test(percent~Group)
 
-friedman.test(percent~Group|method)
+#friedman.test(percent~Group|method)
 
 ####modelo sin efectos aleatorios de individuo
 
