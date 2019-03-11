@@ -169,6 +169,11 @@ In order to complete the plot $I^{(l,c)}$ from the pixels, the Bresenham \citep{
 \subsubsection{Feature Extraction: Histogram of Gradient Orientations}
 \label{SIFT}
 
+Hablar y explicar primero SIFT sacando info de lo que puse en la tesis.
+This technique is based on Lowe's SIFT method.  This method is divided in two.  The first part is the detector and the second is the descriptor.  The descriptor is to construct an histogram of the gradient orientations obtained on each of the different patches.
+
+We stripped away all the details which are not used and refined the procedure to enable the effective capturing of the waveform shape.
+
 
 For each generated image $I^{(l,c)}$, a keypoint $\mathbf{p_k}$ is placed on a pixel $(x_{p_k}, y_{p_k})$ over the image plot and a window around the keypoint is considered. A local image patch of size $X_p \times X_p$ pixels is constructed by dividing the window in $16$ blocks of size $3s$ each one,  where $s$ is the scale of the local patch and it is an input parameter of the algorithm. It is arranged in a $4 \times 4$ grid and the pixel $ \mathbf{p_k}$ is the patch center, thus $X_p = 12s $ pixels. 
 
@@ -183,6 +188,9 @@ A local representation of the signal shape within the patch can be described by 
 \end{equation}
 
 \noindent  where $\mathbf{p}$ is a pixel from the image $I^{(l,c)}$,  $\theta$ is the angle bin with $ \theta \in \{0, 45, 90, 135, 180, 225, 270, 315\} $,  $ |J(\mathbf{p})| $ is the norm of the gradient vector in the pixel $\mathbf{p}$ and it is computed using finite differences and $\angle J(\mathbf{p}) $ is the angle of the gradient vector.  The scalar $ w_\mathrm{ang}(\cdot) $  and vector $ w_{ij}(\cdot) $ functions are linear interpolations used by~\cite{Lowe2004} and \cite{Vedaldi2010} to provide a weighting contribution to eight adjacent bins.  They are calculated as  
+
+Explicar la trilineal interpolation mejor, y enfatizar que esta version esta publicada en el codigo, que es una variante del codigo de Vedaldi.
+
 
 \begin{equation}
  w_{ij}(\mathbf{v}) = w( v_x - x_i ) w( v_y - y_j ) 
@@ -233,6 +241,9 @@ Additionally, the best performing channel, $bpc$ is identified based on the the 
 \paragraph{Letter identification}
 
 In order to identify the selected letter, the template set $T^{bpc}$ is used as a database.  Thus, new descriptors are computed and they are compared against the descriptors belonging to the calibration template set $T^{bpc}$.
+
+Subir la info de que esta basado en kNN pero aclarar que esta es una variacion del algoritmo especifica y es parte de la propuesta de este paper.
+
 
 \begin{itemize}
 
@@ -307,6 +318,9 @@ s_y= \frac{\gamma \; \Delta \mu V}{12}
 Figure~\ref{fig:patchgeometry} shows a patch of a signal plot covering the complete amplitude (vertical direction) and the complete span of the signal event (horizontal direction). 
 
 Lastly, the number of channels $C$ is equal to $8$ for both datasets, and the number of intensification sequences $k_a$ is fixed to $10$.  The parameter $k$ used to construct the set $N_T(\mathbf{d}^{(l,c)})$ is assigned to $k=7$, which was found empirically to achieve better results.  In addition, the norm used on  Equations \ref{eq:multiclassificationrow} and \ref{eq:multiclassificationcol} is the cosine norm, and descriptors are normalized to $ \left[ -1, 1 \right] $.
+
+Aclara que se hace una comparacion con SVM y SWLDA y como se construye el feature para estos casos (exactamente detallando el tamanio).
+
 
 \section{Results} \label{Results}
 \label{section:results}
