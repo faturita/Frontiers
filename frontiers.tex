@@ -169,28 +169,23 @@ In order to complete the plot $I^{(l,c)}$ from the pixels, the Bresenham \citep{
 \subsubsection{Feature Extraction: Histogram of Gradient Orientations}
 \label{SIFT}
 
-Hablar y explicar primero SIFT sacando info de lo que puse en la tesis.
-This technique is based on Lowe's SIFT method.  This method is divided in two.  The first part is the detector and the second is the descriptor.  The descriptor is to construct an histogram of the gradient orientations obtained on each of the different patches.
-
-We stripped away all the details which are not used and refined the procedure to enable the effective capturing of the waveform shape.
-
+The work of Edelman, Intrator and Poggio~\citep{cogprints561} on how the visual cortex sense features was the inspiration to the development of an algorithm to identify and decode salient local information from image regions.  The Scale Invariant Feature Transform (SIFT) is a Computer Vision method proposed by~\cite{Lowe2004} which is composed of two parts, the SIFT Detector and the SIFT Descriptor.  The former is the procedure to identify relevant areas of an image whereas the latter is the procedure to describe and characterize a region of an image (i.e. patch) calculating an histogram of the gradient orientations.  In order to characterize EEG signal waveforms, this work proposes an alternative Histogram of Gradient Orientations algorithm.  We stripped away all the details which are not used and refined the procedure to enable the effective capturing of the waveform shape.
 
 For each generated image $I^{(l,c)}$, a keypoint $\mathbf{p_k}$ is placed on a pixel $(x_{p_k}, y_{p_k})$ over the image plot and a window around the keypoint is considered. A local image patch of size $X_p \times X_p$ pixels is constructed by dividing the window in $16$ blocks of size $3s$ each one,  where $s$ is the scale of the local patch and it is an input parameter of the algorithm. It is arranged in a $4 \times 4$ grid and the pixel $ \mathbf{p_k}$ is the patch center, thus $X_p = 12s $ pixels. 
 
-A local representation of the signal shape within the patch can be described by obtaining the gradient orientations on each of the $16$ blocks $B_{i,j}$  with $ 0 \leq i,j \leq 3$ and creating a histogram of gradients.  This technique is based on Lowe's SIFT~\citep{Lowe2004} method, and it is biomimetically inspired in how the visual cortex detects shapes by analyzing orientations~\citep{cogprints561}.   In order to calculate the histogram, the interval $[0,360]$ of possible angles is divided in $8$ bins, each one of $45$ degrees.
+A local representation of the signal shape within the patch can be described by obtaining the gradient orientations on each of the $16$ blocks $B_{i,j}$  with $ 0 \leq i,j \leq 3$ and creating a histogram of gradients.  In order to calculate the histogram, the interval $[0,360]$ of possible angles is divided in $8$ bins, each one of $45$ degrees.
 
  Hence, for each spatial bin $ 0 \leq i,j \leq 3$, corresponding to the indexes of each block $B_{i,j}$,  the orientations are accumulated in a  $3$-dimensional histogram $h$ through the following equation: 
  
 
 \begin{equation}
- h(\theta,i,j) = 3 s \sum_{\mathbf{p} \in I^{(l,c)}} w_\mathrm{ang}(\angle J(\mathbf{p}) - \theta)\, w_{ij}\left(\frac{\mathbf{p} - \mathbf{p_k}}{3 s}\right)\, |J(\mathbf{p})|
+ h(\theta,i,j) = 3 s \sum_{\mathbf{p} \in I^{(l,c)}} w_\mathrm{ang}(\angle J(\mathbf{p}) - \theta)\, w_{ij}\left(\frac{\mathbf{p} - \mathbf{p_k}}{3 s}\right)\, \left\lVert J(\mathbf{p}) \right\rVert 
 \label{eq:histogram}
 \end{equation}
 
-\noindent  where $\mathbf{p}$ is a pixel from the image $I^{(l,c)}$,  $\theta$ is the angle bin with $ \theta \in \{0, 45, 90, 135, 180, 225, 270, 315\} $,  $ |J(\mathbf{p})| $ is the norm of the gradient vector in the pixel $\mathbf{p}$ and it is computed using finite differences and $\angle J(\mathbf{p}) $ is the angle of the gradient vector.  The scalar $ w_\mathrm{ang}(\cdot) $  and vector $ w_{ij}(\cdot) $ functions are linear interpolations used by~\cite{Lowe2004} and \cite{Vedaldi2010} to provide a weighting contribution to eight adjacent bins.  They are calculated as  
+\noindent  where $\mathbf{p}$ is a pixel from the image $I^{(l,c)}$,  $\theta$ is the angle bin with $ \theta \in \{0, 45, 90, 135, 180, 225, 270, 315\} $,  $ \left\lVert J(\mathbf{p}) \right\rVert $ is the norm of the gradient vector in the pixel $\mathbf{p}$ and it is computed using finite differences and $\angle J(\mathbf{p}) $ is the angle of the gradient vector.  
 
-Explicar la trilineal interpolation mejor, y enfatizar que esta version esta publicada en el codigo, que es una variante del codigo de Vedaldi.
-
+The contribution of each gradient vector to the histogram calculated by equation~\ref{eq:histogram} is balanced by a trilinear interpolation.  The scalar $ w_\mathrm{ang}(\cdot) $  and vector $ w_{ij}(\cdot) $ functions are linear interpolations used by~\cite{Lowe2004} and \cite{Vedaldi2010} to provide a weighting contribution to the eight adjacent bins in the tridimensional histogram.  They are calculated as  
 
 \begin{equation}
  w_{ij}(\mathbf{v}) = w( v_x - x_i ) w( v_y - y_j ) 
@@ -205,9 +200,9 @@ Explicar la trilineal interpolation mejor, y enfatizar que esta version esta pub
 \end{equation}
 
 
-\noindent where $x_i$ and $y_i$ are the spatial bin centers located in $ x_i,y_j \in \{-\frac{3}{2},-\frac{1}{2},\frac{1}{2},\frac{3}{2}\} $, $\mathbf{v} = ( v_x, v_y ) $ is a vector variable and $\alpha$ a scalar variable.  On the other hand, $r$ is an integer that can vary freely between $ \left[ -1,1 \right]$ which allows the argument $\alpha$ to be unconstrained in terms of its values in radians. The interpolating function $w(\cdot)$ is defined as $ w(z) = \max(0,|z|-1)$.
+\noindent where $x_i$ and $y_i$ are the spatial bin centers located in $ x_i,y_j \in \{-\frac{3}{2},-\frac{1}{2},\frac{1}{2},\frac{3}{2}\} $.  The function parameter $\mathbf{v} = ( v_x, v_y ) $ is a vector variable and $\alpha$ a scalar variable.  Vector $\mathbf{v}$ holds pixel $\mathbf{p}$  coordinates on the image in normalized bin units.   On the other hand, $r$ is an integer that can vary freely in the set $\{ -1, 0, 1 \} $ and allows the argument $\alpha$ to be unconstrained in terms of its values in radians. The interpolating function $w(\cdot)$ is defined as $ w(z) = \max(0,|z|-1)$.
 
-These binning functions conform a trilinear interpolation that has a combined effect of sharing the contribution of each oriented gradient between their eight adjacent bins in a tridimensional cube in the histogram space, and zero everywhere else.
+These binning functions conform the trilinear interpolation that has a combined effect of sharing the contribution of each oriented gradient between their eight adjacent bins in a tridimensional cube in the histogram space, and zero everywhere else~\citep{Mortensen2005}.
 
 Lastly, the fixed value of $ 3 $ is a magnification factor which corresponds to the number of pixels per each block when $s = 1$.  As the patch has  $16$ blocks and  $8$ bin angles are considered, for each location $l$ and channel $c$ a feature called \textit{descriptor} $\mathbf{d}^{(l,c)}$  of $128$ dimension is obtained. 
 %It can be observed that the histogram is computed by multiplying by $ |J(\mathbf{p})| $, so the method considers both, the magnitude and the orientation of the gradient vector. 
@@ -240,28 +235,27 @@ Additionally, the best performing channel, $bpc$ is identified based on the the 
 
 \paragraph{Letter identification}
 
-In order to identify the selected letter, the template set $T^{bpc}$ is used as a database.  Thus, new descriptors are computed and they are compared against the descriptors belonging to the calibration template set $T^{bpc}$.
+In order to identify the selected letter, the template set $T^{bpc}$ is used as a database.  Thus, new unclassified descriptors $\mathbf{q}^{(l,bpc)} $  are computed and they are compared against the descriptors belonging to the calibration template set $T^{bpc}$.
 
-Subir la info de que esta basado en kNN pero aclarar que esta es una variacion del algoritmo especifica y es parte de la propuesta de este paper.
-
+The Naive Bayes Nearest Neighbor (k-NBNN)~\citep{Boiman2008} is a classification algorithm that allows the categorization of an image to one class by comparing the set of extracted descriptors to those which are more similar from template dictionaries.  This work propose an adapted  discriminative~\citep{WolpawJonathanR2012} semi-supervised unary classification scheme to identify the selected letter in the P300-Based BCI Speller, based on the features provided by the calculated descriptors.  
 
 \begin{itemize}
 
 \item \textbf{Step D:} Match to the calibration template $T^{bpc}$ by computing  
 
 \begin{equation}
-\hat{row} = \arg \min_{l \in \{1,\dots,6\}} \sum_{q \in N_T(\mathbf{d}^{(l,bpc)})}^{} {\left\lVert q -  \mathbf{d}^{(l,bpc)} \right\rVert}  ^{2}
+\hat{row} = \arg \min_{l \in \{1,\dots,6\}} \sum_{h=1}^{k}  {\left\lVert \mathbf{q}^{(l,bpc)} -  \mathbf{d}_{h}^{(bpc)} \right\rVert}  ^{2}
 \label{eq:multiclassificationrow}
 \end{equation}
 
 \noindent and
 
 \begin{equation}
-\hat{col} = \arg \min_{l \in \{7,\dots,12\}} \sum_{q \in N_T(\mathbf{d}^{(l,bpc)})}^{} {\left\lVert q -  \mathbf{d}^{(l,bpc)} \right\rVert} ^{2}
+\hat{col} = \arg \min_{l \in \{7,\dots,12\}} \sum_{h=1}^{k}  {\left\lVert \mathbf{q}^{(l,bpc)} -  \mathbf{d}_{h}^{(bpc)} \right\rVert}  ^{2}
 \label{eq:multiclassificationcol}
 \end{equation}
 
-\noindent where $N_T(\mathbf{d}^{(l,bpc)})$  is defined as $N_T(\mathbf{d}^{(l,bpc)}) = \{\mathbf{d} \in T^{bpc} / $  is the k-nearest neighbor of $ \mathbf{d}^{(l,bpc)} \}$ for the best performing channel.  This set is obtained by sorting all the elements in $T^{bpc}$ based on distances between them and $\mathbf{d}^{(l,bpc)}$, choosing the $k$ with smaller values, with $k$ a parameter of the algorithm.  This procedure is based on the k-NBNN  algorithm~\citep{Boiman2008}.
+\noindent with $\mathbf{d}_{h}^{(bpc)}$ belonging to the set $N_T( \mathbf{q}^{(l,bpc)}  )$, which is defined, for the best performing channel,  as $N_T(\mathbf{q}^{(l,bpc)} ) = \{ \mathbf{d}_{h}^{(bpc)} \in T^{bpc} /  \mathbf{d}^{(bpc)} $  is the $k$-nearest neighbor of $ \mathbf{q}^{(l,bpc)} \}$. This set is obtained by sorting all the elements in $T^{bpc}$ based on distances between them and $\mathbf{q}^{(l,bpc)}$, choosing the $k$ with smaller values, with $k$ a parameter of the algorithm.  
 
 \end{itemize}
 By computing the aforementioned equations, the letter of the matrix can be determined from the intersection of the row $ \hat{row} $ and column $ \hat{col} $. 
@@ -271,7 +265,7 @@ Figure~\ref{fig:classification} shows a scheme of this process.
 
 To verify the validity of the proposed framework and method, the public dataset 008-2014~\citep{Riccio2013} published on the BNCI-Horizon website~\citep{Brunner2014} by  IRCCS Fondazione Santa Lucia, is used. Additionally, an own dataset with the same experimental conditions is generated. Both of them are utilized to perform an offline BCI Simulation to decode the spelled words from the provided signals. 
 
-The algorithm is implemented using  VLFeat~\citep{Vedaldi2010} Computer Vision libraries on MATLAB V2014a (Mathworks Inc., Natick, MA, USA). Furthermore, in order to enhance the impact of our paper and for a sake of reproducibility, the code of the algorithm has been made available at: https://bitbucket.org/itba/hist.
+The algorithm is implemented on MATLAB V2017a (Mathworks Inc., Natick, MA, USA). The algorithm described in~\ref{SIFT} is written on a modified version of the  VLFeat~\citep{Vedaldi2010} Computer Vision library.   Furthermore, in order to enhance the impact of this paper and for a sake of reproducibility, the code of the entire algorithm, including the modified VLFeat library, has been made available at: https://bitbucket.org/itba/hist.
 
 In the following sections the characteristics of the datasets and parameters of the identification algorithm are described. 
 
@@ -317,27 +311,22 @@ s_y= \frac{\gamma \; \Delta \mu V}{12}
 \noindent where $ \lambda $ is the length in seconds covered by the patch, $ F_s $ is the sampling frequency of the EEG signal (downsampled to 16 Hz) and  $\Delta  \mu V $ corresponds to the amplitude in microvolts that can be covered by the height of the patch. The geometric structure of the patch forces a squared configuration, then we discerned that by using $ s =s_x =s_y = 3 $ and $ \gamma = 4 $,  the local patch and the descriptor can identify events of 9 $ \mu V $ of amplitude, with a span of $ \lambda = 0.56$ seconds.  This also determines that $ 1 $ pixel represents $ \frac{1}{\gamma}= \frac{1}{4} \mu V $ on the vertical direction and $\frac{1}{F_s \ \gamma}=\frac{1}{64}$ seconds on the horizontal direction. The keypoints  $\mathbf{p_k}$  are located at $ (x_{p_k}, y_{p_k} )= ( 0.55 F_s \ \gamma, z^l(c) )= (35,  z^l(c)) $ for the corresponding channel $c$ and location $l$ (see Equation~\ref{eq:zerolevel}).   In this way the whole transient event is captured. 
 Figure~\ref{fig:patchgeometry} shows a patch of a signal plot covering the complete amplitude (vertical direction) and the complete span of the signal event (horizontal direction). 
 
-Lastly, the number of channels $C$ is equal to $8$ for both datasets, and the number of intensification sequences $k_a$ is fixed to $10$.  The parameter $k$ used to construct the set $N_T(\mathbf{d}^{(l,c)})$ is assigned to $k=7$, which was found empirically to achieve better results.  In addition, the norm used on  Equations \ref{eq:multiclassificationrow} and \ref{eq:multiclassificationcol} is the cosine norm, and descriptors are normalized to $ \left[ -1, 1 \right] $.
+Moreover, the number of channels $C$ is equal to $8$ for both datasets, and the number of intensification sequences $k_a$ is fixed to $10$.  The parameter $k$ used to construct the set $N_T(\mathbf{d}^{(l,c)})$ is assigned to $k=7$, which was found empirically to achieve better results.  In addition, the norm used on  Equations \ref{eq:multiclassificationrow} and \ref{eq:multiclassificationcol} is the cosine norm, and descriptors are normalized to $ \left[ -1, 1 \right] $.
 
-Aclara que se hace una comparacion con SVM y SWLDA y como se construye el feature para estos casos (exactamente detallando el tamanio).
-
+Lastly, in order to assess the validity of the Histogram of Gradient Orientations (HIST) method, the character recognition rate for both datasets is evaluated replicating the methodology proposed by the ALS dataset's publisher, since authors \cite{Riccio2013} did not report the Character Recognition Rate obtained for this dataset. Frequency filtering, data segmentation and artifact rejection is conducted according to Section~\ref{Pipeline} yielding 16 x 8 samples per epoch.  A multichannel feature consists of time points vector~\citep{Lotte2018}, formed by concatenating all the channels~\citep{Krusienski2006}. A single-channel variant consists of using time points from a single electrode and performing the analysis on a channel-by-channel basis.  Three classification schemes are considered as well. A multichannel version of the  Stepwise Linear Discriminant Analysis (SWLDA) classification algorithm. SWLDA is the methodology proposed by the ALS dataset's publisher. Additionally, a single-channel and a multichannel variant of a linear kernel Support Vector Machine (SVM)~\citep{Scholkopf2001} classifier are utilized.   SVM has been successfully used in several BCI Competitions~\citep{Rakotomamonjy2008}.
 
 \section{Results} \label{Results}
 \label{section:results}
 
-Table~\ref{tab:resultsals} shows the results of applying the Histogram of Gradient Orientations (HIST) algorithm to the subjects of the public dataset of ALS patients. The percentage of correctly spelled letters is calculated while performing an offline BCI Simulation.  From the seven words for each subject, the first three are used for calibration, and the remaining four are used for testing.  The best performing channel  $bpc$ is informed as well. The target ratio is $1:36$; hence theoretical chance level is $2.8\%$. It can be observed that the best performance of the letter identification method is reached in a dissimilar channel depending on the subject being studied.  Table~\ref{tab:resultsals} and~\ref{tab:resultsown} show for comparison the obtained performance rates using single-channel signals with the Support Vector Machine (SVM)~\citep{Scholkopf2001} classifier.  This method is configured to use a linear kernel.  The best performing channel, where the best letter identification rate was achieved, is also depicted.
+Table~\ref{tab:resultsals} shows the results of applying the HIST algorithm to the subjects of the public dataset of ALS patients. The percentage of correctly spelled letters is calculated while performing an offline BCI Simulation.  From the seven words for each subject, the first three are used for calibration, and the remaining four are used for testing.  The best performing channel  $bpc$ is informed as well. The target ratio is $1:36$; hence theoretical chance level is $2.8\%$. It can be observed that the best performance of the letter identification method is reached in a dissimilar channel depending on the subject being studied.  Table~\ref{tab:resultsals} and~\ref{tab:resultsown} show for comparison the obtained performance rates using single-channel signals with the SVM classifier. The best performing channel, where the best letter identification rate was achieved, is also depicted.
 
 %The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}.
 
 The Information Transfer Rate (ITR), or Bit Transfer Rate (BTR), in the case of reactive BCIs~\citep{WolpawJonathanR2012}  depends on the amount of signal averaging required to transmit a valid and robust selection.  Figure~\ref{fig:performance} shows the performance curves for varying intensification sequences for the subjects included in the dataset of ALS patients. It can be noticed that the percentage of correctly identified letters depends on the number of intensification sequences that are used to obtain the averaged signal.  Moreover, when the number of intensification sequences tend to 1, which corresponds to single-intensification character recognition, the performance is reduced. As mentioned before, the SNR of the P300 obtained from only one segment of the intensification sequence is very low and the shape of its P300 component is not very well defined.
 
-In Table~\ref{tab:resultsown} the results obtained for 8 healthy subjects are shown.  It can be observed that the performance is above chance level. It was verified that HIST method has an improved performance at letter identification than SVM that process the signals on a channel by channel strategy (Wilcoxon signed-rank test, $p =  0.004$ for both datasets).
+In Table~\ref{tab:resultsown} the results obtained for 8 healthy subjects are shown.  It can be observed that the performance is above chance level. It is verified that HIST method has an improved performance at letter identification than SVM that process the signals on a channel by channel strategy (Wilcoxon signed-rank test, $p =  0.004$ for both datasets).
 
-%In Tables~\ref{tab:resultsals} and~\ref{tab:resultsown} results for character recognition rates using single channel signals with the SVM~\citep{Scholkopf2001}  classification algorithm are also shown.    This algorithm was configured to use a linear kernel.  The best performing channel where the best letter identification rate was obtained is also depicted.
-
-%The PE algorithm, which is also devised on a time-domain description of the waveform, was implemented according to \cite{Unakafova2013} and its parameters were adjusted as stated by \cite{Zanin2012}, with an \textit{order} of $2$ and a \textit{sliding window} of size $10$. 
-
-Tables~\ref{tab:resultsalsswlda} and~\ref{tab:resultsownswlda} are presented in order to compare the performance of the HIST method versus a multichannel version of the Stepwise Linear Discriminant Analysis (SWLDA) and SVM classification algorithms for both datasets.  The feature was formed by concatenating all the channels~\citep{Krusienski2006}.  SWLDA is the methodology proposed by the ALS dataset's publisher. Since authors \cite{Riccio2013} did not report the Character Recognition Rate obtained for this dataset, we replicate their procedure and include the performance obtained with the SWLDA algorithm at letter identification.  It was verified for the dataset of ALS patients that it has similar performance  against other methods like SWLDA or SVM, which use a multichannel feature (Quade test with $p=0.55$) whereas for the dataset of healthy subjects significant differences were found (Quade test with $p=0.02$) where only the HIST method achieved a different performance than SVM (with multiple comparisons, significant difference of level $0.05$).
+Tables~\ref{tab:resultsalsswlda} and~\ref{tab:resultsownswlda} are presented in order to compare the performance of the HIST method versus  multichannel SWLDA and SVM classification algorithms for both datasets.   It is verified for the dataset of ALS patients that it has similar performance  against other methods like SWLDA or SVM, which use a multichannel feature (Quade test with $p=0.55$) whereas for the dataset of healthy subjects significant differences are found (Quade test with $p=0.02$) where only the HIST method achieves a different performance than SVM (with multiple comparisons, significant difference of level $0.05$).
 
 %It was verified for the dataset of ALS patients that it has similar performance  against other methods like SWLDA or SVM, which use a multichannel feature (Quade test with $p=0.55$) whereas for the dataset of healthy subjects significant differences where found (Quade test with $p=0.02$) where the HIST method achieved a better performance than SVM (with multiple comparisons, significant difference of level $0.05$).
  
