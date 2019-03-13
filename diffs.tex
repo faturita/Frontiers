@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL frontiers.old.tex   Tue Mar 12 16:55:16 2019
-%DIF ADD frontiers.tex       Tue Mar 12 19:21:12 2019
+%DIF ADD frontiers.tex       Wed Mar 13 15:55:11 2019
 % This is just an example/guide for you to refer to when submitting manuscripts to Frontiers, it is not mandatory to use Frontiers .cls files nor frontiers.tex  %
 % This will only generate the Manuscript, the final article will be typeset by Frontiers after acceptance.   
 %                                              %
@@ -169,15 +169,20 @@ Averaged signal segments are standardized and scaled for $1 \leq n \leq n_{max}$
 \label{eq:standarizedaverages}
 \end{equation}
 
-\noindent where $\gamma > 0$ is an input parameter of the algorithm and  it is related to the image scale. In addition, $ x^l(n,c) $ is the point-to-point averaged multichannel EEG signal for the sample point $n$ and for channel $c$. Lastly, $$\bar{x}^l(c) =\frac{1}{n_{max}}\sum_{n=1}^{n_{max}}x^l(n,c)$$ and $$ \hat{\sigma}^l(c) = (\frac{1}{n_{max}-1}\sum_{n=1}^{n_{max}}(x^l(n,c)-\bar{x}^l(c))^2 )^{\frac{1}{2}}$$ are the mean and estimated standard deviation of $x^l(n,c), 1 \leq n \leq n_{max}$, for each channel $c$.
+\noindent where $\gamma > 0$ is an input parameter of the algorithm and  it is related to the image scale. In addition, $ x^l(n,c) $ is the point-to-point averaged multichannel EEG signal for the sample point $n$ and for channel $c$. Lastly, $$\bar{x}^l(c) =\frac{1}{n_{max}}\sum_{n=1}^{n_{max}}x^l(n,c)$$ and $$ \hat{\sigma}^l(c) =  \DIFdelbegin \DIFdel{(}\DIFdelend \DIFaddbegin \bigg \{  \DIFaddend \frac{1}{n_{max}-1}\sum_{n=1}^{n_{max}} \DIFdelbegin \DIFdel{(}\DIFdelend \DIFaddbegin { \left[  \DIFaddend x^l(n,c)-\bar{x}^l(c)  \DIFdelbegin \DIFdel{)}\DIFdelend \DIFaddbegin \right]  }\DIFaddend ^2 \DIFdelbegin \DIFdel{)}\DIFdelend \DIFaddbegin \bigg \} \DIFaddend ^{\frac{1}{2}}$$ are the mean and estimated standard deviation of $x^l(n,c), 1 \leq n \leq n_{max}$, for each channel $c$.
 
 Consequently, a binary image $I^{(l,c)}$ is constructed according to
 
+
 \begin{equation}
-I^{(l,c)}(z_1,z_2) = \left\{ \begin{array}{rl}
-255 & \text{if} \,  z_1 = \gamma \  n; \! z_2 = \tilde{x}^l(n,c) + z^l(c) \\
+I^{(l,c)}(z_1,z_2) = \left\{ \DIFdelbegin %DIFDELCMD < \begin{array}{rl}
+%DIFDELCMD < 255 & \text{if} \,  z_1 = \gamma \  n; \! z_2 = \tilde{x}^l(n,c) + z^l(c) \\
+%DIFDELCMD < 0   & \mbox{otherwise}
+%DIFDELCMD < \end{array}%%%
+\DIFdelend \DIFaddbegin \begin{array}{rl}
+255 & \text{if} \;  z_1 = \gamma \  n \quad \text{and}  \quad  \! z_2 = \tilde{x}^l(n,c) + z^l(c) \\
 0   & \mbox{otherwise}
-\end{array}\right.
+\end{array}\DIFaddend \right.
 \label{eq:images}
 \end{equation}
 
@@ -223,7 +228,7 @@ method, and it is biomimetically inspired in how the visual cortex detects shape
 \noindent  where $\mathbf{p}$ is a pixel from the image $I^{(l,c)}$,  $\theta$ is the angle bin with $ \theta \in \{0, 45, 90, 135, 180, 225, 270, 315\} $,  \DIFdelbegin \DIFdel{$ |J(\mathbf{p})| $ }\DIFdelend \DIFaddbegin \DIFadd{$ \left\lVert J(\mathbf{p}) \right\rVert $ }\DIFaddend is the norm of the gradient vector in the pixel $\mathbf{p}$ and it is computed using finite differences and $\angle J(\mathbf{p}) $ is the angle of the gradient vector.  
 \DIFdelbegin \DIFdel{The }\DIFdelend \DIFaddbegin 
 
-\DIFadd{The contribution of each gradient vector to the histogram calculated by equation~\ref{eq:histogram} is balanced by a trilinear interpolation.  The }\DIFaddend scalar $ w_\mathrm{ang}(\cdot) $  and vector $ w_{ij}(\cdot) $ functions are linear interpolations used by~\cite{Lowe2004} and \cite{Vedaldi2010} to provide a weighting contribution to \DIFaddbegin \DIFadd{the }\DIFaddend eight adjacent bins \DIFaddbegin \DIFadd{in the tridimensional histogram}\DIFaddend .  They are calculated as  
+\DIFadd{The contribution of each gradient vector to the histogram calculated by Equation~\ref{eq:histogram} is balanced by a trilinear interpolation.  The }\DIFaddend scalar $ w_\mathrm{ang}(\cdot) $  and vector $ w_{ij}(\cdot) $ functions are linear interpolations used by~\cite{Lowe2004} and \cite{Vedaldi2010} to provide a weighting contribution to \DIFaddbegin \DIFadd{the }\DIFaddend eight adjacent bins \DIFaddbegin \DIFadd{in the tridimensional histogram}\DIFaddend .  They are calculated as  
 
 \begin{equation}
  w_{ij}(\mathbf{v}) = w( v_x - x_i ) w( v_y - y_j ) 
@@ -238,7 +243,8 @@ method, and it is biomimetically inspired in how the visual cortex detects shape
 \end{equation}
 
 
-\noindent where $x_i$ and $y_i$ are the spatial bin centers located in $ x_i,y_j \in \{-\frac{3}{2},-\frac{1}{2},\frac{1}{2},\frac{3}{2}\} $\DIFdelbegin \DIFdel{, }\DIFdelend \DIFaddbegin \DIFadd{.  The function parameter }\DIFaddend $\mathbf{v} = ( v_x, v_y ) $ is a vector variable and $\alpha$ a scalar variable.  \DIFaddbegin \DIFadd{Vector $\mathbf{v}$ holds pixel $\mathbf{p}$  coordinates on the image in normalized bin units.   }\DIFaddend On the other hand, $r$ is an integer that can vary freely \DIFdelbegin \DIFdel{between $ \left[ -1,1 \right]$ which }\DIFdelend \DIFaddbegin \DIFadd{in the set $\{ -1, 0, 1 \} $ and }\DIFaddend allows the argument $\alpha$ to be unconstrained in terms of its values in radians. The interpolating function $w(\cdot)$ is defined as $ w(z) = \max(0,|z|-1)$.
+\noindent where $x_i$ and $y_i$ are the spatial bin centers located in $ x_i,y_j \in \{-\frac{3}{2},-\frac{1}{2},\frac{1}{2},\frac{3}{2}\} $ \DIFdelbegin \DIFdel{, }\DIFdelend \DIFaddbegin \DIFadd{and the interpolating function $w(\cdot)$ is defined as $ w(z) = \max(0,|z|-1)$. The function parameter }\DIFaddend $\mathbf{v} = ( v_x, v_y ) $ is a vector variable and $\alpha$ a scalar variable.  \DIFaddbegin \DIFadd{Vector $\mathbf{v}$ holds pixel $\mathbf{p}$  values normalized between $-2$ and $2$ and combined with the function $ w(z) $ it produces zero for every combination of $(i,j)$ except for the $4$ adjacent spatial bins.  }\DIFaddend On the other hand, $r$ is an integer that can vary freely \DIFdelbegin \DIFdel{between $ \left[ -1,1 \right]$ which allows the argument }\DIFdelend \DIFaddbegin \DIFadd{in the set $\{ -1, 0, 1 \} $ and }\DIFaddend $\alpha$ \DIFdelbegin \DIFdel{to be unconstrained in terms of its values in radians.  The interpolating function $w(\cdot)$ is defined as $ w(z) = \max(0,|z|-1)$}\DIFdelend \DIFaddbegin \DIFadd{is the difference between the gradient orientation angle and the angle bin center in radians}\DIFaddend .  \DIFaddbegin \DIFadd{Equation~\ref{eq:wang} is used with $ w(z) $ to obtain zero for every angle bin center except for the $2$ adjacent angular bins.
+}\DIFaddend 
 
 These binning functions conform \DIFdelbegin \DIFdel{a }\DIFdelend \DIFaddbegin \DIFadd{the }\DIFaddend trilinear interpolation that has a combined effect of sharing the contribution of each oriented gradient between their eight adjacent bins in a tridimensional cube in the histogram space, and zero everywhere else\DIFaddbegin \DIFadd{~\mbox{%DIFAUXCMD
 \citep{Mortensen2005}}%DIFAUXCMD
@@ -279,9 +285,9 @@ In order to identify the selected letter, the template set $T^{bpc}$ is used as 
 
 \DIFaddbegin \DIFadd{The Naive Bayes Nearest Neighbor (k-NBNN)~\mbox{%DIFAUXCMD
 \citep{Boiman2008} }%DIFAUXCMD
-is a classification algorithm that allows the categorization of an image to one class by comparing the set of extracted descriptors to those which are more similar from template dictionaries.  This work propose an adapted  discriminative~\mbox{%DIFAUXCMD
+is a discriminative~\mbox{%DIFAUXCMD
 \citep{WolpawJonathanR2012} }%DIFAUXCMD
-semi-supervised unary classification scheme to identify the selected letter in the P300-Based BCI Speller, based on the features provided by the calculated descriptors.  
+semi-supervised classification algorithm that allows the categorization of an image to one class by comparing the set of extracted descriptors to those which are more similar from template dictionaries.  This work proposes an adapted version to obtain a unary classification scheme to identify the selected letter in the P300-Based BCI Speller, based on the features provided by the calculated descriptors.  
 }
 
 \DIFaddend  \begin{itemize} 
@@ -316,7 +322,7 @@ To verify the validity of the proposed framework and method, the public dataset 
 
 The algorithm is implemented \DIFdelbegin \DIFdel{using  VLFeat~\mbox{%DIFAUXCMD
 \citep{Vedaldi2010} }%DIFAUXCMD
-Computer Vision libraries on MATLAB V2014a }\DIFdelend \DIFaddbegin \DIFadd{on MATLAB V2017a }\DIFaddend (Mathworks Inc., Natick, MA, USA). \DIFaddbegin \DIFadd{The algorithm described in~\ref{SIFT} is written on a modified version of the  VLFeat~\mbox{%DIFAUXCMD
+Computer Vision libraries on MATLAB V2014a }\DIFdelend \DIFaddbegin \DIFadd{on MATLAB V2017a }\DIFaddend (Mathworks Inc., Natick, MA, USA). \DIFaddbegin \DIFadd{The algorithm described in~\ref{SIFT} is implemented on a modified version of the  VLFeat~\mbox{%DIFAUXCMD
 \citep{Vedaldi2010} }%DIFAUXCMD
 Computer Vision library.   }\DIFaddend Furthermore, in order to enhance the impact of \DIFdelbegin \DIFdel{our }\DIFdelend \DIFaddbegin \DIFadd{this }\DIFaddend paper and for a sake of reproducibility, the code of the \DIFdelbegin \DIFdel{algorithm }\DIFdelend \DIFaddbegin \DIFadd{entire algorithm, including the modified VLFeat library, }\DIFaddend has been made available at: https://bitbucket.org/itba/hist.
 
@@ -325,7 +331,7 @@ In the following sections the characteristics of the datasets and parameters of 
 
 \subsubsection{P300 ALS Public Dataset} \label{ALSDataset}
 
-The experimental protocol used to generate this dataset is explained in~\citep{Riccio2013} but can be summarized as follows:  8 subjects with confirmed diagnoses but on different stages of ALS disease, were recruited and accepted to perform the experiments. The Visual P300 detection task designed for this experiment consisted of spelling 7 words of 5 letters each, using the traditional P300 Speller Matrix~\citep{Farwell1988}. The flashing of rows and columns provide the deviant stimulus required to elicit this physiological response.  The first 3 words are used for calibration and the remaining 4 words, for testing with visual feedback.  A trial is every attempt to select a letter from the speller. It is composed of signal segments corresponding to $k_a =10$ repetitions of flashes of 6 rows and $k_a =10$ repetitions of flashes of 6 columns of the matrix, yielding 120 repetitions.  Flashing of a row or a column is performed for 0.125 s, following by a resting period (i.e. inter-stimulus interval) of the same length.  After 120 repetitions an inter-trial pause is included before resuming with the following letter.
+The experimental protocol used to generate this dataset is explained in~\citep{Riccio2013} but can be summarized as follows:  8 subjects with confirmed diagnoses but on different stages of ALS disease, were recruited and accepted to perform the experiments. The Visual P300 detection task designed for this experiment consisted of spelling 7 words of 5 letters each, using the traditional P300 Speller Matrix~\citep{Farwell1988}. The flashing of rows and columns provide the deviant stimulus required to elicit this physiological response.  The first 3 words are used for calibration and the remaining 4 words, for testing with visual feedback.  A trial is every attempt to select a letter from the speller. It is composed of signal segments corresponding to $k_a =10$ repetitions of flashes of 6 rows and $k_a =10$ repetitions of flashes of 6 columns of the matrix, yielding 120 repetitions.  Flashing of a row or a column is performed for 0.125s, following by a resting period (i.e. inter-stimulus interval) of the same length.  After 120 repetitions an inter-trial pause is included before resuming with the following letter.
 
 The recorded dataset was sampled at 256 Hz and it consisted of a scalp multichannel EEG signal for electrode channels Fz, Cz, Pz, Oz, P3, P4, PO7 and PO8, identified according to the 10-20 International System,  for each one of the 8 subjects.   The recording device was a research-oriented digital EEG device (g.Mobilab, g.Tec, Austria) and the data acquisition and stimuli delivery were handled by the BCI2000 open source software~\citep{Schalk2004}.
 
@@ -453,7 +459,12 @@ The goal of this work is to answer the question if a P300 component could be sol
 
 First, the stability of the P300 in terms of its shape is crucial: the averaging procedure, montages, the signal to noise ratio and spatial filters all of them are non-physiological factors that affect the stability of the shape of the P300 ERP.  We tested a preliminary approach to assess if the morphological shape of the P300 of the averaged signal can be stabilized by applying different alignments of the stacked segments (see Figure~\ref{fig:classification}) and we verified that there is a better performance when a correct segment alignment is applied.  We applied Dynamic Time Warping (DTW)~\citep{Casarotto2005} to automate the alignment procedure but we were unable to find a substantial improvement.  Further work to study the stability of the shape of the P300 signature component needs to be addressed.
 
-The second problem is the amplitude variation of the P300. We propose a solution by standardizing the signal, shown in Equation~\ref{eq:standarizedaverages}. It has the effect of normalizing the peak-to-peak amplitude, moderating its variation. It has also the advantage of reducing noise that was not reduced by the averaging procedure.   It is important to remark that the averaged signal variance depends on the number of segments used to compute it \citep{van2006signal}.  The standardizing process converts the signal to unit signal variance which makes it independent of the number $k_a$ of signals averaged.   Although this is initially an advantageous approach, the standardizing process reduces the amplitude of any significant P300 complex diminishing its automatic interpretation capability.
+The second problem is the amplitude variation of the P300. We propose a solution by standardizing the signal, shown in Equation~\ref{eq:standarizedaverages}. It has the effect of normalizing the peak-to-peak amplitude, moderating its variation. It has also the advantage of reducing noise that was not reduced by the averaging procedure.   It is important to remark that the averaged signal variance depends on the number of segments used to compute it \citep{van2006signal}.  The standardizing process converts the signal to unit signal variance which makes it independent of the number $k_a$ of signals averaged.   Although this is initially an advantageous approach, the standardizing process reduces the amplitude of any significant P300 complex diminishing its automatic interpretation capability\DIFaddbegin \DIFadd{.
+}
+
+\DIFadd{To further extend the capabilities of this method, it would be desirable to implement a multichannel version. The straightforward extension of concatenating the obtained descriptors results in high dimensional feature vector, while other variants that merge descriptors per channel may diminish the mutual information between different channels.  Hitherto variants using color versions of SIFT~\mbox{%DIFAUXCMD
+\citep{VanDeSande2010}}%DIFAUXCMD
+, where different color bands are mapped to electrode channels, have been explored without substantial success}\DIFaddend .
 
 In our opinion, the best benefit of the presented method is that a closer collaboration of the field of BCI with physicians can be fostered \citep{Chavarriaga2017}, since this procedure intent to imitate human visual observation.  Automatic classification of patterns in EEG that are specifically identified by their shapes like K-Complex, Vertex Waves, Positive Occipital Sharp Transient~\citep{Hartman2005} are a prospect future work to be considered. We are currently working in unpublished material analyzing K-Complex components that could eventually provide  assistance to physicians to locate these EEG patterns, specially in long recording periods, frequent in sleep research~\citep{Michel2012}.  
 Additionally, it can be used for artifact removal which is performed on many occasions by visually inspecting signals.  This is due to the fact that the descriptors are a direct representation of the shape of signal waveforms. In line with these applications,  it can be used to build a database~\citep{Chavarriaga2017} of quantitative representations of waveforms and improve atlases~\citep{Hartman2005}, which are currently based on qualitative descriptions of signal shapes.
