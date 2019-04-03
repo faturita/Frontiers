@@ -32,7 +32,7 @@
 % Affiliations should be keyed to the author's name with superscript numbers and be listed as follows: Laboratory, Institute, Department, Organization, City, State abbreviation (USA, Canada, Australia), and Country (without detailed address information such as city zip codes or street names).
 % If one of the authors has a change of address, list the new address below the correspondence details using a superscript symbol and use the same symbol to indicate the author in the author list.
 \def\Address{$^{1}$Centro de Inteligencia Computacional, Computer Engineering Department,\\ 
-Instituto Tecnológico de Buenos Aires, Buenos Aires, Argentina}
+Instituto Tecnológico de Buenos Aires(ITBA), Buenos Aires, Argentina}
 % The Corresponding Author should be marked with an asterisk
 % Provide the exact contact address (this time including street name and city zip code) and email of the corresponding author
 \def\corrAuthor{Rodrigo Ramele, C1437FBH Lavarden 315, Ciudad Autónoma de Buenos Aires, Argentina}
@@ -170,7 +170,7 @@ In order to complete the plot $I^{(l,c)}$ from the pixels, the Bresenham \citep{
 \subsubsection{Feature Extraction: Histogram of Gradient Orientations}
 \label{SIFT}
 
-The work of Edelman, Intrator and Poggio~\citep{cogprints561} on how the visual cortex sense features was the inspiration to the development of an algorithm to identify and decode salient local information from image regions.  The Scale Invariant Feature Transform (SIFT) is a Computer Vision method proposed by~\cite{Lowe2004} which is composed of two parts, the SIFT Detector and the SIFT Descriptor.  The former is the procedure to identify relevant areas of an image whereas the latter is the procedure to describe and characterize a region of an image (i.e. patch) calculating an histogram of the gradient orientations.  In order to characterize EEG signal waveforms, this work proposes an alternative to the SIFT Descriptor, the Histogram of Gradient Orientations algorithm.  
+The work of Edelman, Intrator and Poggio~\citep{cogprints561} on how the visual cortex sense features was the inspiration to the development of an algorithm to identify and decode salient local information from image regions.  The Scale Invariant Feature Transform (SIFT) is a Computer Vision method proposed by~\cite{Lowe2004} which is composed of two parts, the SIFT Detector and the SIFT Descriptor.  The former is the procedure to identify relevant areas of an image whereas the latter is the procedure to describe and characterize a region of an image (i.e. patch) calculating an histogram on the angular orientations of pixel gradients.  In order to characterize EEG signal waveforms, this work proposes an alternative to the SIFT Descriptor, the Histogram of Gradient Orientations algorithm.  
 
 %We stripped away all the details which are not used and refined the procedure to enable the effective capturing of the waveform shape.
 
@@ -209,33 +209,8 @@ The contribution of each gradient vector to the histogram calculated by Equation
 
 These binning functions conform the trilinear interpolation that has a combined effect of sharing the contribution of each oriented gradient between their eight adjacent bins in a tridimensional cube in the histogram space, and zero everywhere else~\citep{Mortensen2005}.
 
-Lastly, the fixed value of $ 3 $ is a magnification factor which corresponds to the number of pixels per each block when $s = 1$.  As the patch has  $16$ blocks and  $8$ bin angles are considered, for each location $l$ and channel $c$ a feature called \textit{descriptor} $\mathbf{d}^{(l,c)}$  of $128$ dimension is obtained. 
+The fixed value of $ 3 $ is a magnification factor which corresponds to the number of pixels per each block when $s = 1$.  As the patch has  $16$ blocks and  $8$ bin angles are considered, for each location $l$ and channel $c$ a feature called \textit{descriptor} $\mathbf{d}^{(l,c)}$  of $128$ dimension is obtained.  The main differences between this implementation and the standard SIFT Descriptor are described in Section~\ref{Appendix}.
 %It can be observed that the histogram is computed by multiplying by $ |J(\mathbf{p})| $, so the method considers both, the magnitude and the orientation of the gradient vector. 
-
-Agregar una comparacion volviendo al metodo de SIFT aclarando que es lo que se modifico del mismo.  Puedo eventualmente agregar los detalles que figuran en la tesis.
-
-Main differences between this implementation and the standard SIFT Descriptor are
-
-\begin{itemize}
-\item SIFT Detector and custom patch: The SIFT Detector is not being used in this implementation.  Hence, the keypoint location and patch parameters are directly provided to the VLFeat library to calculate the SIFT Descriptor.  The \textit{frame} is a data structure composed of keypoint center location  $(x_{kp}, y_{kp})$, patch scale  $S$ and patch orientation $\theta$: $ ( x_{kp}, y_{kp}, S, \theta ) $. These parameters are the output of the SIFT Detector. 
-\item Patch Scale: Whereas in the standard SIFT implementation the patch is a squared region and there is only one SIFT scale parameter, in this implementation the scale is divided in two: $St$ and $Sv$.  This is a very important modification because otherwise signal plots, which may extend only on the horizontal direction, would not have been able to be mapped.  Using a rectangular frame there isn't any constraint on its size and it can be adjusted at will to map any waveform.
-\item Patch Orientation: The value $\theta$ is the patch orientation which does not provide any extra utility so far for the extraction of characteristics from plots.  The orientation of the patch is fixed to zero (vertical, pointing upwards or towards the horizontal axis of the image coordinate system in Figure~\ref{fig:imagecoordinatesystem}).
-\item Octave Selection: A gradient image is used to calculate the oriented gradients and reckon the histogram of gradient orientations.   SIFT calculates different octaves downsampling the original image and applying a Gaussian smoothing operation increasing the sigma parameter of the Gaussian window step by step.  SIFT calls \textit{octave} to each downsampling level~\cite{Lowe2004,Rey-Otero2014}. VLFeat estimates the octave to use on the gradient image based on the image size and patch parameters.   This is modified in this implementation to use only the zero octave which means that the gradient image has the same size as the original patch, without downsampling.
-\item First octave smoothing: Additionally, the VLFeat implementation performs a Gaussian blurring on the gradient image regardless of the octave.  This is disabled in this implementation.
-\item Rotations: SIFT was designed to allow affine invariance, i.e. to be robust to rotations and scale modifications.  It was not found, so far, of any utility to rotate the patch to capture the signal waveform.  Nevertheless, this feature has not been disabled in this implementation, due to the fact that it can be avoided by using a patch orientation equals to $0$.  This the reason why the $\sqrt{2}$ constant is kept in Equations~\ref{eq:horizontalpatchscale} and \ref{eq:verticalpatchscale}.
-\item Gaussian Smoothing: A Gaussian smoothing is performed on the SIFT patch to increase the importance of the gradients from pixels closer to the center of the patch.  In this case, this is found to be in detriment of the waveform characterization and is disabled in this implementation.
-\item SIFT Descriptor values: The SIFT descriptor $d$ is a 128-dimension feature vector, as described in Section~\ref{SIFT}.  Histogram values are double-precision floating point numbers, all positive, and they are accumulated on each coordinate.  Once the gradients are calculated, the following operations are performed:
-
-\begin{itemize}
-\item The descriptor is $\ell$-2 normalized (i.e all the values are divided by the euclidean norm of the descriptor).
-\item Each value is clamped to $0.2$.  This means that any value above $0.2$ is set to $0.2$.
-\item The descriptor is $\ell$-2 re-normalized again~\cite{Rey-Otero2014}.
-\end{itemize}
-
-This generate a 128-vector of double precision floating point numbers, between $  \big[  0 \cdots 1 \big] $.  The implementation was modified to allow the following representations~\cite{Arandjelovic2012}:  For the Cosine distance: The vector is rescaled to $ \big[  -1  \cdots 1 \big] $.  Output values are cast to single-precision floating point numbers (i.e. floats).  This yields an effective 128-vector of floats between $\big[ -1 \cdots 1 \big] $.
-
-\end{itemize}
-
 
 Figure~\ref{fig:sampledescriptor} shows an example of a patch and a scheme of the histogram computation. In (A) a plot of the signal and the patch centered around the keypoint is shown. In (B) the possible orientations on each patch are illustrated.  Only the upper-left four blocks are visible.  The first eight orientations of the first block, are labeled from $1$ to $8$ clockwise. The orientations of the second block $ B_{1,2} $ are labeled from $9$ to $16$.  This labeling continues left-to-right, up-down until the eight orientations for all the sixteen blocks are assigned. They form the corresponding descriptor $\mathbf{d}$ of $128$ coordinates. Finally, in (C) an enlarged image plot is shown where the oriented gradient vector for each pixel can be seen.
  
@@ -323,6 +298,7 @@ Gel-based active electrodes (g.LADYbird, g.Tec, Austria) are used on the same po
 %8 gel-based active electrodes (g.LADYbird) + g.LADYbird (GND) + g.GAMMAearclip (REF) C3, Cz, C4, CPz, P3, Pz, P4, POz, GND: AFz, REF: right ear
 
 \subsubsection{Parameters}
+\label{Parameters}
 
 The patch size is $X_P = 12s \times 12s$ pixels, where $s$ is the scale of the local patch and it is an input parameter of the algorithm. The P300 event can have a span of $400$ ms and its amplitude can reach $ 10 \mu V $~\citep{Rao2013}.  Hence it is necessary to utilize a signal segment of size $t_{max} = 1$ second and a size patch $X_P$ that could capture an entire transient event. With this purpose in consideration, the $s$ value election is essential.
 
@@ -461,6 +437,33 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 %%% The use of LaTeX coding to draw Diagrams/Figures/Structures should be avoided. They should be external callouts including graphics.
 
 %The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}.
+
+\section{Appendix}
+\label{Appendix}
+
+This section describes the  differences between the HIST algorithm described in this work and the SIFT Descriptor~\citep{Vedaldi2010}.
+
+\begin{itemize}
+\item SIFT Detector and custom frame: The SIFT Detector provides the keypoint localization information in the standard SIFT method. The keypoint localization information is stored in a \textit{frame} data structure which is composed of the keypoint center location  $(x_{kp}, y_{kp})$, patch scale  $s$ and patch orientation $\phi$: $ ( x_{kp}, y_{kp}, s, \phi ) $.  In the HIST proposal the keypoint location and patch parameters are directly specified over the plot image in order to detect the P300 response (see Section~\ref{Parameters}).  Hence, the SIFT Detector is not being used in this implementation.
+\item Patch Scale: Whereas in the standard SIFT implementation the patch is a squared region and there is only one SIFT scale parameter, in HIST a different scale parameter can be assigned to the horizontal and vertical axis.  This is a very important modification because otherwise signal plots which extend only on the horizontal direction of the plot image could not be entirely covered.  By using a rectangular patch, there isn't any constraint on its size and it can be adjusted by neurophysiological priors to map any expected waveform.
+\item Octave Selection: A gradient image is used to obtain the oriented gradients and calculate the histogram of gradient orientations.  These gradient images are downsampled and smoothed by a Gaussian filter.  The SIFT Descriptor calls \textit{octave} to each downsampling level~\citep{Lowe2004,Rey-Otero2014}.  The standard SIFT Descriptor estimates the octave to use on the gradient image based on the image size and patch parameters.   The HIST method  use only the zero octave which means that the gradient image has the same size as the original image, without any downsampling operation.
+\item First octave smoothing: Additionally, the SIFT Descriptor performs a smoothing operation by applying a Gaussian filter on the gradient image regardless of the octave.  In the HIST method, this operation is disabled.
+\item Patch Orientation: The patch orientation $\phi$ does not provide any extra utility hereafter for the extraction of characteristics waveforms from plots.  Hence, this patch orientation is fixed to zero (vertical, pointing upwards in Figure~\ref{fig:patchgeometry}).
+\item Rotations: SIFT was designed to allow affine invariance, i.e. to be robust to rotations and scale modifications.  It was not found, so far, of any utility to rotate the patch to capture the signal waveform.  Nevertheless, this feature has not been disabled in this implementation, due to the fact that it can be avoided by using a patch orientation equals to $0$.
+\item Descriptor Gaussian Smoothing: A Gaussian smoothing is performed on the SIFT patch to increase the importance of the gradients from pixels closer to the center of the patch.  In this case, this is found to be in detriment of the waveform characterization and is disabled in this implementation.
+\item SIFT Descriptor Codification: The SIFT descriptor $d$ is a 128-dimension feature vector, as described in Section~\ref{SIFT}.  Histogram values are double-precision floating point numbers, all positive, and they are accumulated on each coordinate.  Once the gradients are calculated, the following operations are performed:
+
+\begin{itemize}
+\item The descriptor is $\ell$-2 normalized (i.e all the values are divided by the euclidean norm of the descriptor).
+\item Each value is clamped to $0.2$.  This means that any value above $0.2$ is set to $0.2$.
+\item The descriptor is $\ell$-2 re-normalized again~\cite{Rey-Otero2014}.
+\end{itemize}
+
+This generate a 128-vector of double precision floating point numbers, between $  \big[  0 \cdots 1 \big] $.  The implementation was modified to allow the following representations~\cite{Arandjelovic2012}:  For the Cosine distance: The vector is rescaled to $ \big[  -1  \cdots 1 \big] $.  Output values are cast to single-precision floating point numbers (i.e. floats).  This yields an effective 128-vector of floats between $\big[ -1 \cdots 1 \big] $.
+
+\end{itemize}
+
+
 
 \begin{table}[htb]
 \caption{Character recognition rates for the public dataset of ALS patients using the Histogram of Gradient (HIST) calculated from  single-channel plots.  Performance rates using single-channel signals with the SVM classifier are shown for comparison.  The best performing channel $bpc$ for each method is visualized}
