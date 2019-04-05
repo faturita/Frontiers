@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL frontiers.old.tex   Thu Apr  4 13:52:31 2019
-%DIF ADD frontiers.tex       Thu Apr  4 13:50:45 2019
+%DIF ADD frontiers.tex       Fri Apr  5 19:20:40 2019
 % This is just an example/guide for you to refer to when submitting manuscripts to Frontiers, it is not mandatory to use Frontiers .cls files nor frontiers.tex  %
 % This will only generate the Manuscript, the final article will be typeset by Frontiers after acceptance.   
 %                                              %
@@ -91,9 +91,9 @@ Instituto Tecnológico de Buenos Aires(ITBA), Buenos Aires, Argentina} %DIF >
 
 %%% Leave the Abstract empty if your article does not require one, please see the Summary Table for full details.
 \section{}
-Word Count: 5552 \\
+Word Count: \DIFdelbegin \DIFdel{5552 }\DIFdelend \DIFaddbegin \DIFadd{6144 }\DIFaddend \\
 The analysis of Electroencephalographic (EEG) signals is of ulterior importance to aid in the diagnosis of mental disease and to increase our understanding of the brain.  Traditionally, clinical EEG has been analyzed in terms of temporal waveforms, looking at rhythms in spontaneous activity, subjectively identifying troughs and peaks in Event-Related Potentials (ERP), or by studying graphoelements in pathological sleep stages.
-Additionally, the discipline of Brain Computer Interfaces requires new methods to decode patterns from non-invasive EEG signals.  This field is developing alternative communication pathways to transmit volitional information from the Central Nervous System. The technology could potentially enhance the quality of life of patients affected by neurodegenerative disorders and other mental illness. This work mimics what electroencephalographers have been doing clinically, visually inspecting and categorizing phenomena within the EEG by the extraction of features from images of signal plots.  These features are constructed based on the calculation of histograms of oriented gradients from pixels around the signal plot. It aims to provide a new objective framework to analyze, characterize and classify EEG signal waveforms. The feasibility of the method is outlined by detecting the P300, an ERP elicited by the oddball paradigm of rare events, and implementing an offline P300-based BCI Speller.  The validity of the proposal is shown by offline processing a public dataset of Amyotrophic Lateral Sclerosis (ALS) patients and an own dataset of healthy subjects.
+Additionally, the discipline of Brain Computer Interfaces \DIFaddbegin \DIFadd{(BCI) }\DIFaddend requires new methods to decode patterns from non-invasive EEG signals.  This field is developing alternative communication pathways to transmit volitional information from the Central Nervous System. The technology could potentially enhance the quality of life of patients affected by neurodegenerative disorders and other mental illness. This work mimics what electroencephalographers have been doing clinically, visually inspecting and categorizing phenomena within the EEG by the extraction of features from images of signal plots.  These features are constructed based on the calculation of histograms of oriented gradients from pixels around the signal plot. It aims to provide a new objective framework to analyze, characterize and classify EEG signal waveforms. The feasibility of the method is outlined by detecting the P300, an ERP elicited by the oddball paradigm of rare events, and implementing an offline P300-based BCI Speller.  The validity of the proposal is shown by offline processing a public dataset of Amyotrophic Lateral Sclerosis (ALS) patients and an own dataset of healthy subjects.
 
 \tiny
  \keyFont{ \section{Keywords:} electroencephalography, histogram of gradient orientations, brain-computer interfaces, P300, SIFT, amyotrophic lateral sclerosis, naive-bayes near neighbours, waveforms} %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
@@ -103,9 +103,9 @@ Additionally, the discipline of Brain Computer Interfaces requires new methods t
 
 %The EEG is traditionally analyzed in terms of temporal waveforms at certain channels, looking at power of rhythms in the spontaneous EEG, at amplitude and latency of the peaks and troughs in event- related potentials (ERPs), or at particular grapho-elements in patho- logical or sleep stages.
 
-Although recent advances in neuroimagining techniques, particularly radio-nuclear and radiological scanning methods \citep{Schomer2010}, have diminished the prospects of the traditional Electroencephalography (EEG), the advent and development of digitized devices has impelled for a revamping of this hundred years old technology.  Their versatility, ease of use, temporal resolution, ease of development and production, and its proliferation as consumer devices, are pushing EEG to become the de-facto non invasive portable or ambulatory method to access and harness brain information~\citep{DeVos2014}.
+Although recent advances in neuroimagining techniques, particularly radio-nuclear and radiological scanning methods \citep{Schomer2010}, have diminished the prospects of the traditional Electroencephalography\DIFdelbegin \DIFdel{(EEG)}\DIFdelend , the advent and development of digitized devices has impelled for a revamping of this hundred years old technology.  Their versatility, ease of use, temporal resolution, ease of development and production, and its proliferation as consumer devices, are pushing EEG to become the de-facto non invasive portable or ambulatory method to access and harness brain information~\citep{DeVos2014}.
 
-A key contribution to this expansion has been the field of Brain Computer Interfaces (BCI)~\citep{WolpawJonathanR2012} which is the pursuit of the development of a new channel of communication particularly aimed to persons affected by neurodegenerative diseases.
+A key contribution to this expansion has been the field of Brain Computer Interfaces\DIFdelbegin \DIFdel{(BCI)}\DIFdelend ~\citep{WolpawJonathanR2012} which is the pursuit of the development of a new channel of communication particularly aimed to persons affected by neurodegenerative diseases.
 
 One noteworthy aspect of this novel communication channel is the ability to transmit information from the Central Nervous System (CNS) to a computer device and from there use that information to control a wheelchair~\citep{Carlson2013}, as input to a speller application~\citep{Guger2009a}, in a Virtual Reality environment~\citep{Lotte2013} or as aiding tool in a rehabilitation procedure~\citep{Jure2016}.  The holly grail of BCI is to implement a new complete and alternative pathway to restore lost locomotion~\citep{WolpawJonathanR2012}.
 
@@ -201,16 +201,16 @@ In order to complete the plot $I^{(l,c)}$ from the pixels, the Bresenham \citep{
 \subsubsection{Feature Extraction: Histogram of Gradient Orientations}
 \label{SIFT}
 
-The work of Edelman, Intrator and Poggio~\citep{cogprints561} on how the visual cortex sense features was the inspiration to the development of an algorithm to identify and decode salient local information from image regions.  The Scale Invariant Feature Transform (SIFT) is a Computer Vision method proposed by~\cite{Lowe2004} which is composed of two parts, the SIFT Detector and the SIFT Descriptor.  The former is the procedure to identify relevant areas of an image whereas the latter is the procedure to describe and characterize a region of an image (i.e. patch) calculating an histogram of the \DIFdelbegin \DIFdel{gradient orientations }\DIFdelend \DIFaddbegin \DIFadd{angular orientations of pixel gradients}\DIFaddend .  In order to characterize EEG signal waveforms, this work proposes an alternative to the SIFT Descriptor, the Histogram of Gradient Orientations algorithm.  
-\DIFdelbegin \DIFdel{We stripped away all the details which are not used and refined the procedure to enable the effective capturing of the waveform shape.
-}\DIFdelend 
+The work of Edelman, Intrator and Poggio~\citep{cogprints561} on how the visual cortex sense features was the inspiration to the development of an algorithm to identify and decode salient local information from image regions.  The Scale Invariant Feature Transform (SIFT) is a Computer Vision method proposed by~\cite{Lowe2004} which is composed of two parts, the SIFT Detector and the SIFT Descriptor.  The former is the procedure to identify relevant areas of an image whereas the latter is the procedure to describe and characterize a region of an image (i.e. patch) calculating an histogram of the \DIFdelbegin \DIFdel{gradient orientations }\DIFdelend \DIFaddbegin \DIFadd{angular orientations of pixel gradients}\DIFaddend .  In order to characterize EEG signal waveforms, this work proposes an alternative to the SIFT Descriptor, the Histogram of Gradient Orientations\DIFdelbegin \DIFdel{algorithm.  We stripped away all the details which are not used and refined the procedure to enable the effective capturing of the waveform shape.
+}\DIFdelend \DIFaddbegin \DIFadd{(HIST) algorithm.  
+}\DIFaddend 
 
 %DIF > We stripped away all the details which are not used and refined the procedure to enable the effective capturing of the waveform shape.
 \DIFaddbegin 
 
 %DIF > Aca sacar la parte que detalla de que se sacaron los detalles de SIFT
 
-\DIFaddend For each generated image $I^{(l,c)}$, a keypoint $\mathbf{p_k}$ is placed on a pixel $(x_{p_k}, y_{p_k})$ over the image plot and a window around the keypoint is considered. A local image patch of size $X_p \times X_p$ pixels is constructed by dividing the window in $16$ blocks of size $3s$ each one,  where $s$ is the scale of the local patch and it is an input parameter of the algorithm. It is arranged in a $4 \times 4$ grid and the pixel $ \mathbf{p_k}$ is the patch center, thus $X_p = 12s $ pixels. 
+\DIFaddend For each generated image $I^{(l,c)}$, a keypoint $\mathbf{p_k}$ is placed on a pixel $(x_{p_k}, y_{p_k})$ over the image plot and a window around the keypoint is considered\DIFdelbegin \DIFdel{. A }\DIFdelend \DIFaddbegin \DIFadd{: a }\DIFaddend local image patch\DIFdelbegin \DIFdel{of size }\DIFdelend \DIFaddbegin \DIFadd{. Its size is }\DIFaddend $X_p \times X_p$ pixels \DIFaddbegin \DIFadd{and }\DIFaddend is constructed by dividing the window in $16$ blocks of size $3s$ each one,  where $s$ is the scale of the local patch and it is an input parameter of the algorithm. It is arranged in a $4 \times 4$ grid and the pixel $ \mathbf{p_k}$ is the patch center, thus $X_p = 12s $ pixels. 
 
 A local representation of the signal shape within the patch can be described by obtaining the gradient orientations on each of the $16$ blocks $B_{i,j}$  with $ 0 \leq i,j \leq 3$ and creating a histogram of gradients.  In order to calculate the histogram, the interval $[0,360]$ of possible angles is divided in $8$ bins, each one of $45$ degrees.
 
@@ -222,7 +222,7 @@ A local representation of the signal shape within the patch can be described by 
 \label{eq:histogram}
 \end{equation}
 
-\noindent  where $\mathbf{p}$ is a pixel from the image $I^{(l,c)}$,  $\theta$ is the angle bin with $ \theta \in \{0, 45, 90, 135, 180, 225, 270, 315\} $,  $ \left\lVert J(\mathbf{p}) \right\rVert $ is the norm of the gradient vector in the pixel $\mathbf{p}$ and it is computed using finite differences and $\angle J(\mathbf{p}) $ is the angle of the gradient vector.  
+\noindent  where $\mathbf{p}$ is a pixel from the image $I^{(l,c)}$,  $\theta$ is the angle bin with $ \theta \in \{0, 45, 90, 135, 180, 225, 270, 315\} $,  $ \left\lVert J(\mathbf{p}) \right\rVert $ is the \DIFaddbegin \DIFadd{euclidean }\DIFaddend norm of the gradient vector in the pixel $\mathbf{p}$ and it is computed using finite differences and $\angle J(\mathbf{p}) $ is the angle of the gradient vector.  
 
 The contribution of each gradient vector to the histogram calculated by Equation~\ref{eq:histogram} is balanced by a trilinear interpolation.  The scalar $ w_\mathrm{ang}(\cdot) $  and vector $ w_{ij}(\cdot) $ functions are linear interpolations used by~\cite{Lowe2004} and \cite{Vedaldi2010} to provide a weighting contribution to the eight adjacent bins in the tridimensional histogram.  They are calculated as  
 
@@ -354,7 +354,7 @@ Figure~\ref{fig:patchgeometry} shows a patch of a signal plot covering the compl
 
 The number of channels $C$ is equal to $8$ for both datasets, and the number of intensification sequences $k_a$ is fixed to $10$.  The parameter $k$ used to construct the set $N_T(\mathbf{q}^{(l,c)})$ is assigned to $k=7$, which was found empirically to achieve better results.  In addition, the norm used on  Equations \ref{eq:multiclassificationrow} and \ref{eq:multiclassificationcol} is the cosine norm, and descriptors are normalized to $ \left[ -1, 1 \right] $.
 
-Lastly, in order to assess the validity of the Histogram of Gradient Orientations (HIST) method, the character recognition rate for both datasets is evaluated replicating the methodology proposed by the ALS dataset's publisher, since authors \cite{Riccio2013} did not report the Character Recognition Rate obtained for this dataset. Frequency filtering, data segmentation and artifact rejection is conducted according to Section~\ref{Pipeline} yielding 16 x 8 samples per epoch.  A multichannel feature consists of time points vector~\citep{Lotte2018}, formed by concatenating all the channels~\citep{Krusienski2006}. A single-channel variant consists of using time points from a single electrode and performing the analysis on a channel-by-channel basis.  Three classification schemes are considered as well. A multichannel version of the  Stepwise Linear Discriminant Analysis (SWLDA) classification algorithm. SWLDA is the methodology proposed by the ALS dataset's publisher. Additionally, a single-channel and a multichannel variant of a linear kernel Support Vector Machine (SVM)~\citep{Scholkopf2001} classifier are utilized.   SVM has been successfully used in several BCI Competitions~\citep{Rakotomamonjy2008}.
+Lastly, in order to assess the validity of the \DIFdelbegin \DIFdel{Histogram of Gradient Orientations (HIST ) }\DIFdelend \DIFaddbegin \DIFadd{HIST }\DIFaddend method, the character recognition rate for both datasets is evaluated replicating the methodology proposed by the ALS dataset's publisher, since authors \cite{Riccio2013} did not report the Character Recognition Rate obtained for this dataset. Frequency filtering, data segmentation and artifact rejection is conducted according to Section~\ref{Pipeline} yielding 16 x 8 samples per epoch.  A multichannel feature consists of time points vector~\citep{Lotte2018}, formed by concatenating all the channels~\citep{Krusienski2006}. A single-channel variant consists of using time points from a single electrode and performing the analysis on a channel-by-channel basis.  Three classification schemes are considered as well. A multichannel version of the  Stepwise Linear Discriminant Analysis (SWLDA) classification algorithm. SWLDA is the methodology proposed by the ALS dataset's publisher. Additionally, a single-channel and a multichannel variant of a linear kernel Support Vector Machine (SVM)~\citep{Scholkopf2001} classifier are utilized.   SVM has been successfully used in several BCI Competitions~\citep{Rakotomamonjy2008}.
 
 \section{Results} \label{Results}
 \label{section:results}
@@ -410,9 +410,11 @@ Furthermore, this method has the advantage that shapes of waveforms can be analy
 
 We believe that the use of descriptors based on histogram of gradient orientation, presented in this work, can also be utilized for deriving a shape metric in the space of the P300 signals which can complement other metrics based on time-domain as those defined by~\cite{Mak2012}. It is important to notice that the analysis of waveform shapes is usually performed in a qualitative approach based on visual inspection~\citep{SellersandEmanuelDonchin2006}, and a complementary methodology which offer a quantitative metric will be beneficial to these routinely analysis of the waveform of ERPs.
 
-%and, based on this idea, we wanted to complement the methodology with a cuantitative and objective sight
+%DIF < and, based on this idea, we wanted to complement the methodology with a cuantitative and objective sight
+\DIFdelbegin %DIFDELCMD < 
 
-The goal of this work is to answer the question if a P300 component could be solely determined by inspecting automatically their waveforms.  We conclude affirmatively, though two very important issues still remain:
+%DIFDELCMD < %%%
+\DIFdelend The goal of this work is to answer the question if a P300 component could be solely determined by inspecting automatically their waveforms.  We conclude affirmatively, though two very important issues still remain:
 
 First, the stability of the P300 in terms of its shape is crucial: the averaging procedure, montages, the signal to noise ratio and spatial filters all of them are non-physiological factors that affect the stability of the shape of the P300 ERP.  We tested a preliminary approach to assess if the morphological shape of the P300 of the averaged signal can be stabilized by applying different alignments of the stacked segments (see Figure~\ref{fig:classification}) and we verified that there is a better performance when a correct segment alignment is applied.  We applied Dynamic Time Warping (DTW)~\citep{Casarotto2005} to automate the alignment procedure but we were unable to find a substantial improvement.  Further work to study the stability of the shape of the P300 signature component needs to be addressed.
 
@@ -472,27 +474,35 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 %%% The use of LaTeX coding to draw Diagrams/Figures/Structures should be avoided. They should be external callouts including graphics.
 
 %The spelled words are \textit{GATTO}, \textit{MENTE}, \textit{VIOLA} and \textit{REBUS}.
-\DIFaddbegin 
 
-\section{\DIFadd{Appendix}}
+\DIFaddbegin \section{\DIFadd{Appendix}}
 \label{Appendix}
 
-\DIFadd{This section describes the  differences between the HIST algorithm described in this work and the SIFT Descriptor~\mbox{%DIFAUXCMD
+\DIFadd{This section describes the  differences between the HIST algorithm proposed in this work and the SIFT Descriptor~\mbox{%DIFAUXCMD
 \citep{Vedaldi2010}}%DIFAUXCMD
 .
 }
 
+\DIFadd{The two most important modifications are:
+}
+
  \begin{itemize} 
-\item \DIFadd{SIFT Detector and custom frame: The SIFT Detector provides the keypoint localization information in the standard SIFT method. The keypoint localization information is stored in a }\textit{\DIFadd{frame}} \DIFadd{data structure which is composed of the keypoint center location  $(x_{kp}, y_{kp})$, patch scale  $s$ and patch orientation $\phi$: $ ( x_{kp}, y_{kp}, s, \phi ) $.  In the HIST proposal the keypoint location and patch parameters are directly specified over the plot image in order to detect the P300 response (see Section~\ref{Parameters}).  Hence, the SIFT Detector is not being used in this implementation.
-}\item \DIFadd{Patch Scale: Whereas in the standard SIFT implementation the patch is a squared region and there is only one SIFT scale parameter, in HIST a different scale parameter can be assigned to the horizontal and vertical axis.  This is a very important modification because otherwise signal plots which extend only on the horizontal direction of the plot image could not be entirely covered.  By using a rectangular patch, there isn't any constraint on its size and it can be adjusted by neurophysiological priors to map any expected waveform.
-}\item \DIFadd{Octave Selection: A gradient image is used to obtain the oriented gradients and calculate the histogram of gradient orientations.  In SIFT, these gradient images are downsampled and smoothed by a Gaussian filter.  The SIFT Descriptor calls }\textit{\DIFadd{octave}} \DIFadd{to each downsampling level~\mbox{%DIFAUXCMD
-\citep{Lowe2004,Rey-Otero2014}}%DIFAUXCMD
-.  The standard SIFT Descriptor estimates the octave to use on the gradient image based on the image size and patch parameters.   The HIST method  uses only the first octave which means that the gradient image has the same size as the original image, without any downsampling operation.
-}\item \DIFadd{First octave smoothing: Additionally, the SIFT Descriptor performs a smoothing operation by applying a Gaussian filter on the gradient image regardless of the octave.  In the HIST method, this operation is not implemented.
-}\item \DIFadd{Patch Orientation: We verified experimentally that the patch orientation $\phi$ does not provide any extra utility for the extraction of characteristics waveforms from plots.  Hence, this patch orientation is fixed to zero (vertical, pointing upwards in Figure~\ref{fig:patchgeometry}).
+\item \DIFadd{SIFT Detector and custom frame: The SIFT Detector provides the keypoint localization information in the standard SIFT method. The keypoint localization information is stored in a }\textit{\DIFadd{frame}} \DIFadd{data structure which is composed of the keypoint center location  $(x_{kp}, y_{kp})$, patch scale  $s$ and patch orientation $\phi$: $ ( x_{kp}, y_{kp}, s, \phi ) $.  In the HIST proposal the keypoint location and patch parameters are directly specified over the plot image in order to detect the signal waveform (see Section~\ref{Parameters}) and the SIFT Detector is not used.
+}\item \DIFadd{Patch scale: Whereas in the standard SIFT implementation the patch is a squared region and there is only one SIFT scale parameter, in HIST a different scale parameter can be assigned to the horizontal and vertical axis.  This is a very important modification because otherwise signal plots which extend only on the horizontal direction of the plot image could not be entirely covered.  By using a rectangular patch, there isn't any constraint on its size and it can be adjusted by neurophysiological priors to map any expected waveform based on Equations~\ref{eq:mapping2} and~\ref{eq:mapping1}.
+} \end{itemize} 
+
+\DIFadd{Additionally, other changes are implemented where specific steps of the SIFT Descriptor were not found to be useful to characterize signal waveforms:
+}
+
+ \begin{itemize} 
+\item \DIFadd{Patch orientation: We verified experimentally that the patch orientation $\phi$ does not provide any extra utility for the extraction of characteristic waveforms from plots.  Hence, this patch orientation is fixed to zero (vertical, pointing upwards in Figure~\ref{fig:patchgeometry}).
 }\item \DIFadd{Rotations: SIFT was designed to allow affine invariance, i.e. to be robust to rotations and scale modifications of patterns in images.  It was not found, so far, of any utility to rotate the patch to capture the signal waveform.  
-}\item \DIFadd{Descriptor Gaussian Smoothing: On the standard SIFT Descriptor, a Gaussian smoothing operation is performed on the calculated SIFT descriptor to increase the importance of gradients from pixels closer to the center of the patch.  In this case, this is found to be in detriment of the waveform characterization and is not used.
-}\item \DIFadd{SIFT Descriptor Codification: The SIFT descriptor $d$ is a 128-dimension feature vector, as described in Section~\ref{SIFT}.  Histogram values are double-precision floating point numbers, all positive, and they are accumulated on each coordinate of this vector.  Once all the gradients are summarized, the following operations are performed:
+}\item \DIFadd{Octave selection: A gradient image is used to obtain the oriented gradients and calculate the histogram of gradient orientations.  In SIFT, these gradient images are downsampled and smoothed by a Gaussian filter.  The SIFT Descriptor calls }\textit{\DIFadd{octave}} \DIFadd{to each downsampling level~\mbox{%DIFAUXCMD
+\citep{Lowe2004,Rey-Otero2014}}%DIFAUXCMD
+.  The standard SIFT Descriptor estimates the octave to use on the gradient image based on the image size and patch parameters.   The HIST method  uses only the zero octave which means that the gradient image has the same size as the original image, without any downsampling operation.
+}\item \DIFadd{Gradient image smoothing: Additionally, the SIFT Descriptor performs an initial smoothing operation by applying a Gaussian filter on the gradient image regardless of the octave.  In the HIST method, this operation is not implemented.
+}\item \DIFadd{Descriptor Gaussian weighting: On the standard SIFT Descriptor, a Gaussian weighting operation is performed on the calculated SIFT descriptor to increase the importance of gradients from pixels closer to the center of the patch.  For the HIST method, this is found to be in detriment of the waveform characterization and is not used.
+}\item \DIFadd{SIFT descriptor codification: The SIFT descriptor $d$ is a 128-dimension feature vector, as described in Section~\ref{SIFT}.  Histogram values are floating point numbers, all positive, and they are accumulated on each coordinate of this vector.  Once all the gradients are summarized, the following operations are performed:
 }
 
  \begin{itemize} 
@@ -503,17 +513,16 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 .
 } \end{itemize} 
 
-\DIFadd{This generates a 128-vector of double precision floating point numbers, between $  \big[  0, 1 \big] $.  The HIST implementation was modified to use the cosine distance~\mbox{%DIFAUXCMD
-\citep{Arandjelovic2012}}%DIFAUXCMD
-.  Hence the descriptor is rescaled to $ \big[ -1, 1 \big] $.  Output values are cast to single-precision floating point numbers (i.e. floats).  This yields an effective 128-vector of floats between $\big[ -1 , 1 \big] $.
+\DIFadd{This generates a 128-vector of floating point numbers, between $  \big[  0, 1 \big] $.  In the HIST implementation, these values are rescaled to $ \big[ -1, 1 \big] $ in order to use the cosine distance~\mbox{%DIFAUXCMD
+\citep{Arandjelovic2012} }%DIFAUXCMD
+on Equations~\ref{eq:multiclassificationcol} and~\ref{eq:multiclassificationrow}.  Finally, output values are cast to floating point numbers (i.e. floats). yielding an effective 128-vector of floats between $\big[ -1 , 1 \big] $.
 }
 
  \end{itemize} 
-\DIFaddend 
 
 
 
-\begin{table}[htb]
+\DIFaddend \begin{table}[htb]
 \caption{Character recognition rates for the public dataset of ALS patients using the Histogram of Gradient (HIST) calculated from  single-channel plots.  Performance rates using single-channel signals with the SVM classifier are shown for comparison.  The best performing channel $bpc$ for each method is visualized}
 \centering
 %% \tablesize{} %% You can specify the fontsize here, e.g.  \tablesize{\footnotesize}. If commented out \small will be used.
@@ -628,7 +637,7 @@ This project was supported by the ITBACyT-15 funding program issued by ITBA Univ
 \begin{figure}[h!]
 \centering
 \includegraphics[width=16cm]{gradients.png}\label{samplegradients}
-\caption{ (A) Example of a plot of the signal, a keypoint and the corresponding patch. (B) A scheme of the orientation's histogram computation.  Only the upper-left four blocks are visible.  The first eight orientations of the first block, are labeled from $1$ to $8$ clockwise. The orientation of the second block $ B_{1,2} $ is labeled from $9$ to $16$.  This labeling continues left-to-right, up-down until the eight orientations for all the sixteen blocks are assigned. They form the corresponding descriptor of $128$ coordinates.  The length of each arrow represent the value of the histogram on each direction for each block. (C) Vector field of oriented gradients.  Each pixel is assigned an orientation and magnitude calculated  using finite differences. }
+\caption{ (A) Example of a plot of the signal, a keypoint and the corresponding patch. (B) A scheme of the orientation's histogram computation.  Only the upper-left four blocks are visible.  The first eight orientations of the first block, are labeled from $1$ to $8$ clockwise. The orientation of the second block $ B_{1,2} $ is labeled from $9$ to $16$.  This labeling continues left-to-right, up-down until the eight orientations for all the sixteen blocks are assigned. They form the corresponding descriptor of $128$ coordinates.  The length of each arrow \DIFdelbeginFL \DIFdelFL{represent }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{represents }\DIFaddendFL the value of the histogram on each direction for each block. (C) Vector field of oriented gradients.  Each pixel is assigned an orientation and magnitude calculated  using finite differences. }
 \label{fig:sampledescriptor}
 \end{figure}
 
